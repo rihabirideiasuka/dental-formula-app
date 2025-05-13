@@ -10,10 +10,13 @@
       padding: 1rem;
     }
     .tooth-grid {
-      display: flex;
+      display: grid;
+      grid-template-columns: repeat(16, 40px);
+      grid-gap: 4px;
       justify-content: center;
-      flex-wrap: wrap;
-      margin: 10px 0;
+      margin: 0;
+      padding: 0;
+      position: relative;
     }
     .tooth {
       width: 40px;
@@ -24,17 +27,16 @@
       text-align: center;
       box-sizing: border-box;
     }
-
     .tooth .number {
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
       font-size: 1.2em;
-      color: #888;
+      font-weight: bold;
+      color: #555;
       z-index: 1;
     }
-
     .tooth .state {
       position: absolute;
       top: 50%;
@@ -44,38 +46,17 @@
       font-weight: bold;
       z-index: 2;
     }
-
-    .tooth-grid {
-      display: grid;
-      grid-template-columns: repeat(16, 40px);
-      grid-gap: 4px;
-      justify-content: center;
-      margin: 10px 0;
-    }
-
-
-    /* 上顎・下顎の境界線 */
-    #lowerJaw {
-      border-top: 2px solid black;
-      padding-top: 10px;
-      margin-top: 10px;
-    }
-    
     .label-top, .label-bottom {
-      font-size: 0.9em; /* ← Fckなどの文字ここを大きく調整（元が0.7emくらいなら） */
+      font-size: 0.9em;
       font-weight: bold;
-      color: blue;  /* ← 補助ラベルを青に */
+      color: blue;
       position: absolute;
       width: 100%;
       left: 0;
       text-align: center;
     }
-    .label-top {
-      top: -1.2em;
-    }
-    .label-bottom {
-      bottom: -1.2em;
-    }
+    .label-top { top: -1.2em; }
+    .label-bottom { bottom: -1.2em; }
     .modal {
       display: none;
       position: fixed;
@@ -90,21 +71,44 @@
       border-radius: 8px;
     }
     .modal-content button {
-      margin: 0.3rem;
+      font-size: 1.5em;
+      padding: 0.5em 1em;
+      margin: 0.3em;
+    }
+    #lowerJaw {
+      margin-top: 40px;
+      position: relative;
+    }
+    #lowerJaw::before {
+      content: "";
+      position: absolute;
+      top: -20px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: black;
+    }
+    .center-divider {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background-color: black;
+      left: calc(50% - 1px);
+      z-index: 0;
     }
   </style>
 </head>
 <body>
 
 <h2>口腔状態記録</h2>
-
 <label>利用者名：<input type="text" id="name" /></label>
 
-<h3>上顎</h3>
-<div class="tooth-grid" id="upperJaw"></div>
-
-<h3>下顎</h3>
-<div class="tooth-grid" id="lowerJaw"></div>
+<div style="position: relative;">
+  <div class="tooth-grid" id="upperJaw"></div>
+  <div class="center-divider"></div>
+  <div class="tooth-grid" id="lowerJaw"></div>
+</div>
 
 <div class="modal" id="modal">
   <div class="modal-content">
@@ -138,18 +142,18 @@
     div.dataset.id = id;
     div.dataset.jaw = jaw;
 
-    const topLabel = document.createElement("div");
-    topLabel.className = "label-top";
-    const bottomLabel = document.createElement("div");
-    bottomLabel.className = "label-bottom";
-
     const numberSpan = document.createElement("span");
     numberSpan.className = "number";
     numberSpan.textContent = id;
 
     const stateSpan = document.createElement("span");
     stateSpan.className = "state";
-    stateSpan.textContent = ""; // 初期状態は空
+    stateSpan.textContent = "";
+
+    const topLabel = document.createElement("div");
+    topLabel.className = "label-top";
+    const bottomLabel = document.createElement("div");
+    bottomLabel.className = "label-bottom";
 
     div.appendChild(numberSpan);
     div.appendChild(stateSpan);
@@ -162,9 +166,8 @@
     };
 
     return div;
-  } 
+  }
 
-  // 左右 8~1, 1~8
   const left = [8, 7, 6, 5, 4, 3, 2, 1];
   const right = [1, 2, 3, 4, 5, 6, 7, 8];
 
