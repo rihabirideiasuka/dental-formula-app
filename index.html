@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>口腔記録アプリ</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 1rem;
+    }
+    .tooth-grid {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin: 10px 0;
+    }
+    .tooth {
+      width: 40px;
+      height: 40px;
+      border: 1px solid #999;
+      margin: 2px;
+      position: relative;
+      text-align: center;
+      box-sizing: border-box;
+    }
+
+    .tooth .number {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 1.2em;
+      color: #888;
+      z-index: 1;
+    }
+
+    .tooth .state {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 1.2em;
+      font-weight: bold;
+      z-index: 2;
+    }
+
+    .tooth-grid {
+      display: grid;
+      grid-template-columns: repeat(16, 40px);
+      grid-gap: 4px;
+      justify-content: center;
+      margin: 10px 0;
+    }
+
+
+    /* 上顎・下顎の境界線 */
+    #lowerJaw {
+      border-top: 2px solid black;
+      padding-top: 10px;
+      margin-top: 10px;
+    }
+    
+    .label-top, .label-bottom {
+      font-size: 0.9em; /* ← Fckなどの文字ここを大きく調整（元が0.7emくらいなら） */
+      font-weight: bold;
+      color: blue;  /* ← 補助ラベルを青に */
+      position: absolute;
+      width: 100%;
+      left: 0;
+      text-align: center;
+    }
+    .label-top {
+      top: -1.2em;
+    }
+    .label-bottom {
+      bottom: -1.2em;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      background: rgba(0,0,0,0.6);
+      top: 0; left: 0; right: 0; bottom: 0;
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-content {
+      background: white;
+      padding: 1rem;
+      border-radius: 8px;
+    }
+    .modal-content button {
+      margin: 0.3rem;
+    }
+  </style>
+</head>
+<body>
+
+<h2>口腔状態記録</h2>
+
+<label>利用者名：<input type="text" id="name" /></label>
+
+<h3>上顎</h3>
+<div class="tooth-grid" id="upperJaw"></div>
+
+<h3>下顎</h3>
+<div class="tooth-grid" id="lowerJaw"></div>
+
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <p>歯の状態を選択：</p>
+    <button onclick="setState('○')">○</button>
+    <button onclick="setState('×')">×</button>
+    <button onclick="setState('／')">／</button>
+    <button onclick="setState('')">消去</button>
+    <p>補助ラベル：</p>
+    <button onclick="setLabel('Cr')">Cr</button>
+    <button onclick="setLabel('In')">In</button>
+    <button onclick="setLabel('Fck')">Fck</button>
+    <button onclick="setLabel('IMPL')">IMPL</button>
+    <button onclick="setLabel('死根')">死根</button>
+    <button onclick="setLabel('残根')">残根</button>
+    <button onclick="setLabel('C')">C</button>
+    <button onclick="setLabel('C4')">C4</button>
+    <button onclick="setLabel('')">ラベル消去</button>
+  </div>
+</div>
+
+<script>
+  const upperJaw = document.getElementById("upperJaw");
+  const lowerJaw = document.getElementById("lowerJaw");
+  const modal = document.getElementById("modal");
+  let selectedTooth = null;
+
+  function createTooth(id, jaw) {
+    const div = document.createElement("div");
+    div.className = "tooth";
+    div.dataset.id = id;
+    div.dataset.jaw = jaw;
+
+    const topLabel = document.createElement("div");
+    topLabel.className = "label-top";
+    const bottomLabel = document.createElement("div");
+    bottomLabel.className = "label-bottom";
+
+    const numberSpan = document.createElement("span");
+    numberSpan.className = "number";
+    numberSpan.textContent = id;
+
+    const stateSpan = document.createElement("span");
+    stateSpan.className = "state";
+    stateSpan.textContent = ""; // 初期状態は空
+
+    div.appendChild(numberSpan);
+    div.appendChild(stateSpan);
+    div.appendChild(topLabel);
+    div.appendChild(bottomLabel);
+
+    div.onclick = () => {
+      selectedTooth = div;
+      modal.style.display = "flex";
+    };
+
+    return div;
+  } 
+
+  // 左右 8~1, 1~8
+  const left = [8, 7, 6, 5, 4, 3, 2, 1];
+  const right = [1, 2, 3, 4, 5, 6, 7, 8];
+
+  [...left, ...right].forEach(num => {
+    upperJaw.appendChild(createTooth(num, "upper"));
+  });
+
+  [...left, ...right].forEach(num => {
+    lowerJaw.appendChild(createTooth(num, "lower"));
+  });
+
+  function setState(symbol) {
+    if (!selectedTooth) return;
+    selectedTooth.querySelector(".state").textContent = symbol;
+    modal.style.display = "none";
+  }
+
+  function setLabel(label) {
+    if (!selectedTooth) return;
+    const jaw = selectedTooth.dataset.jaw;
+    if (jaw === "upper") {
+      selectedTooth.querySelector(".label-top").textContent = label;
+    } else {
+      selectedTooth.querySelector(".label-bottom").textContent = label;
+    }
+    modal.style.display = "none";
+  }
+
+  modal.onclick = (e) => {
+    if (e.target === modal) modal.style.display = "none";
+  };
+</script>
+
+</body>
+</html>
