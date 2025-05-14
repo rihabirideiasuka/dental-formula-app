@@ -278,57 +278,56 @@
     return div;
   }
 
-function submitData() {
-  const userName = document.getElementById("name").value.trim();
-  if (!userName) {
-    alert("利用者名を入力してください");
-    return;
+
+  function submitData() {
+    const userName = document.getElementById("name").value.trim();
+    if (!userName) {
+      alert("利用者名を入力してください");
+      return;
+    }
+
+    const allTeeth = document.querySelectorAll(".tooth");
+
+    const teeth = Array.from(allTeeth).map(div => {
+      const state = div.querySelector(".state")?.textContent || "";
+      const jaw = div.dataset.jaw;
+      const label = jaw === "upper"
+        ? div.querySelector(".label-top")?.textContent || ""
+        : div.querySelector(".label-bottom")?.textContent || "";
+
+      return {
+        number: div.dataset.id,
+        jaw: jaw,
+        state: state.trim(),
+        label: label.trim()
+      };
+    }).filter(tooth => tooth.state || tooth.label);  // 入力がある歯だけ送信
+
+    const data = {
+      name: userName,
+      record: "①",
+      teeth: teeth,
+      brData: selectedBrRanges
+    };
+
+    // 🔍 送信内容を確認ログに出力（ChromeのF12で見られます）
+    console.log("送信データ:", JSON.stringify(data, null, 2));
+
+    fetch("https://script.google.com/macros/s/AKfycbxcJPYHDViZY0aydALRw0sb0QXKeSxkYKszmsa_05Ftx0f0ZLgsDIwOVoPxhv2KvalBMA/exec", {
+      method: "POST",
+      body: JSON.stringify(data)
+    })
+    .then(res => res.text())
+    .then(text => {
+      console.log("保存レスポンス:", text);
+      document.getElementById("saveStatus").textContent = text;
+    })
+    .catch(err => {
+      console.error("保存失敗:", err);
+      alert("保存に失敗しました");
+    });
   }
 
-  // ✅ allTeeth をここで定義（重要！）
-  const allTeeth = document.querySelectorAll(".tooth");
-
-   // 歯の状態データ収集
-  const teeth = Array.from(allTeeth).map(div => {
-    const state = div.querySelector(".state")?.textContent || "";
-    const jaw = div.dataset.jaw;
-    const label = jaw === "upper"
-      ? div.querySelector(".label-top")?.textContent || ""
-      : div.querySelector(".label-bottom")?.textContent || "";
-
-    return {
-      number: div.dataset.id,
-      jaw: jaw,
-      state: state.trim(),
-      label: label.trim()
-    };
-  }).filter(tooth => tooth.state || tooth.label);  // // ← 空でないものだけ残す  入力がある歯だけ送信
-
-  // データ構築
-  const data = {
-    name: userName,
-    record: "①", // 固定 or 選択で変更可
-    teeth: teeth,
-    brData: selectedBrRanges
-  };
-
-  console.log("送信データ:", data);
-
-
-  fetch("https://script.google.com/macros/s/AKfycbzOQz96QsZx0QFbofXd6VdosJKAYNXVTi2bqMOdJKsS6gEv7u7pyj9odgRWtF39wBQh2A/exec", {
-    method: "POST",
-    body: JSON.stringify(data) // ← Content-Type を指定しない
-  })
-  .then(res => res.text())
-  .then(text => {
-    console.log("保存レスポンス:", text);
-    document.getElementById("saveStatus").textContent = text;
-  })
-  .catch(err => {
-    console.error("保存失敗:", err);
-    alert("保存に失敗しました");
-  });
-}
 
 </script>
 
