@@ -286,15 +286,14 @@ function submitData() {
   }
 
   // 歯の状態データ収集
-  const allTeeth = document.querySelectorAll(".tooth");
   const teeth = Array.from(allTeeth).map(div => ({
-    number: div.dataset.id,
-    jaw: div.dataset.jaw,
-    state: div.querySelector(".state").textContent,
-    label: div.dataset.jaw === "upper"
-      ? div.querySelector(".label-top").textContent
-      : div.querySelector(".label-bottom").textContent
-  }));
+  number: div.dataset.id,
+  jaw: div.dataset.jaw,
+  state: div.querySelector(".state").textContent,
+  label: div.dataset.jaw === "upper"
+    ? div.querySelector(".label-top").textContent
+    : div.querySelector(".label-bottom").textContent
+  })).filter(tooth => tooth.state || tooth.label); // ← 空でないものだけ残す  
 
   // データ構築
   const data = {
@@ -304,7 +303,7 @@ function submitData() {
     brData: selectedBrRanges
   };
 
-  fetch("https://script.google.com/macros/s/AKfycbyIcvAx8YDJxrs49eXo91JnqCucqkN21AeKT1WgkEWnN_eS7SJsK7BeUDZJxiMVAkyObg/exec", {
+  fetch("https://script.google.com/macros/s/AKfycbw9VuHVRKs2_2lVDkmC0U-2QpJPvVJVEKJvbue3oLEuTok5YArHvnvroVHVEhIIm7qqlA/exec", {
     method: "POST",
     body: JSON.stringify(data) // ← Content-Type を指定しない
   })
