@@ -304,12 +304,9 @@ function submitData() {
     brData: selectedBrRanges
   };
 
-  fetch("https://script.google.com/macros/s/AKfycbyXvB8xZ9X15K0Nnokg8XyRjZn-z46sMxv9z9FkshT2Xg8_SB86-IPMOonOoOFLYO2Htg/exec", {
+  fetch("https://script.google.com/macros/s/AKfycbwxunYUS4Hw-u7af4cm7RiEe0Dsu1WwjhCtYq4cVEUTeLwL1Vy3emBk8H4EjNhh539SJg/exec", {
     method: "POST",
-    body: JSON.stringify(data),
-    headers: {
-      "Content-Type": "application/json"
-    }
+    body: JSON.stringify(data) // ← Content-Type を指定しない
   })
   .then(res => res.text())
   .then(text => {
