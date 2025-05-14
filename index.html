@@ -95,7 +95,30 @@
       left: calc(50% + 1px);
       z-index: 0;
     }
+
+    .choice-group {
+      margin-bottom: 1em;
+    }
+    .choice-label {
+      display: block;
+      margin-top: 0.5em;
+      font-weight: bold;
+    }
+    .choice-group button {
+      margin: 2px;
+      padding: 0.5em 1em;
+      border: 1px solid #aaa;
+      border-radius: 6px;
+      background: #f9f9f9;
+      cursor: pointer;
+    }
+    .choice-group button.selected {
+      background-color: #4CAF50;
+      color: white;
+      border-color: #4CAF50;
+    }
   </style>
+
 </head>
 <body>
 <h2>口腔状態記録</h2>
@@ -126,6 +149,284 @@
     <button onclick="setLabel('')">ラベル消去</button>
   </div>
 </div>
+<!-- 上記の巻き微算の歯式コードの続き -->
+<!-- 0. 事前情報入力フォーム -->
+<section id="preliminary-info" style="margin-top: 2rem;">
+  <h3>事前情報入力</h3>
+
+  <!-- 歯科受診 -->
+  <p>
+    現在の歯科受診（かかりつけ医）:<br>
+    <label><input type="radio" name="dentist-current" value="あり"> あり</label>
+    <label><input type="radio" name="dentist-current" value="なし"> なし</label>
+  </p>
+
+  <!-- 直近1年間の受診 -->
+  <p>
+    直近1年間の歯科受診:<br>
+    <label><input type="radio" name="dentist-year" value="あり" onchange="toggleLastVisitDate(true)"> あり</label>
+    <label><input type="radio" name="dentist-year" value="なし" onchange="toggleLastVisitDate(false)"> なし</label>
+    <div id="last-visit-date" style="display:none; margin-top: 0.5rem;">
+      最終受診年月: <input type="month" id="last-visit-month">
+    </div>
+  </p>
+
+  <!-- 義歯の使用 -->
+  <p>
+    義歯の使用:<br>
+    <label><input type="radio" name="denture" value="あり" onchange="toggleDentureType(true)"> あり</label>
+    <label><input type="radio" name="denture" value="なし" onchange="toggleDentureType(false)"> なし</label>
+    <div id="denture-type" style="display:none; margin-top: 0.5rem;">
+      <label><input type="radio" name="denture-type" value="部分"> 部分</label>
+      <label><input type="radio" name="denture-type" value="全部"> 全部</label>
+    </div>
+  </p>
+
+  <!-- 栄養補給法 -->
+  <p>
+    栄養補給法:<br>
+    <label><input type="radio" name="nutrition" value="経口のみ" onchange="toggleNutritionSub(false)"> 経口のみ</label>
+    <label><input type="radio" name="nutrition" value="一部経口" onchange="toggleNutritionSub(true)"> 一部経口</label>
+    <div id="nutrition-sub" style="display:none; margin-top: 0.5rem;">
+      <label><input type="checkbox" name="nutrition-sub" value="経腸栄養"> 経腸栄養</label>
+      <label><input type="checkbox" name="nutrition-sub" value="静脈栄養"> 静脈栄養</label>
+    </div>
+  </p>
+
+  <!-- 食事形態 -->
+  <p>
+    食事形態:<br>
+    <label><input type="radio" name="meal" value="常食" onchange="toggleMealCode(false)"> 常食</label>
+    <label><input type="radio" name="meal" value="嚥下調整食" onchange="toggleMealCode(true)"> 嚥下調整食</label>
+    <div id="meal-code" style="display:none; margin-top: 0.5rem;">
+      コード:
+      <select id="meal-code-select">
+        <option value="4">4</option>
+        <option value="3">3</option>
+        <option value="2-2">2-2</option>
+        <option value="2-1">2-1</option>
+        <option value="1j">1j</option>
+        <option value="0t">0t</option>
+        <option value="0j">0j</option>
+      </select>
+    </div>
+  </p>
+
+  <!-- 誤嚥性肺炎 -->
+  <p>
+    誤嚥性肺炎の発症・既往:<br>
+    <label><input type="radio" name="pneumonia" value="あり" onchange="togglePneumoniaDate(true)"> あり</label>
+    <label><input type="radio" name="pneumonia" value="なし" onchange="togglePneumoniaDate(false)"> なし</label>
+    <div id="pneumonia-date" style="display:none; margin-top: 0.5rem;">
+      直近の発症年月: <input type="month" id="pneumonia-month">
+    </div>
+  </p>
+
+  <!-- 特記事項 -->
+  <p>
+    その他特記事項:<br>
+    <input type="text" id="other-notes" style="width: 95%;">
+  </p>
+</section>
+
+<script>
+function toggleLastVisitDate(show) {
+  document.getElementById('last-visit-date').style.display = show ? 'block' : 'none';
+}
+function toggleDentureType(show) {
+  document.getElementById('denture-type').style.display = show ? 'block' : 'none';
+}
+function toggleNutritionSub(show) {
+  document.getElementById('nutrition-sub').style.display = show ? 'block' : 'none';
+}
+function toggleMealCode(show) {
+  document.getElementById('meal-code').style.display = show ? 'block' : 'none';
+}
+function togglePneumoniaDate(show) {
+  document.getElementById('pneumonia-date').style.display = show ? 'block' : 'none';
+}
+</script>
+
+
+<!-- 1 口腔の健康状態の評価・再評価 -->
+<section id="oral-health-section" style="margin-top: 2rem;">
+  <h3>1 口腔の健康状態の評価・再評価</h3>
+
+  <label>実施日: <input type="date" id="eval-date"></label><br><br>
+
+  <label>記入者:
+    <select id="eval-author">
+      <option value="山田　太郎">山田　太郎</option>
+      <option value="坂口　建治">坂口　建治</option>
+      <option value="本郷　彩">本郷　彩</option>
+    </select>
+  </label><br>
+
+  <label>資格:
+    <select id="eval-qualification">
+      <option value="歯科衛生士">歯科衛生士</option>
+      <option value="看護師">看護師</option>
+      <option value="言語聴覚士">言語聴覚士</option>
+    </select>
+  </label><br><br>
+
+  <strong>口腔衛生状態</strong><br>
+  <div class="choice-group" data-group="口臭">
+    <span class="choice-label">口臭:</span>
+    <button onclick="selectExclusive(this)">あり</button>
+    <button onclick="selectExclusive(this)">なし</button>
+    <button onclick="selectExclusive(this)">分からない</button>
+  </div>
+
+  <div class="choice-group" data-group="歯の汚れ">
+    <span class="choice-label">歯の汚れ:</span>
+    <button onclick="selectExclusive(this)">あり</button>
+    <button onclick="selectExclusive(this)">なし</button>
+    <button onclick="selectExclusive(this)">分からない</button>
+  </div>
+
+  <div class="choice-group" data-group="義歯の汚れ">
+    <span class="choice-label">義歯の汚れ:</span>
+    <button onclick="selectExclusive(this)">あり</button>
+    <button onclick="selectExclusive(this)">なし</button>
+    <button onclick="selectExclusive(this)">分からない</button>
+  </div>
+
+  <div class="choice-group" data-group="舌苔">
+    <span class="choice-label">舌苔:</span>
+    <button onclick="selectExclusive(this)">あり</button>
+    <button onclick="selectExclusive(this)">なし</button>
+    <button onclick="selectExclusive(this)">分からない</button>
+  </div>
+
+  <strong>口腔機能の状態</strong><br>
+
+  <div class="choice-group" data-group="奥歯の咬合">
+    <span class="choice-label">奥歯の咬合:</span>
+    <button onclick="selectExclusive(this)">あり</button>
+    <button onclick="selectExclusive(this)">なし</button>
+    <button onclick="selectExclusive(this)">分からない</button>
+  </div>
+
+  <div class="choice-group" data-group="食べこぼし">
+    <span class="choice-label">食べこぼし:</span>
+    <button onclick="selectExclusive(this)">あり</button>
+    <button onclick="selectExclusive(this)">なし</button>
+    <button onclick="selectExclusive(this)">分からない</button>
+  </div>
+
+  <div class="choice-group" data-group="むせ">
+    <span class="choice-label">むせ:</span>
+    <button onclick="selectExclusive(this)">あり</button>
+    <button onclick="selectExclusive(this)">なし</button>
+    <button onclick="selectExclusive(this)">分からない</button>
+  </div>
+
+  <div class="choice-group" data-group="口腔乾燥">
+    <span class="choice-label">口腔乾燥:</span>
+    <button onclick="selectExclusive(this)">あり</button>
+    <button onclick="selectExclusive(this)">なし</button>
+    <button onclick="selectExclusive(this)">分からない</button>
+  </div>
+
+  <div class="choice-group" data-group="舌の動きが悪い">
+    <span class="choice-label">舌の動きが悪い:</span>
+    <button onclick="selectExclusive(this)">あり</button>
+    <button onclick="selectExclusive(this)">なし</button>
+    <button onclick="selectExclusive(this)">分からない</button>
+  </div>
+
+  <div class="choice-group" data-group="ぶくぶくうがい">
+    <span class="choice-label">ぶくぶくうがい:</span>
+    <button onclick="selectExclusive(this)">できる</button>
+    <button onclick="selectExclusive(this)">できない</button>
+    <button onclick="selectExclusive(this)">分からない</button>
+  </div>
+
+  <div class="choice-group" data-group="歯科受診の必要性">
+    <span class="choice-label">歯科受診の必要性:</span>
+    <button onclick="selectExclusive(this)">あり</button>
+    <button onclick="selectExclusive(this)">なし</button>
+    <button onclick="selectExclusive(this)">分からない</button>
+  </div>
+
+  <br><strong>特記事項</strong><br>
+  <div class="choice-group">
+    <button onclick="selectNote(this)">歯（う蝕、修復物脱離等）、義歯、歯周病、口腔粘膜の疾患の可能性</button>
+    <button onclick="selectNote(this)">音声・言語機能に関する疾患の可能性</button>
+    <button onclick="selectNote(this)">その他</button>
+    <input type="text" id="otherNote" placeholder="その他の内容を記入" style="display:none; width:90%; margin-top: 5px;">
+  </div>
+</section>
+
+<script>
+  // デフォルト日付
+  document.getElementById("eval-date").value = new Date().toISOString().split('T')[0];
+
+  function selectExclusive(btn) {
+    const parent = btn.parentElement;
+    Array.from(parent.querySelectorAll("button")).forEach(b => b.classList.remove("selected"));
+    btn.classList.add("selected");
+  }
+
+  function selectNote(btn) {
+    const parent = btn.parentElement;
+    Array.from(parent.querySelectorAll("button")).forEach(b => b.classList.remove("selected"));
+    btn.classList.add("selected");
+
+    const isOther = btn.textContent.includes("その他");
+    document.getElementById("otherNote").style.display = isOther ? "inline" : "none";
+  }
+</script>
+
+
+<!-- ※ 2. 指導計画 セクション -->
+<section id="plan-section" style="margin-top: 2rem;">
+  <h3>2. 口腔機能改善管理指導計画</h3>
+  <label>作成日: <input type="date" id="plan-date"></label>
+  <br>
+  <label>作成者:
+    <select id="plan-author">
+      <option value="歯科衛生士">歯科衛生士</option>
+      <option value="看護師">看護師</option>
+      <option value="言語聴覚士">言語聴覚士</option>
+    </select>
+  </label>
+  <br>
+  <div>
+    <label><input type="checkbox" name="plan-goal" value="歯科疾患"> 歯科疾患</label>
+    <label><input type="checkbox" name="plan-goal" value="口腔衛生"> 口腔衛生</label>
+    <label><input type="checkbox" name="plan-goal" value="咀嚼機能"> 咀嚼機能</label>
+    <label><input type="checkbox" name="plan-goal" value="栄養状態"> 栄養状態</label>
+    <label><input type="checkbox" name="plan-goal" value="言語機能"> 言語機能</label>
+  </div>
+  <label>その他: <input type="text" id="plan-other" style="width: 90%;"></label>
+</section>
+
+<!-- ※ 3. 実施記録 セクション -->
+<section id="record-section" style="margin-top: 2rem;">
+  <h3>3. 実施記録</h3>
+  <label>実施年月日: <input type="date" id="record-date"></label>
+  <br>
+  <label>サービス提供者: <input type="text" id="provider"></label>
+  <br>
+  <div>
+    <label><input type="checkbox" name="implementation" value="口腔清掃"> 口腔清掃</label>
+    <label><input type="checkbox" name="implementation" value="摂食嚥下"> 摂食嚥下に関する指導</label>
+    <label><input type="checkbox" name="implementation" value="言語機能"> 言語機能に関する指導</label>
+    <label><input type="checkbox" name="implementation" value="誤嚥性肺炎"> 誤嚥性肺炎予防</label>
+    <label><input type="checkbox" name="implementation" value="その他"> その他</label>
+  </div>
+  <label>その他の内容: <input type="text" id="record-note" style="width: 90%;"></label>
+  <br>
+  <label>RSST回数（1回目）: <input type="text" id="rsst1" size="5"></label>
+  <label>RSST回数（2回目）: <input type="text" id="rsst2" size="5"></label>
+  <label>RSST回数（3回目）: <input type="text" id="rsst3" size="5"></label>
+</section>
+
+
+
+
 <script>
   const upperJaw = document.getElementById("upperJaw");
   const lowerJaw = document.getElementById("lowerJaw");
