@@ -288,16 +288,21 @@ function submitData() {
   // ✅ allTeeth をここで定義（重要！）
   const allTeeth = document.querySelectorAll(".tooth");
 
-  // 歯の状態データ収集
-  const teeth = Array.from(allTeeth).map(div => ({
-  number: div.dataset.id,
-  jaw: div.dataset.jaw,
-  state: div.querySelector(".state").textContent,
-  label: div.dataset.jaw === "upper"
-    ? div.querySelector(".label-top").textContent
-    : div.querySelector(".label-bottom").textContent
-  })).filter(tooth => tooth.state || tooth.label); // ← 空でないものだけ残す  入力がある歯だけ送信
+   // 歯の状態データ収集
+  const teeth = Array.from(allTeeth).map(div => {
+    const state = div.querySelector(".state")?.textContent || "";
+    const jaw = div.dataset.jaw;
+    const label = jaw === "upper"
+      ? div.querySelector(".label-top")?.textContent || ""
+      : div.querySelector(".label-bottom")?.textContent || "";
 
+    return {
+      number: div.dataset.id,
+      jaw: jaw,
+      state: state.trim(),
+      label: label.trim()
+    };
+  }).filter(tooth => tooth.state || tooth.label);  // // ← 空でないものだけ残す  入力がある歯だけ送信
 
   // データ構築
   const data = {
@@ -307,21 +312,23 @@ function submitData() {
     brData: selectedBrRanges
   };
 
+  console.log("送信データ:", data);
+
+
   fetch("https://script.google.com/macros/s/AKfycbzOQz96QsZx0QFbofXd6VdosJKAYNXVTi2bqMOdJKsS6gEv7u7pyj9odgRWtF39wBQh2A/exec", {
     method: "POST",
     body: JSON.stringify(data) // ← Content-Type を指定しない
   })
   .then(res => res.text())
   .then(text => {
+    console.log("保存レスポンス:", text);
     document.getElementById("saveStatus").textContent = text;
   })
   .catch(err => {
-    console.error(err);
+    console.error("保存失敗:", err);
     alert("保存に失敗しました");
   });
 }
-
-
 
 </script>
 
