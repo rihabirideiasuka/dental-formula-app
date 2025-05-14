@@ -14,8 +14,6 @@
       grid-template-columns: repeat(16, 40px);
       grid-gap: 4px;
       justify-content: center;
-      margin: 0;
-      padding: 0;
       position: relative;
     }
     .tooth {
@@ -94,27 +92,21 @@
       bottom: 0;
       width: 2px;
       background-color: black;
-      left: calc(50% + 1px); /* ← 少し右にずらした */
+      left: calc(50% + 1px);
       z-index: 0;
     }
   </style>
 </head>
 <body>
-
 <h2>口腔状態記録</h2>
 <label>利用者名：<input type="text" id="name" /></label>
-
-<!-- 🔽 Br部分追加！ -->
 <button onclick="toggleBrMode()">BrモードをON</button>
 <p id="brStatus">Br未選択</p>
-<!-- 🔼 ここまで -->
-
 <div style="position: relative;">
   <div class="tooth-grid" id="upperJaw"></div>
   <div class="center-divider"></div>
   <div class="tooth-grid" id="lowerJaw"></div>
 </div>
-
 <div class="modal" id="modal">
   <div class="modal-content">
     <p>歯の状態を選択：</p>
@@ -134,119 +126,21 @@
     <button onclick="setLabel('')">ラベル消去</button>
   </div>
 </div>
-
 <script>
   const upperJaw = document.getElementById("upperJaw");
   const lowerJaw = document.getElementById("lowerJaw");
   const modal = document.getElementById("modal");
   let selectedTooth = null;
 
-  function createTooth(id, jaw) {
-    const div = document.createElement("div");
-    div.className = "tooth";
-    div.dataset.id = id;
-    div.dataset.jaw = jaw;
-
-    const numberSpan = document.createElement("span");
-    numberSpan.className = "number";
-    numberSpan.textContent = id;
-
-    const stateSpan = document.createElement("span");
-    stateSpan.className = "state";
-    stateSpan.textContent = "";
-
-    const topLabel = document.createElement("div");
-    topLabel.className = "label-top";
-    const bottomLabel = document.createElement("div");
-    bottomLabel.className = "label-bottom";
-
-    div.appendChild(numberSpan);
-    div.appendChild(stateSpan);
-    div.appendChild(topLabel);
-    div.appendChild(bottomLabel);
-
-    div.onclick = () => {
-      selectedTooth = div;
-      modal.style.display = "flex";
-    };
-
-    return div;
-  }
-
   const left = [8, 7, 6, 5, 4, 3, 2, 1];
   const right = [1, 2, 3, 4, 5, 6, 7, 8];
 
-  [...left, ...right].forEach(num => {
-    upperJaw.appendChild(createTooth(num, "upper"));
-  });
-
-  [...left, ...right].forEach(num => {
-    lowerJaw.appendChild(createTooth(num, "lower"));
-  });
-
-  function setState(symbol) {
-    if (!selectedTooth) return;
-    selectedTooth.querySelector(".state").textContent = symbol;
-    modal.style.display = "none";
-  }
-
-  function setLabel(label) {
-    if (!selectedTooth) return;
-    const jaw = selectedTooth.dataset.jaw;
-    if (jaw === "upper") {
-      selectedTooth.querySelector(".label-top").textContent = label;
-    } else {
-      selectedTooth.querySelector(".label-bottom").textContent = label;
-    }
-    modal.style.display = "none";
-  }
-
-  modal.onclick = (e) => {
-    if (e.target === modal) modal.style.display = "none";
-  };
-
-  // ...（Brに関する部分を追加）
-
-  let brMode = false;
-  let brStart = null;
-  let brEnd = null;
-  const selectedBrRanges = [];
-
-  function toggleBrMode() {
-    brMode = !brMode;
-    brStart = null;
-    brEnd = null;
-    document.getElementById("brStatus").textContent = brMode
-      ? "Brモード：開始の歯をクリックしてください"
-      : "BrモードOFF";
-  }
-
-  function handleToothClickForBr(toothDiv) {
-    if (!brStart) {
-      brStart = toothDiv;
-      document.getElementById("brStatus").textContent = "Brモード：終了の歯をクリックしてください";
-    } else {
-      brEnd = toothDiv;
-      const startId = brStart.dataset.id;
-      const endId = brEnd.dataset.id;
-      const jaw = brEnd.dataset.jaw;
-
-      selectedBrRanges.push({ start: startId, end: endId, jaw });
-      document.getElementById("brStatus").textContent =
-        `Br選択完了：${startId}番〜${endId}番（${jaw === "upper" ? "上顎" : "下顎"}）`;
-
-      brMode = false;
-      brStart = null;
-      brEnd = null;
-    }
-  }
-
-  // div.onclick を置き換えます：
-  function createTooth(id, jaw) {
+  function createTooth(id, jaw, position) {
     const div = document.createElement("div");
     div.className = "tooth";
     div.dataset.id = id;
     div.dataset.jaw = jaw;
+    div.dataset.position = position;
 
     const numberSpan = document.createElement("span");
     numberSpan.className = "number";
@@ -274,46 +168,97 @@
         modal.style.display = "flex";
       }
     };
-
     return div;
   }
 
+  left.concat(right).forEach((num, i) => upperJaw.appendChild(createTooth(num, "upper", i < 8 ? "left" : "right")));
+  left.concat(right).forEach((num, i) => lowerJaw.appendChild(createTooth(num, "lower", i < 8 ? "left" : "right")));
+
+  function setState(symbol) {
+    if (!selectedTooth) return;
+    selectedTooth.querySelector(".state").textContent = symbol;
+    modal.style.display = "none";
+  }
+
+  function setLabel(label) {
+    if (!selectedTooth) return;
+    const jaw = selectedTooth.dataset.jaw;
+    if (jaw === "upper") {
+      selectedTooth.querySelector(".label-top").textContent = label;
+    } else {
+      selectedTooth.querySelector(".label-bottom").textContent = label;
+    }
+    modal.style.display = "none";
+  }
+
+  modal.onclick = e => {
+    if (e.target === modal) modal.style.display = "none";
+  };
+
+  let brMode = false;
+  let brStart = null;
+  let brEnd = null;
+  const selectedBrRanges = [];
+
+  function toggleBrMode() {
+    brMode = !brMode;
+    brStart = null;
+    brEnd = null;
+    document.getElementById("brStatus").textContent = brMode
+      ? "Brモード：開始の歯をクリックしてください"
+      : "BrモードOFF";
+  }
+
+  function handleToothClickForBr(div) {
+    if (!brStart) {
+      brStart = div;
+      document.getElementById("brStatus").textContent = "Brモード：終了の歯をクリックしてください";
+    } else {
+      brEnd = div;
+      selectedBrRanges.push({
+        start: brStart.dataset.id,
+        end: brEnd.dataset.id,
+        jaw: brEnd.dataset.jaw,
+        position: brEnd.dataset.position
+      });
+      document.getElementById("brStatus").textContent = `Br選択完了：${brStart.dataset.id}〜${brEnd.dataset.id}`;
+      brMode = false;
+      brStart = null;
+      brEnd = null;
+    }
+  }
 
   function submitData() {
     const userName = document.getElementById("name").value.trim();
-    if (!userName) {
-      alert("利用者名を入力してください");
-      return;
-    }
+    if (!userName) return alert("利用者名を入力してください");
 
     const allTeeth = document.querySelectorAll(".tooth");
-
     const teeth = Array.from(allTeeth).map(div => {
-      const state = div.querySelector(".state")?.textContent || "";
+      const state = div.querySelector(".state").textContent;
       const jaw = div.dataset.jaw;
+      const position = div.dataset.position;
       const label = jaw === "upper"
-        ? div.querySelector(".label-top")?.textContent || ""
-        : div.querySelector(".label-bottom")?.textContent || "";
-
+        ? div.querySelector(".label-top").textContent
+        : div.querySelector(".label-bottom").textContent;
       return {
         number: div.dataset.id,
-        jaw: jaw,
+        jaw,
+        position,
         state: state.trim(),
         label: label.trim()
       };
-    }).filter(tooth => tooth.state || tooth.label);  // 入力がある歯だけ送信
+    }).filter(t => t.state || t.label);
 
     const data = {
       name: userName,
       record: "①",
-      teeth: teeth,
+      teeth,
       brData: selectedBrRanges
     };
 
-    // 🔍 送信内容を確認ログに出力（ChromeのF12で見られます）
-    console.log("送信データ:", JSON.stringify(data, null, 2));
+    console.log("送信データ:", data);
 
-    fetch("https://script.google.com/macros/s/AKfycbxemKp1_M-p9eP3mxBMNbOJoX3_WW1CYRoQlF_U05j_jAn1hSfF-8okRusfODcgzR_t6A/exec", {
+    fetch("https://script.google.com/macros/s/AKfycbyTHDv1zLlBbnS61BYPCd1-rbaYPRo41aCQe5C_WzKYfi5I--dy32SrZCXdMxgQ1TAxyQ/exec", {
       method: "POST",
       body: JSON.stringify(data)
     })
@@ -327,14 +272,8 @@
       alert("保存に失敗しました");
     });
   }
-
-
 </script>
-
-  <!-- 🔽 保存ボタンとステータスメッセージをここに追加 -->
-  <button onclick="submitData()">保存</button>
-  <p id="saveStatus"></p>
-  <!-- 🔼 追加ここまで -->
-
+<button onclick="submitData()">保存</button>
+<p id="saveStatus"></p>
 </body>
 </html>
