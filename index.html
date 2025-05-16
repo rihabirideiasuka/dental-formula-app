@@ -94,7 +94,7 @@
       bottom: 0;
       width: 2px;
       background-color: black;
-      left: calc(50% + 1px);
+      left: 431px; /* ← 80px（margin-left）+ 352px */
       z-index: 0;
     }
 
@@ -122,7 +122,7 @@
   </style>
 
 </head>
-<body>
+<body onload="updateCenterDivider()">
 <h2>口腔機能向上サービスに関する計画書・アセスメント・モニタリング・評価表</h2>
 <label>利用者名：<input type="text" id="name" /></label>
 <button onclick="toggleBrMode()">BrモードをON</button>
@@ -660,7 +660,6 @@ function togglePneumoniaDate(show) {
     brContainer.appendChild(rightLine);
     brContainer.appendChild(label);
   }
-
 
 </script>
 <button onclick="submitData()">保存</button>
