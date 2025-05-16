@@ -124,7 +124,12 @@
       color: white;
       border-color: #4CAF50;
     }
-    
+    button.selected {
+      background-color: #007BFF;
+      color: white;
+      font-weight: bold;
+    }
+
   </style>
 
 </head>
@@ -168,15 +173,15 @@
   <!-- 歯科受診 -->
   <p>
     現在の歯科受診（かかりつけ医）:<br>
-    <label><input type="radio" name="dentist-current" value="あり"> あり</label>
-    <label><input type="radio" name="dentist-current" value="なし"> なし</label>
+    <button onclick="selectButton(this, 'dentist-current')">あり</button>
+    <button onclick="selectButton(this, 'dentist-current')">なし</button>
   </p>
 
-  <!-- 直近1年間の受診 -->
+  <!-- 直近1年間の歯科受診 -->
   <p>
     直近1年間の歯科受診:<br>
-    <label><input type="radio" name="dentist-year" value="あり" onchange="toggleLastVisitDate(true)"> あり</label>
-    <label><input type="radio" name="dentist-year" value="なし" onchange="toggleLastVisitDate(false)"> なし</label>
+    <button onclick="selectButton(this, 'dentist-year', 'last-visit-date', true)">あり</button>
+    <button onclick="selectButton(this, 'dentist-year', 'last-visit-date', false)">なし</button>
     <div id="last-visit-date" style="display:none; margin-top: 0.5rem;">
       最終受診年月: <input type="month" id="last-visit-month">
     </div>
@@ -185,30 +190,30 @@
   <!-- 義歯の使用 -->
   <p>
     義歯の使用:<br>
-    <label><input type="radio" name="denture" value="あり" onchange="toggleDentureType(true)"> あり</label>
-    <label><input type="radio" name="denture" value="なし" onchange="toggleDentureType(false)"> なし</label>
+    <button onclick="selectButton(this, 'denture', 'denture-type', true)">あり</button>
+    <button onclick="selectButton(this, 'denture', 'denture-type', false)">なし</button>
     <div id="denture-type" style="display:none; margin-top: 0.5rem;">
-      <label><input type="radio" name="denture-type" value="部分"> 部分</label>
-      <label><input type="radio" name="denture-type" value="全部"> 全部</label>
+      <button onclick="selectButton(this, 'denture-type')">部分</button>
+      <button onclick="selectButton(this, 'denture-type')">全部</button>
     </div>
   </p>
 
   <!-- 栄養補給法 -->
   <p>
     栄養補給法:<br>
-    <label><input type="radio" name="nutrition" value="経口のみ" onchange="toggleNutritionSub(false)"> 経口のみ</label>
-    <label><input type="radio" name="nutrition" value="一部経口" onchange="toggleNutritionSub(true)"> 一部経口</label>
+    <button onclick="selectButton(this, 'nutrition', 'nutrition-sub', true)">一部経口</button>
+    <button onclick="selectButton(this, 'nutrition', 'nutrition-sub', false)">経口のみ</button>
     <div id="nutrition-sub" style="display:none; margin-top: 0.5rem;">
-      <label><input type="checkbox" name="nutrition-sub" value="経腸栄養"> 経腸栄養</label>
-      <label><input type="checkbox" name="nutrition-sub" value="静脈栄養"> 静脈栄養</label>
+      <button onclick="toggleSelection(this)">経腸栄養</button>
+      <button onclick="toggleSelection(this)">静脈栄養</button>
     </div>
   </p>
 
   <!-- 食事形態 -->
   <p>
     食事形態:<br>
-    <label><input type="radio" name="meal" value="常食" onchange="toggleMealCode(false)"> 常食</label>
-    <label><input type="radio" name="meal" value="嚥下調整食" onchange="toggleMealCode(true)"> 嚥下調整食</label>
+    <button onclick="selectButton(this, 'meal', 'meal-code', true)">嚥下調整食</button>
+    <button onclick="selectButton(this, 'meal', 'meal-code', false)">常食</button>
     <div id="meal-code" style="display:none; margin-top: 0.5rem;">
       コード:
       <select id="meal-code-select">
@@ -226,8 +231,8 @@
   <!-- 誤嚥性肺炎 -->
   <p>
     誤嚥性肺炎の発症・既往:<br>
-    <label><input type="radio" name="pneumonia" value="あり" onchange="togglePneumoniaDate(true)"> あり</label>
-    <label><input type="radio" name="pneumonia" value="なし" onchange="togglePneumoniaDate(false)"> なし</label>
+    <button onclick="selectButton(this, 'pneumonia', 'pneumonia-date', true)">あり</button>
+    <button onclick="selectButton(this, 'pneumonia', 'pneumonia-date', false)">なし</button>
     <div id="pneumonia-date" style="display:none; margin-top: 0.5rem;">
       直近の発症年月: <input type="month" id="pneumonia-month">
     </div>
@@ -240,23 +245,40 @@
   </p>
 </section>
 
+<style>
+  button.selected {
+    background-color: #007BFF;
+    color: white;
+    font-weight: bold;
+  }
+</style>
+
 <script>
-function toggleLastVisitDate(show) {
-  document.getElementById('last-visit-date').style.display = show ? 'block' : 'none';
-}
-function toggleDentureType(show) {
-  document.getElementById('denture-type').style.display = show ? 'block' : 'none';
-}
-function toggleNutritionSub(show) {
-  document.getElementById('nutrition-sub').style.display = show ? 'block' : 'none';
-}
-function toggleMealCode(show) {
-  document.getElementById('meal-code').style.display = show ? 'block' : 'none';
-}
-function togglePneumoniaDate(show) {
-  document.getElementById('pneumonia-date').style.display = show ? 'block' : 'none';
-}
+  function selectButton(btn, group, toggleId = null, show = null) {
+    const buttons = document.querySelectorAll(`button[onclick*="'${group}'"]`);
+    buttons.forEach(b => b.classList.remove("selected"));
+    btn.classList.add("selected");
+
+    if (toggleId) {
+      document.getElementById(toggleId).style.display = show ? 'block' : 'none';
+    }
+  }
+
+  function toggleSelection(btn) {
+    btn.classList.toggle("selected");
+  }
 </script>
+
+
+
+<style>
+button.selected {
+  background-color: #007BFF;
+  color: white;
+  font-weight: bold;
+}
+</style>
+
 
 
 <!-- 1 口腔の健康状態の評価・再評価 -->
@@ -370,16 +392,192 @@ function togglePneumoniaDate(show) {
   </div>
 </section>
 
-<script>
-  // デフォルト日付
-  document.getElementById("eval-date").value = new Date().toISOString().split('T')[0];
 
+
+
+<!-- ※ 2. 口腔機能改善指導計画 セクション -->
+<section id="plan-section" style="margin-top: 2rem;">
+  <h3>2. 口腔機能改善管理指導計画</h3>
+
+  <label>作成日: <input type="date" id="plan-date"></label><br><br>
+
+  <!-- 計画立案者 -->
+  <label>計画立案者:
+    <select id="plan-author">
+      <option value="山田　太郎">山田　太郎</option>
+      <option value="坂口　建治">坂口　建治</option>
+      <option value="本郷　彩">本郷　彩</option>
+    </select>
+  </label>
+  <label>資格:
+    <select id="plan-qualification">
+      <option value="歯科衛生士">歯科衛生士</option>
+      <option value="看護師">看護師</option>
+      <option value="言語聴覚士">言語聴覚士</option>
+    </select>
+  </label><br><br>
+
+  <!-- サービス提供者 -->
+  <label>サービス提供者:
+    <select id="provider-name">
+      <option value="山田　太郎">山田　太郎</option>
+      <option value="坂口　建治">坂口　建治</option>
+      <option value="本郷　彩">本郷　彩</option>
+    </select>
+  </label>
+  <label>資格:
+    <select id="provider-qualification">
+      <option value="歯科衛生士">歯科衛生士</option>
+      <option value="看護師">看護師</option>
+      <option value="言語聴覚士">言語聴覚士</option>
+    </select>
+  </label><br><br>
+
+  <strong>目標項目（複数選択可）</strong><br>
+  <div class="goal-selection">
+    <button onclick="toggleGoal(this, 'dental')">歯科疾患</button>
+    <button onclick="toggleGoal(this, 'oralHygiene')">口腔衛生</button>
+    <button onclick="toggleGoal(this, 'function')">摂食嚥下等の口腔機能</button>
+    <button onclick="toggleGoal(this, 'diet')">食形態</button>
+    <button onclick="toggleGoal(this, 'nutrition')">栄養状態</button>
+    <button onclick="toggleGoal(this, 'speech')">音声・言語機能</button>
+    <button onclick="toggleGoal(this, 'pneumonia')">誤嚥性肺炎の予防</button>
+    <button onclick="toggleGoal(this, 'planOther')">その他</button>
+  </div><br>
+
+  <div id="dental" class="goal-item" style="display:none;">
+    <span class="choice-label"><strong>歯科疾患</strong></span><br>
+    <div class="sub-goal">
+      <button onclick="selectExclusive(this)">重症化防止</button>
+      <button onclick="selectExclusive(this)">改善</button>
+      <button onclick="selectExclusive(this)">歯科受診</button>
+    </div>
+  </div>
+
+  <div id="oralHygiene" class="goal-item" style="display:none;">
+    <span class="choice-label"><strong>口腔衛生</strong></span><br>
+    <div class="sub-goal">
+      <button onclick="selectFollowup(this, 'oralHygieneInput')">維持</button>
+      <button onclick="selectFollowup(this, 'oralHygieneInput', true)">改善</button>
+      <input type="text" id="oralHygieneInput" style="display:none; width:90%; margin-top:5px;">
+    </div>
+  </div>
+
+  <div id="function" class="goal-item" style="display:none;">
+    <span class="choice-label"><strong>摂食嚥下等の口腔機能</strong></span><br>
+    <div class="sub-goal">
+      <button onclick="selectFollowup(this, 'functionInput')">維持</button>
+      <button onclick="selectFollowup(this, 'functionInput', true)">改善</button>
+      <input type="text" id="functionInput" style="display:none; width:90%; margin-top:5px;">
+    </div>
+  </div>
+
+  <div id="diet" class="goal-item" style="display:none;">
+    <span class="choice-label"><strong>食形態</strong></span><br>
+    <div class="sub-goal">
+      <button onclick="selectFollowup(this, 'dietInput')">維持</button>
+      <button onclick="selectFollowup(this, 'dietInput', true)">改善</button>
+      <input type="text" id="dietInput" style="display:none; width:90%; margin-top:5px;">
+    </div>
+  </div>
+
+  <div id="nutrition" class="goal-item" style="display:none;">
+    <span class="choice-label"><strong>栄養状態</strong></span><br>
+    <div class="sub-goal">
+      <button onclick="selectFollowup(this, 'nutritionInput')">維持</button>
+      <button onclick="selectFollowup(this, 'nutritionInput', true)">改善</button>
+      <input type="text" id="nutritionInput" style="display:none; width:90%; margin-top:5px;">
+    </div>
+  </div>
+
+  <div id="speech" class="goal-item" style="display:none;">
+    <span class="choice-label"><strong>音声・言語機能</strong></span><br>
+    <div class="sub-goal">
+      <button onclick="selectFollowup(this, 'speechInput')">維持</button>
+      <button onclick="selectFollowup(this, 'speechInput', true)">改善</button>
+      <input type="text" id="speechInput" style="display:none; width:90%; margin-top:5px;">
+    </div>
+  </div>
+
+  <div id="pneumonia" class="goal-item" style="display:none;">
+    <span class="choice-label"><strong>誤嚥性肺炎の予防</strong></span>
+  </div>
+
+  <div id="planOther" class="goal-item" style="display:none;">
+    <span class="choice-label"><strong>その他</strong></span><br>
+    <input type="text" style="width: 90%;">
+  </div>
+
+  <br><strong>実施内容</strong><br>
+  <div class="implementation-group">
+    <button onclick="selectToggle(this)">口腔清掃</button>
+    <button class="selected" onclick="selectToggle(this)">口腔清掃に関する指導</button>
+    <button class="selected" onclick="selectToggle(this)">摂食嚥下等の口腔機能に関する指導</button>
+    <button onclick="selectToggle(this)">音声・言語機能に関する指導</button>
+    <button class="selected" onclick="selectToggle(this)">誤嚥性肺炎の予防に関する指導</button>
+    <button class="selected" onclick="selectOtherImplementation(this)">その他</button>
+    <input type="text" id="other-implementation" value="集団口腔体操及び個別指導" style="display:inline; width:90%; margin-top: 5px;">
+  </div>
+</section>
+
+
+<script>
+  // デフォルト日付の自動入力（今日の日付）
+  document.getElementById("plan-date").value = new Date().toISOString().split("T")[0];
+
+  // 複数選択可ボタンのON/OFF切替
+  function selectToggle(btn) {
+    btn.classList.toggle("selected");
+  }
+</script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // デフォルト日付を設定
+    document.getElementById("eval-date").value = new Date().toISOString().split("T")[0];
+    document.getElementById("plan-date").value = new Date().toISOString().split("T")[0];
+
+    // 記入者・資格の選択を他フィールドに自動反映
+    document.getElementById("eval-author").addEventListener("change", function () {
+      document.getElementById("plan-author").value = this.value;
+      document.getElementById("provider-name").value = this.value;
+    });
+
+    document.getElementById("eval-qualification").addEventListener("change", function () {
+      document.getElementById("plan-qualification").value = this.value;
+      document.getElementById("provider-qualification").value = this.value;
+    });
+  });
+
+  // 各目標項目の選択ボタン（複数選択可）→クリックでサブ項目表示/非表示
+  function selectGoal(btn, targetId) {
+    btn.classList.toggle("selected");
+    const sub = document.getElementById(targetId);
+    if (sub) {
+      sub.style.display = btn.classList.contains("selected") ? "block" : "none";
+    }
+
+    // 自由記述欄も初期状態で非表示に戻す（対象がある場合のみ）
+    const input = document.getElementById(targetId + 'Input');
+    if (input) input.style.display = 'none';
+  }
+
+  // 排他選択（同一グループ内で1つだけ選択）
   function selectExclusive(btn) {
     const parent = btn.parentElement;
     Array.from(parent.querySelectorAll("button")).forEach(b => b.classList.remove("selected"));
     btn.classList.add("selected");
   }
 
+  // 改善など選択で記述欄表示
+  function selectFollowup(btn, inputId, showInput) {
+    const parent = btn.parentElement;
+    Array.from(parent.querySelectorAll("button")).forEach(b => b.classList.remove("selected"));
+    btn.classList.add("selected");
+    document.getElementById(inputId).style.display = showInput ? "inline" : "none";
+  }
+
+  // 「特記事項」用選択
   function selectNote(btn) {
     const parent = btn.parentElement;
     Array.from(parent.querySelectorAll("button")).forEach(b => b.classList.remove("selected"));
@@ -388,52 +586,122 @@ function togglePneumoniaDate(show) {
     const isOther = btn.textContent.includes("その他");
     document.getElementById("otherNote").style.display = isOther ? "inline" : "none";
   }
+
+  // 実施内容「その他」選択時に記述欄表示
+  // 実施内容「その他」も複数選択可能にし、入力欄だけ表示
+  function selectOtherImplementation(btn) {
+    btn.classList.toggle("selected");
+    const input = document.getElementById("other-implementation");
+    input.style.display = btn.classList.contains("selected") ? "inline" : "none";
+  }
+
+  // 複数選択ON/OFFボタン
+  function selectToggle(btn) {
+    btn.classList.toggle("selected");
+  }
+
+  function toggleGoal(btn, targetId) {
+    btn.classList.toggle("selected");
+    const target = document.getElementById(targetId);
+    if (target) {
+      target.style.display = btn.classList.contains("selected") ? "block" : "none";
+    }
+  }
+
 </script>
 
-
-<!-- ※ 2. 指導計画 セクション -->
-<section id="plan-section" style="margin-top: 2rem;">
-  <h3>2. 口腔機能改善管理指導計画</h3>
-  <label>作成日: <input type="date" id="plan-date"></label>
-  <br>
-  <label>作成者:
-    <select id="plan-author">
-      <option value="歯科衛生士">歯科衛生士</option>
-      <option value="看護師">看護師</option>
-      <option value="言語聴覚士">言語聴覚士</option>
-    </select>
-  </label>
-  <br>
-  <div>
-    <label><input type="checkbox" name="plan-goal" value="歯科疾患"> 歯科疾患</label>
-    <label><input type="checkbox" name="plan-goal" value="口腔衛生"> 口腔衛生</label>
-    <label><input type="checkbox" name="plan-goal" value="咀嚼機能"> 咀嚼機能</label>
-    <label><input type="checkbox" name="plan-goal" value="栄養状態"> 栄養状態</label>
-    <label><input type="checkbox" name="plan-goal" value="言語機能"> 言語機能</label>
-  </div>
-  <label>その他: <input type="text" id="plan-other" style="width: 90%;"></label>
-</section>
 
 <!-- ※ 3. 実施記録 セクション -->
 <section id="record-section" style="margin-top: 2rem;">
   <h3>3. 実施記録</h3>
   <label>実施年月日: <input type="date" id="record-date"></label>
   <br>
-  <label>サービス提供者: <input type="text" id="provider"></label>
-  <br>
-  <div>
-    <label><input type="checkbox" name="implementation" value="口腔清掃"> 口腔清掃</label>
-    <label><input type="checkbox" name="implementation" value="摂食嚥下"> 摂食嚥下に関する指導</label>
-    <label><input type="checkbox" name="implementation" value="言語機能"> 言語機能に関する指導</label>
-    <label><input type="checkbox" name="implementation" value="誤嚥性肺炎"> 誤嚥性肺炎予防</label>
-    <label><input type="checkbox" name="implementation" value="その他"> その他</label>
+  <label>サービス提供者: <input type="text" id="record-provider"></label>
+  <label>資格: <input type="text" id="record-qualification"></label>
+  <br><br>
+  <strong>実施内容（複数選択可）</strong><br>
+  <div class="implementation-group">
+    <button onclick="selectToggle(this)">口腔清掃</button>
+    <button class="selected" onclick="selectToggle(this)">口腔清掃に関する指導</button>
+    <button class="selected" onclick="selectToggle(this)">摂食嚥下等の口腔機能に関する指導</button>
+    <button onclick="selectToggle(this)">音声・言語機能に関する指導</button>
+    <button class="selected" onclick="selectToggle(this)">誤嚥性肺炎の予防に関する指導</button>
+    <button class="selected" onclick="selectOtherImplementation(this)">その他</button>
+    <input type="text" id="other-implementation" value="集団口腔体操及び個別指導" style="display:inline; width:90%; margin-top: 5px;">
   </div>
-  <label>その他の内容: <input type="text" id="record-note" style="width: 90%;"></label>
-  <br>
-  <label>RSST回数（1回目）: <input type="text" id="rsst1" size="5"></label>
-  <label>RSST回数（2回目）: <input type="text" id="rsst2" size="5"></label>
-  <label>RSST回数（3回目）: <input type="text" id="rsst3" size="5"></label>
 </section>
+
+<section id="rsst-section" style="margin-top: 2rem;">
+  <h3>4. RSSTとオーラルディアドコキネシス</h3>
+  <div style="display: flex; justify-content: space-between;">
+    <table border="1" style="text-align: center; border-collapse: collapse; font-size: 0.9em;">
+      <thead>
+        <tr>
+          <th style="width: 80px;"></th>
+          <th style="width: 80px;">1回目</th>
+          <th style="width: 80px;">2回目</th>
+          <th style="width: 80px;">3回目</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th>RSST<br>(回/30秒)</th>
+          <td id="rsst1"></td>
+          <td id="rsst2"></td>
+          <td id="rsst3"></td>
+        </tr>
+        <tr>
+          <th>パ<br>(回)</th>
+          <td id="pa1"></td>
+          <td id="pa2"></td>
+          <td id="pa3"></td>
+        </tr>
+        <tr>
+          <th>タ<br>(回)</th>
+          <td id="ta1"></td>
+          <td id="ta2"></td>
+          <td id="ta3"></td>
+        </tr>
+        <tr>
+          <th>カ<br>(回)</th>
+          <td id="ka1"></td>
+          <td id="ka2"></td>
+          <td id="ka3"></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div style="border: 1px solid black; padding: 10px; margin-left: 20px; width: 220px;">
+      <strong>説明日・同意日</strong>
+      <div style="margin-top: 10px;">
+        令和　　年　　月　　日
+      </div>
+      <div style="margin-top: 20px;">
+        利用者同意書サイン(本人)
+      </div>
+    </div>
+  </div>
+  <br>
+  <button onclick="recordRSST()">記録する</button>
+</section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("record-date").value = new Date().toISOString().split("T")[0];
+
+    // 2口腔機能改善管理指導計画からサービス提供者と資格を反映
+    const provider = document.getElementById("provider-name")?.value || "";
+    const qualification = document.getElementById("provider-qualification")?.value || "";
+    document.getElementById("record-provider").value = provider;
+    document.getElementById("record-qualification").value = qualification;
+  });
+
+  function selectRecordOther(btn) {
+    btn.classList.toggle("selected");
+    const input = document.getElementById("record-other");
+    input.style.display = btn.classList.contains("selected") ? "inline" : "none";
+  }
+</script>
 
 
 
@@ -683,6 +951,46 @@ function clearBrLines() {
   document.getElementById("brStatus").textContent = "Br未選択";
 }
 
+  function recordRSST() {
+    let nextIndex = 0;
+    for (let i = 1; i <= 3; i++) {
+      if (document.getElementById(`rsst${i}`).textContent === '') {
+        nextIndex = i;
+        break;
+      }
+    }
+
+    if (nextIndex === 0) {
+      if (confirm("すでに3回分記録されています。全て削除して新しく記録しますか？")) {
+        for (let i = 1; i <= 3; i++) {
+          document.getElementById(`rsst${i}`).textContent = '';
+          document.getElementById(`pa${i}`).textContent = '';
+          document.getElementById(`ta${i}`).textContent = '';
+          document.getElementById(`ka${i}`).textContent = '';
+        }
+        nextIndex = 1;
+      } else {
+        return;
+      }
+    }
+
+    const rsst = prompt("RSSTは何回ですか？（整数）");
+    if (!rsst || isNaN(rsst)) return;
+
+    const paRaw = prompt("「パ」の回数は何回ですか？（整数）");
+    const pa = (parseInt(paRaw) / 10).toFixed(1);
+
+    const taRaw = prompt("「タ」の回数は何回ですか？（整数）");
+    const ta = (parseInt(taRaw) / 10).toFixed(1);
+
+    const kaRaw = prompt("「カ」の回数は何回ですか？（整数）");
+    const ka = (parseInt(kaRaw) / 10).toFixed(1);
+
+    document.getElementById(`rsst${nextIndex}`).textContent = parseInt(rsst);
+    document.getElementById(`pa${nextIndex}`).textContent = pa;
+    document.getElementById(`ta${nextIndex}`).textContent = ta;
+    document.getElementById(`ka${nextIndex}`).textContent = ka;
+  }
 
 </script>
 <button onclick="submitData()">保存</button>
