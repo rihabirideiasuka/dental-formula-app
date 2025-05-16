@@ -13,8 +13,9 @@
       display: grid;
       grid-template-columns: repeat(16, 40px);
       grid-gap: 4px;
-      justify-content: center;
+      justify-content: start; /* ← centerから変更 */
       position: relative;
+      margin-left: 80px; /* ←必要に応じて左余白も */
     }
     .tooth {
       width: 40px;
@@ -35,15 +36,16 @@
       color: #555;
       z-index: 1;
     }
-    .tooth .state {
+    .tooth .state {　/* ← 歯の状態のフォント */
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      font-size: 1.2em;
-      font-weight: bold;
+      font-size: 1.5em;  /* ← 1.2em から拡大 */
+      font-weight: 900;  /* ← 太字を強調 */
       z-index: 2;
     }
+
     .label-top, .label-bottom {
       font-size: 0.9em;
       font-weight: bold;
@@ -121,15 +123,17 @@
 
 </head>
 <body>
-<h2>口腔状態記録</h2>
+<h2>口腔機能向上サービスに関する計画書・アセスメント・モニタリング・評価表</h2>
 <label>利用者名：<input type="text" id="name" /></label>
 <button onclick="toggleBrMode()">BrモードをON</button>
 <p id="brStatus">Br未選択</p>
 <div style="position: relative;">
+  <div id="br-lines" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none;"></div>
   <div class="tooth-grid" id="upperJaw"></div>
   <div class="center-divider"></div>
   <div class="tooth-grid" id="lowerJaw"></div>
 </div>
+
 <div class="modal" id="modal">
   <div class="modal-content">
     <p>歯の状態を選択：</p>
@@ -505,24 +509,42 @@ function togglePneumoniaDate(show) {
     brMode = !brMode;
     brStart = null;
     brEnd = null;
-    document.getElementById("brStatus").textContent = brMode
-      ? "Brモード：開始の歯をクリックしてください"
-      : "BrモードOFF";
+
+    const status = document.getElementById("brStatus");
+    status.textContent = brMode ? "Brモード ON：何番から？" : "BrモードOFF";
   }
 
   function handleToothClickForBr(div) {
+    const status = document.getElementById("brStatus");
+
     if (!brStart) {
       brStart = div;
-      document.getElementById("brStatus").textContent = "Brモード：終了の歯をクリックしてください";
+      status.textContent = `何番まで？（開始: ${brStart.dataset.id}）`;
     } else {
       brEnd = div;
+
+      // 同じ顎のみ処理（必要ならチェック）
+      if (brStart.dataset.jaw !== brEnd.dataset.jaw) {
+        alert("同じ顎の歯を選択してください");
+        brStart = null;
+        brEnd = null;
+        status.textContent = "Brモード ON：何番から？";
+        return;
+      }
+
       selectedBrRanges.push({
         start: brStart.dataset.id,
         end: brEnd.dataset.id,
         jaw: brEnd.dataset.jaw,
         position: brEnd.dataset.position
       });
-      document.getElementById("brStatus").textContent = `Br選択完了：${brStart.dataset.id}〜${brEnd.dataset.id}`;
+
+      // 線を描画（上顎下顎）
+      if (brStart.dataset.jaw === brEnd.dataset.jaw) {
+        drawBrLine(brStart, brEnd);
+      }
+
+      status.textContent = `Br選択完了：${brStart.dataset.id}〜${brEnd.dataset.id}`;
       brMode = false;
       brStart = null;
       brEnd = null;
@@ -573,6 +595,73 @@ function togglePneumoniaDate(show) {
       alert("保存に失敗しました");
     });
   }
+
+  function drawBrLine(startElem, endElem) {
+    const brContainer = document.getElementById("br-lines");
+
+    const rect1 = startElem.getBoundingClientRect();
+    const rect2 = endElem.getBoundingClientRect();
+    const parentRect = brContainer.getBoundingClientRect();
+
+    const x1 = rect1.left + rect1.width / 2 - parentRect.left;
+    const x2 = rect2.left + rect2.width / 2 - parentRect.left;
+    const minX = Math.min(x1, x2);
+    const maxX = Math.max(x1, x2);
+    const midX = (minX + maxX) / 2;
+
+    const jaw = startElem.dataset.jaw;
+    const isUpper = (jaw === "upper");
+
+    const y = isUpper
+      ? rect1.top - parentRect.top - 30  // 上顎：補助ラベルの上にBrを病が
+      : rect1.bottom - parentRect.top + 30;  // 下顎：数字の下にBrを病が
+
+    // 横線
+    const line = document.createElement("div");
+    line.style.position = "absolute";
+    line.style.left = minX + "px";
+    line.style.top = y + "px";
+    line.style.width = (maxX - minX) + "px";
+    line.style.height = "2px";
+    line.style.backgroundColor = "red";
+
+    // 左縦線
+    const leftLine = document.createElement("div");
+    leftLine.style.position = "absolute";
+    leftLine.style.left = x1 + "px";
+    leftLine.style.width = "2px";
+    leftLine.style.height = "10px";
+    leftLine.style.backgroundColor = "red";
+    leftLine.style.top = isUpper ? (y + "px") : (y - 10 + "px");
+
+    // 右縦線
+    const rightLine = document.createElement("div");
+    rightLine.style.position = "absolute";
+    rightLine.style.left = (maxX - 1) + "px";  // 横線の右端とぴったり揃える
+    rightLine.style.width = "2px";
+    rightLine.style.height = "10px";
+    rightLine.style.backgroundColor = "red";
+    rightLine.style.top = isUpper
+      ? (y + "px")           // 上顎：下向きに伸ばす
+      : ((y - 8) + "px");   // 下顎：上向きに伸ばす
+
+    // ラベル
+    const label = document.createElement("div");
+    label.textContent = "Br";
+    label.style.position = "absolute";
+    label.style.left = (midX - 10) + "px";
+    label.style.top = isUpper ? (y - 20 + "px") : (y + 10 + "px");
+    label.style.color = "red";
+    label.style.fontWeight = "bold";
+    label.style.fontSize = "14px";
+
+    brContainer.appendChild(line);
+    brContainer.appendChild(leftLine);
+    brContainer.appendChild(rightLine);
+    brContainer.appendChild(label);
+  }
+
+
 </script>
 <button onclick="submitData()">保存</button>
 <p id="saveStatus"></p>
