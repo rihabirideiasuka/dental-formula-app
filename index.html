@@ -551,7 +551,9 @@ function togglePneumoniaDate(show) {
         drawBrLine(brStart, brEnd);
       }
 
-      status.textContent = `Br選択完了：${brStart.dataset.id}〜${brEnd.dataset.id}`;
+      const jawLabel = brStart.dataset.jaw === "upper" ? "上" : "下";
+      status.textContent = `Br選択完了（${jawLabel}）：${brStart.dataset.id}〜${brEnd.dataset.id}`;
+
       brMode = false;
       brStart = null;
       brEnd = null;
