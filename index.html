@@ -134,37 +134,107 @@
 
 </head>
 <body onload="updateCenterDivider()">
-<h2>口腔機能向上サービスに関する計画書・アセスメント・モニタリング・評価表</h2>
-<label>利用者名：<input type="text" id="name" /></label>
-<button onclick="toggleBrMode()">Br作成</button>
-<button onclick="clearBrLines()">Br消去</button>
-<p id="brStatus">Br未選択</p>
-<div style="position: relative;">
-  <div id="br-lines" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none;"></div>
-  <div class="tooth-grid" id="upperJaw"></div>
-  <div class="center-divider"></div>
-  <div class="tooth-grid" id="lowerJaw"></div>
-</div>
+<!-- 【1】歯式セクション + 基本情報入力（iPad向けUI改善） -->
+<section id="tooth-section" style="margin-top: 2rem;">
+  <h3>基本情報</h3>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; max-width: 600px;">
+    <label>氏名：<input type="text" id="name" style="width: 100%;"></label>
+    <label>ふりがな：<input type="text" id="furigana" style="width: 100%;"></label>
 
-<div class="modal" id="modal">
-  <div class="modal-content">
-    <p>歯の状態を選択：</p>
-    <button onclick="setState('○')">○</button>
-    <button onclick="setState('×')">×</button>
-    <button onclick="setState('／')">／</button>
-    <button onclick="setState('')">消去</button>
-    <p>補助ラベル：</p>
-    <button onclick="setLabel('Cr')">Cr</button>
-    <button onclick="setLabel('In')">In</button>
-    <button onclick="setLabel('Fck')">Fck</button>
-    <button onclick="setLabel('IMPL')">IMPL</button>
-    <button onclick="setLabel('死根')">死根</button>
-    <button onclick="setLabel('残根')">残根</button>
-    <button onclick="setLabel('C')">C</button>
-    <button onclick="setLabel('C4')">C4</button>
-    <button onclick="setLabel('')">ラベル消去</button>
+    <label>性別：
+      <select id="gender" style="width: 100%;">
+        <option value="">選択してください</option>
+        <option value="男">男</option>
+        <option value="女">女</option>
+      </select>
+    </label>
+
+    <label>生年月日：<input type="date" id="birthday" style="width: 100%;"></label>
+    <label>年齢：<input type="number" id="age" style="width: 100%;" readonly></label>
+
+    <label>要介護度：
+      <select id="care-level" style="width: 100%;">
+        <option value="">選択してください</option>
+        <option>支援1</option>
+        <option>支援2</option>
+        <option>介護1</option>
+        <option>介護2</option>
+        <option>介護3</option>
+        <option>介護4</option>
+        <option>介護5</option>
+      </select>
+    </label>
+
+    <label>障害高齢者の日常生活自立度：
+      <select id="adl-disability" style="width: 100%;">
+        <option value="">選択してください</option>
+        <option>自立</option>
+        <option>J1</option>
+        <option>J2</option>
+        <option>A1</option>
+        <option>A2</option>
+        <option>B1</option>
+        <option>B2</option>
+        <option>C1</option>
+        <option>C2</option>
+      </select>
+    </label>
+
+    <label>認知症高齢者の日常生活自立度：
+      <select id="adl-dementia" style="width: 100%;">
+        <option value="">選択してください</option>
+        <option>自立</option>
+        <option>Ⅰ</option>
+        <option>Ⅱa</option>
+        <option>Ⅱb</option>
+        <option>Ⅲa</option>
+        <option>Ⅲb</option>
+        <option>Ⅳ</option>
+        <option>M</option>
+      </select>
+    </label>
   </div>
-</div>
+
+  <hr style="margin: 2rem 0;">
+
+  <h3>歯式（印付け）</h3>
+  <div style="margin-bottom: 0.5rem;">
+    <button onclick="toggleBrMode()">Br作成</button>
+    <button onclick="clearBrLines()">Br消去</button>
+    <span id="brStatus">Br未選択</span>
+  </div>
+
+  <div style="position: relative;">
+    <div id="br-lines" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none;"></div>
+    <div class="tooth-grid" id="upperJaw"></div>
+    <div class="center-divider"></div>
+    <div class="tooth-grid" id="lowerJaw"></div>
+  </div>
+
+  <!-- モーダル（歯の状態・補助ラベル） -->
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <p>歯の状態を選択：</p>
+      <button onclick="setState('○')">○</button>
+      <button onclick="setState('×')">×</button>
+      <button onclick="setState('／')">／</button>
+      <button onclick="setState('')">消去</button>
+      <p>補助ラベル：</p>
+      <button onclick="setLabel('Cr')">Cr</button>
+      <button onclick="setLabel('In')">In</button>
+      <button onclick="setLabel('Fck')">Fck</button>
+      <button onclick="setLabel('IMPL')">IMPL</button>
+      <button onclick="setLabel('死根')">死根</button>
+      <button onclick="setLabel('残根')">残根</button>
+      <button onclick="setLabel('C')">C</button>
+      <button onclick="setLabel('C4')">C4</button>
+      <button onclick="setLabel('')">ラベル消去</button>
+    </div>
+  </div>
+</section>
+
+
+
 <!-- 上記の巻き微算の歯式コードの続き -->
 <!-- 0. 事前情報入力フォーム -->
 <section id="preliminary-info" style="margin-top: 2rem;">
@@ -630,6 +700,46 @@ button.selected {
     <input type="text" id="other-implementation" value="集団口腔体操及び個別指導" style="display:inline; width:90%; margin-top: 5px;">
   </div>
 </section>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // 日付の初期値設定
+    const today = new Date().toISOString().split("T")[0];
+    document.getElementById("eval-date").value = today;
+    document.getElementById("plan-date").value = today;
+    document.getElementById("record-date").value = today;
+
+    // 計画立案者・サービス提供者・実施記録への連動
+    document.getElementById("eval-author").addEventListener("change", function () {
+      document.getElementById("plan-author").value = this.value;
+      document.getElementById("provider-name").value = this.value;
+      document.getElementById("record-provider").value = this.value;
+    });
+
+    document.getElementById("eval-qualification").addEventListener("change", function () {
+      document.getElementById("plan-qualification").value = this.value;
+      document.getElementById("provider-qualification").value = this.value;
+      document.getElementById("record-qualification").value = this.value;
+    });
+
+    // ページ読み込み時に反映（初期値）
+    document.getElementById("record-provider").value = document.getElementById("eval-author").value;
+    document.getElementById("record-qualification").value = document.getElementById("eval-qualification").value;
+  });
+
+  // ボタンの選択切替（複数可）
+  function selectToggle(btn) {
+    btn.classList.toggle("selected");
+  }
+
+  // 「その他」実施内容の表示切替
+  function selectOtherImplementation(btn) {
+    btn.classList.toggle("selected");
+    const input = document.getElementById("other-implementation");
+    input.style.display = btn.classList.contains("selected") ? "inline" : "none";
+  }
+</script>
+
 
 <section id="rsst-section" style="margin-top: 2rem;">
   <h3>4. RSSTとオーラルディアドコキネシス</h3>
