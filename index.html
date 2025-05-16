@@ -36,24 +36,28 @@
       color: #555;
       z-index: 1;
     }
-    .tooth .state {　/* ← 歯の状態のフォント */
+
+    .tooth .state {
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      font-size: 1.5em;  /* ← 1.2em から拡大 */
-      font-weight: 900;  /* ← 太字を強調 */
+      font-size: 2.2em;      /* ← サイズ拡大（元は1.5em） */
+      font-weight: 900; /* ← 太字を強調 */
       z-index: 2;
+      line-height: 1;
     }
 
-    .label-top, .label-bottom {
-      font-size: 0.9em;
+
+    .label-top, .label-bottom { /* ← 補助ラベルのフォント */
+      font-size: 1.1em;
       font-weight: bold;
       color: blue;
       position: absolute;
       width: 100%;
       left: 0;
       text-align: center;
+      line-height: 1.2;       /* ← 行間も詰め気味に */
     }
     .label-top { top: -1.2em; }
     .label-bottom { bottom: -1.2em; }
@@ -120,13 +124,15 @@
       color: white;
       border-color: #4CAF50;
     }
+    
   </style>
 
 </head>
 <body onload="updateCenterDivider()">
 <h2>口腔機能向上サービスに関する計画書・アセスメント・モニタリング・評価表</h2>
 <label>利用者名：<input type="text" id="name" /></label>
-<button onclick="toggleBrMode()">BrモードをON</button>
+<button onclick="toggleBrMode()">Br作成</button>
+<button onclick="clearBrLines()">Br消去</button>
 <p id="brStatus">Br未選択</p>
 <div style="position: relative;">
   <div id="br-lines" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none;"></div>
@@ -654,13 +660,27 @@ function togglePneumoniaDate(show) {
     label.style.top = isUpper ? (y - 20 + "px") : (y + 10 + "px");
     label.style.color = "red";
     label.style.fontWeight = "bold";
-    label.style.fontSize = "14px";
+    label.style.fontSize = "18px";　// Brのフォント大きさ
 
     brContainer.appendChild(line);
     brContainer.appendChild(leftLine);
     brContainer.appendChild(rightLine);
     brContainer.appendChild(label);
+
+    line.className = "br-line";
+    leftLine.className = "br-line";
+    rightLine.className = "br-line";
+    label.className = "br-line";
+
   }
+
+function clearBrLines() {
+  const lines = document.querySelectorAll(".br-line");
+  lines.forEach(line => line.remove());
+  selectedBrRanges.length = 0; // Brのデータも初期化
+  document.getElementById("brStatus").textContent = "Br未選択";
+}
+
 
 </script>
 <button onclick="submitData()">保存</button>
