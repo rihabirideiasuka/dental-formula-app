@@ -136,21 +136,28 @@
 <!-- 【1】歯式セクション + 基本情報入力（iPad向けUI改善） -->
 <section id="tooth-section" style="margin-top: 2rem;">
   <h3>基本情報</h3>
-  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; max-width: 600px; font-size: 18px;">
-    <label>氏名：<input type="text" id="name" style="width: 100%; font-size: 18px;"></label>
-    <label>ふりがな：<input type="text" id="furigana" style="width: 100%; font-size: 18px;"></label>
+  <div style="display: flex; flex-direction: column; gap: 1rem; max-width: 600px; font-size: 18px; border: 1px solid #ccc; padding: 1rem; border-radius: 8px; background-color: #f9f9f9;">
 
-    <label>性別：
-      <select id="gender" style="width: 100%; font-size: 18px;">
-        <option value="">選択してください</option>
-        <option value="男">男</option>
-        <option value="女">女</option>
-      </select>
-    </label>
+    <!-- 氏名とふりがな -->
+    <div style="display: flex; flex-direction: column; border: 1px solid #aaa; padding: 0.5rem; border-radius: 6px;">
+      <label>ふりがな：<input type="text" id="furigana" style="width: 100%; font-size: 18px;"></label>
+      <label>氏名：<input type="text" id="name" style="width: 100%; font-size: 18px;"></label>
+    </div>
 
-    <label>生年月日：<input type="date" id="birthday" style="width: 100%; font-size: 18px;"></label>
-    <label>年齢：<input type="number" id="age" style="width: 100%; font-size: 18px;" readonly></label>
+    <!-- 性別ラジオ -->
+    <div style="border: 1px solid #aaa; padding: 0.5rem; border-radius: 6px;">
+      性別：
+      <label><input type="radio" name="gender" value="男"> 男</label>
+      <label style="margin-left: 1rem;"><input type="radio" name="gender" value="女"> 女</label>
+    </div>
 
+    <!-- 生年月日と年齢 -->
+    <div style="border: 1px solid #aaa; padding: 0.5rem; border-radius: 6px;">
+      <label>生年月日：<input type="date" id="birthday" style="font-size: 18px;"></label>
+      <span style="margin-left: 1rem;">年齢：<span id="age">―</span>歳</span>
+    </div>
+
+    <!-- 以下はそのまま -->
     <label>要介護度：
       <select id="care-level" style="width: 100%; font-size: 18px;">
         <option value="">選択してください</option>
@@ -195,6 +202,7 @@
   </div>
 
   <hr style="margin: 2rem 0;">
+
 
   <h3>歯式（印付け）</h3>
   <div style="display: flex;">
@@ -255,9 +263,12 @@
       if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) {
         age--;
       }
-      document.getElementById("age").value = age;
+      document.getElementById("age").textContent = age;
+    } else {
+      document.getElementById("age").textContent = "―";
     }
   });
+
 
   document.getElementById("name").addEventListener("blur", function () {
     const name = this.value.trim();
