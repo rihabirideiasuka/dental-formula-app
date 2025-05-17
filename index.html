@@ -392,15 +392,15 @@ window.addEventListener("resize", positionPdFdButtons);
   <!-- 歯科受診 -->
   <p>
     現在の歯科受診（かかりつけ医）:<br>
-    <button onclick="selectButton(this, 'dentist-current')">あり</button>
-    <button onclick="selectButton(this, 'dentist-current')">なし</button>
+    <button onclick="selectButton(this, 'dentist-current')" style="padding: 1em 2em; font-size: 18px;">あり</button>
+    <button onclick="selectButton(this, 'dentist-current')" style="padding: 1em 2em; font-size: 18px;">なし</button>
   </p>
 
   <!-- 直近1年間の歯科受診 -->
   <p>
     直近1年間の歯科受診:<br>
-    <button onclick="selectButton(this, 'dentist-year', 'last-visit-date', true)">あり</button>
-    <button onclick="selectButton(this, 'dentist-year', 'last-visit-date', false)">なし</button>
+    <button onclick="selectButton(this, 'dentist-year', 'last-visit-date', true)" style="padding: 1em 2em; font-size: 18px;">あり</button>
+    <button onclick="selectButton(this, 'dentist-year', 'last-visit-date', false)" style="padding: 1em 2em; font-size: 18px;">なし</button>
     <div id="last-visit-date" style="display:none; margin-top: 0.5rem;">
       最終受診年月: <input type="month" id="last-visit-month">
     </div>
@@ -409,33 +409,33 @@ window.addEventListener("resize", positionPdFdButtons);
   <!-- 義歯の使用 -->
   <p>
     義歯の使用:<br>
-    <button onclick="selectButton(this, 'denture', 'denture-type', true)">あり</button>
-    <button onclick="selectButton(this, 'denture', 'denture-type', false)">なし</button>
+    <button id="dentures-yes" onclick="selectButton(this, 'denture', 'denture-type', true)" style="padding: 1em 2em; font-size: 18px;">あり</button>
+    <button id="dentures-no" onclick="selectButton(this, 'denture', 'denture-type', false)" style="padding: 1em 2em; font-size: 18px;">なし</button>
     <div id="denture-type" style="display:none; margin-top: 0.5rem;">
-      <button onclick="selectButton(this, 'denture-type')">部分</button>
-      <button onclick="selectButton(this, 'denture-type')">全部</button>
+      <button onclick="selectButton(this, 'denture-type')" style="padding: 1em 2em; font-size: 18px;">部分</button>
+      <button onclick="selectButton(this, 'denture-type')" style="padding: 1em 2em; font-size: 18px;">全部</button>
     </div>
   </p>
 
   <!-- 栄養補給法 -->
   <p>
     栄養補給法:<br>
-    <button onclick="selectButton(this, 'nutrition', 'nutrition-sub', true)">一部経口</button>
-    <button onclick="selectButton(this, 'nutrition', 'nutrition-sub', false)">経口のみ</button>
+    <button onclick="selectButton(this, 'nutrition', 'nutrition-sub', true)" style="padding: 1em 2em; font-size: 18px;">一部経口</button>
+    <button onclick="selectButton(this, 'nutrition', 'nutrition-sub', false)" style="padding: 1em 2em; font-size: 18px;">経口のみ</button>
     <div id="nutrition-sub" style="display:none; margin-top: 0.5rem;">
-      <button onclick="toggleSelection(this)">経腸栄養</button>
-      <button onclick="toggleSelection(this)">静脈栄養</button>
+      <button onclick="toggleSelection(this)" style="padding: 1em 2em; font-size: 18px;">経腸栄養</button>
+      <button onclick="toggleSelection(this)" style="padding: 1em 2em; font-size: 18px;">静脈栄養</button>
     </div>
   </p>
 
   <!-- 食事形態 -->
   <p>
     食事形態:<br>
-    <button onclick="selectButton(this, 'meal', 'meal-code', true)">嚥下調整食</button>
-    <button onclick="selectButton(this, 'meal', 'meal-code', false)">常食</button>
+    <button onclick="selectButton(this, 'meal', 'meal-code', true)" style="padding: 1em 2em; font-size: 18px;">嚥下調整食</button>
+    <button onclick="selectButton(this, 'meal', 'meal-code', false)" style="padding: 1em 2em; font-size: 18px;">常食</button>
     <div id="meal-code" style="display:none; margin-top: 0.5rem;">
       コード:
-      <select id="meal-code-select">
+      <select id="meal-code-select" style="padding: 1em; font-size: 18px;">
         <option value="4">4</option>
         <option value="3">3</option>
         <option value="2-2">2-2</option>
@@ -450,17 +450,17 @@ window.addEventListener("resize", positionPdFdButtons);
   <!-- 誤嚥性肺炎 -->
   <p>
     誤嚥性肺炎の発症・既往:<br>
-    <button onclick="selectButton(this, 'pneumonia', 'pneumonia-date', true)">あり</button>
-    <button onclick="selectButton(this, 'pneumonia', 'pneumonia-date', false)">なし</button>
+    <button onclick="selectButton(this, 'pneumonia', 'pneumonia-date', true)" style="padding: 1em 2em; font-size: 18px;">あり</button>
+    <button onclick="selectButton(this, 'pneumonia', 'pneumonia-date', false)" style="padding: 1em 2em; font-size: 18px;">なし</button>
     <div id="pneumonia-date" style="display:none; margin-top: 0.5rem;">
-      直近の発症年月: <input type="month" id="pneumonia-month">
+      直近の発症年月: <input type="month" id="pneumonia-month" style="font-size: 18px;">
     </div>
   </p>
 
   <!-- 特記事項 -->
   <p>
     その他特記事項:<br>
-    <input type="text" id="other-notes" style="width: 95%;">
+    <input type="text" id="other-notes" style="width: 95%; font-size: 18px; padding: 0.5em;">
   </p>
 </section>
 
@@ -475,11 +475,56 @@ window.addEventListener("resize", positionPdFdButtons);
 <script>
   function selectButton(btn, group, toggleId = null, show = null) {
     const buttons = document.querySelectorAll(`button[onclick*="'${group}'"]`);
-    buttons.forEach(b => b.classList.remove("selected"));
-    btn.classList.add("selected");
+    
+    // 義歯の使用（あり/なし）の場合
+    if (group === 'denture') {
+      const denturesYesButton = document.getElementById('dentures-yes');
+      const denturesNoButton = document.getElementById('dentures-no');
+      
+      // ありボタンが選択された場合、青色を維持
+      if (btn === denturesYesButton) {
+        denturesYesButton.classList.add("selected");
+        denturesNoButton.classList.remove("selected");
+        
+        // 部分または全部を選択した場合でもありは青を保持
+        const dentureTypeButtons = document.querySelectorAll('#denture-type button');
+        dentureTypeButtons.forEach(button => {
+          button.classList.remove("selected");
+        });
+        
+        document.getElementById('denture-type').style.display = 'block'; // 部分・全部を表示
+        
+      } 
+      // なしボタンが選択された場合
+      else if (btn === denturesNoButton) {
+        denturesNoButton.classList.add("selected");
+        denturesYesButton.classList.remove("selected");
+        
+        // 部分や全部が選ばれた場合でもなしを青にして他を白
+        const dentureTypeButtons = document.querySelectorAll('#denture-type button');
+        dentureTypeButtons.forEach(button => {
+          button.classList.remove("selected");
+        });
+        
+        document.getElementById('denture-type').style.display = 'none'; // 部分・全部を非表示
+      }
+    }
 
-    if (toggleId) {
-      document.getElementById(toggleId).style.display = show ? 'block' : 'none';
+    // 他のボタン（部分、全部）の場合
+    if (group === 'denture-type') {
+      const dentureTypeButtons = document.querySelectorAll('#denture-type button');
+      dentureTypeButtons.forEach(b => b.classList.remove("selected"));
+
+      btn.classList.add("selected");
+
+      // ありは青（選択状態）で維持
+      const denturesYesButton = document.getElementById('dentures-yes');
+      denturesYesButton.classList.add("selected");
+
+      // `toggleId`が指定されている場合は、その要素を表示・非表示
+      if (toggleId) {
+        document.getElementById(toggleId).style.display = show ? 'block' : 'none';
+      }
     }
   }
 
@@ -488,17 +533,31 @@ window.addEventListener("resize", positionPdFdButtons);
   }
 </script>
 
-
-
 <style>
 button.selected {
   background-color: #007BFF;
   color: white;
   font-weight: bold;
 }
+
+button {
+  padding: 1em 2em; /* ボタンのサイズを大きくして押しやすく */
+  font-size: 18px;  /* 文字のサイズを大きくして視認性を高める */
+  border-radius: 8px; /* 丸みのあるボタン */
+  cursor: pointer;  /* カーソルを指に変更してクリックしやすく */
+  margin: 0.5em 0; /* ボタン同士の間隔を広くして押しやすく */
+  transition: background-color 0.3s ease, transform 0.2s ease; /* ボタンの色とサイズをアニメーションで */
+}
+
+button:hover {
+  background-color: #0056b3; /* ホバー時に色が変わる */
+  transform: scale(1.05);  /* ホバー時に少し大きくなる */
+}
+
+button:active {
+  transform: scale(0.98); /* クリック時に少し縮む */
+}
 </style>
-
-
 
 <!-- 1 口腔の健康状態の評価・再評価 -->
 <section id="oral-health-section" style="margin-top: 2rem;">
