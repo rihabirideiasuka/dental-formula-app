@@ -157,6 +157,12 @@ button:active {
   margin: 0.3em;
 }
 
+/* CSS内に追加 */
+.large-input {
+  font-size: 18px;
+  width: 90%;
+  margin-top: 5px;
+}
 
   </style>
 
@@ -676,7 +682,7 @@ button:active {
     <button onclick="selectNote(this)">歯（う蝕、修復物脱離等）、義歯、歯周病、口腔粘膜の疾患の可能性</button>
     <button onclick="selectNote(this)">音声・言語機能に関する疾患の可能性</button>
     <button onclick="selectNote(this)">その他</button>
-    <input type="text" id="otherNote" placeholder="その他の内容を記入" style="display:none; width:90%; margin-top: 5px;">
+    <input type="text" id="otherNote" placeholder="その他の内容を記入" style="display:none; width:90%; margin-top: 5px; font-size: 18px;">
   </div>
 </section>
 
@@ -747,7 +753,7 @@ button:active {
     <div class="sub-goal">
       <button onclick="selectFollowup(this, 'oralHygieneInput')">維持</button>
       <button onclick="selectFollowup(this, 'oralHygieneInput', true)">改善</button>
-      <input type="text" id="oralHygieneInput" style="display:none; width:90%; margin-top:5px;">
+      <input type="text" id="oralHygieneInput" style="display:none; width:90%; margin-top:5px; font-size: 18px;">
     </div>
   </div>
 
@@ -756,7 +762,7 @@ button:active {
     <div class="sub-goal">
       <button onclick="selectFollowup(this, 'functionInput')">維持</button>
       <button onclick="selectFollowup(this, 'functionInput', true)">改善</button>
-      <input type="text" id="functionInput" style="display:none; width:90%; margin-top:5px;">
+      <input type="text" id="functionInput" style="display:none; width:90%; margin-top:5px; font-size: 18px;">
     </div>
   </div>
 
@@ -765,7 +771,7 @@ button:active {
     <div class="sub-goal">
       <button onclick="selectFollowup(this, 'dietInput')">維持</button>
       <button onclick="selectFollowup(this, 'dietInput', true)">改善</button>
-      <input type="text" id="dietInput" style="display:none; width:90%; margin-top:5px;">
+      <input type="text" id="dietInput" style="display:none; width:90%; margin-top:5px; font-size: 18px;">
     </div>
   </div>
 
@@ -774,7 +780,7 @@ button:active {
     <div class="sub-goal">
       <button onclick="selectFollowup(this, 'nutritionInput')">維持</button>
       <button onclick="selectFollowup(this, 'nutritionInput', true)">改善</button>
-      <input type="text" id="nutritionInput" style="display:none; width:90%; margin-top:5px;">
+      <input type="text" id="nutritionInput" style="display:none; width:90%; margin-top:5px; font-size: 18px;">
     </div>
   </div>
 
@@ -783,7 +789,7 @@ button:active {
     <div class="sub-goal">
       <button onclick="selectFollowup(this, 'speechInput')">維持</button>
       <button onclick="selectFollowup(this, 'speechInput', true)">改善</button>
-      <input type="text" id="speechInput" style="display:none; width:90%; margin-top:5px;">
+      <input type="text" id="speechInput" style="display:none; width:90%; margin-top:5px; font-size: 18px;">
     </div>
   </div>
 
@@ -793,7 +799,7 @@ button:active {
 
   <div id="planOther" class="goal-item" style="display:none;">
     <span class="choice-label"><strong>その他</strong></span><br>
-    <input type="text" style="width: 90%;">
+    <input type="text" style="width: 90%; font-size: 18px;">
   </div>
 
   <br><strong>実施内容</strong><br>
@@ -804,7 +810,7 @@ button:active {
     <button onclick="selectToggle(this)">音声・言語機能に関する指導</button>
     <button class="selected" onclick="selectToggle(this)">誤嚥性肺炎の予防に関する指導</button>
     <button class="selected" onclick="selectOtherImplementation(this)">その他</button>
-    <input type="text" id="other-implementation" value="集団口腔体操及び個別指導" style="display:inline; width:90%; margin-top: 5px;">
+    <input type="text" id="other-implementation" class="large-input" value="集団口腔体操及び個別指導">
   </div>
 </section>
 
@@ -915,7 +921,7 @@ button:active {
     <button onclick="selectToggle(this)">音声・言語機能に関する指導</button>
     <button class="selected" onclick="selectToggle(this)">誤嚥性肺炎の予防に関する指導</button>
     <button class="selected" onclick="selectOtherImplementation(this)">その他</button>
-    <input type="text" id="other-implementation" value="集団口腔体操及び個別指導" style="display:inline; width:90%; margin-top: 5px;">
+    <input type="text" id="other-implementation" class="large-input" value="集団口腔体操及び個別指導">
   </div>
 </section>
 
@@ -966,10 +972,10 @@ button:active {
       <thead>
         <tr>
           <th style="width: 80px;"></th>
-          <th style="width: 80px;">1回目</th>
-          <th style="width: 80px;">2回目</th>
-          <th style="width: 80px;">3回目</th>
-        </tr>
+          <th id="header1" style="width: 80px;">1回目</th>
+          <th id="header2" style="width: 80px;">2回目</th>
+          <th id="header3" style="width: 80px;">3回目</th>
+        </tr>        
       </thead>
       <tbody>
         <tr>
@@ -1279,48 +1285,66 @@ function clearBrLines() {
   document.getElementById("brStatus").textContent = "Br未選択";
 }
 
-  function recordRSST() {
-    let nextIndex = 0;
-    for (let i = 1; i <= 3; i++) {
-      if (document.getElementById(`rsst${i}`).textContent === '') {
-        nextIndex = i;
-        break;
-      }
-    }
+function recordRSST() {
+  const rsstArr = [1, 2, 3].map(i => document.getElementById(`rsst${i}`).textContent);
+  const paArr   = [1, 2, 3].map(i => document.getElementById(`pa${i}`).textContent);
+  const taArr   = [1, 2, 3].map(i => document.getElementById(`ta${i}`).textContent);
+  const kaArr   = [1, 2, 3].map(i => document.getElementById(`ka${i}`).textContent);
 
-    if (nextIndex === 0) {
-      if (confirm("すでに3回分記録されています。全て削除して新しく記録しますか？")) {
-        for (let i = 1; i <= 3; i++) {
-          document.getElementById(`rsst${i}`).textContent = '';
-          document.getElementById(`pa${i}`).textContent = '';
-          document.getElementById(`ta${i}`).textContent = '';
-          document.getElementById(`ka${i}`).textContent = '';
-        }
-        nextIndex = 1;
-      } else {
-        return;
-      }
-    }
+  const rsstInput = prompt("RSSTは何回ですか？（整数）");
+  if (rsstInput === null || isNaN(rsstInput)) return;
 
-    const rsst = prompt("RSSTは何回ですか？（整数）");
-    if (!rsst || isNaN(rsst)) return;
+  const paRaw = prompt("「パ」の回数は何回ですか？（整数）");
+  if (paRaw === null || isNaN(paRaw)) return;
+  const paValue = (parseInt(paRaw) / 10).toFixed(1);
 
-    const paRaw = prompt("「パ」の回数は何回ですか？（整数）");
-    const pa = (parseInt(paRaw) / 10).toFixed(1);
+  const taRaw = prompt("「タ」の回数は何回ですか？（整数）");
+  if (taRaw === null || isNaN(taRaw)) return;
+  const taValue = (parseInt(taRaw) / 10).toFixed(1);
 
-    const taRaw = prompt("「タ」の回数は何回ですか？（整数）");
-    const ta = (parseInt(taRaw) / 10).toFixed(1);
+  const kaRaw = prompt("「カ」の回数は何回ですか？（整数）");
+  if (kaRaw === null || isNaN(kaRaw)) return;
+  const kaValue = (parseInt(kaRaw) / 10).toFixed(1);
 
-    const kaRaw = prompt("「カ」の回数は何回ですか？（整数）");
-    const ka = (parseInt(kaRaw) / 10).toFixed(1);
+  const emptyIndex = rsstArr.findIndex(val => val === "");
+  if (emptyIndex !== -1) {
+    const i = emptyIndex + 1;
+    document.getElementById(`rsst${i}`).textContent = parseInt(rsstInput);
+    document.getElementById(`pa${i}`).textContent   = paValue;
+    document.getElementById(`ta${i}`).textContent   = taValue;
+    document.getElementById(`ka${i}`).textContent   = kaValue;
 
-    document.getElementById(`rsst${nextIndex}`).textContent = parseInt(rsst);
-    document.getElementById(`pa${nextIndex}`).textContent = pa;
-    document.getElementById(`ta${nextIndex}`).textContent = ta;
-    document.getElementById(`ka${nextIndex}`).textContent = ka;
+    // 見出し更新（1〜3回目）
+    updateTableHeaders(i);
+    return;
   }
 
+  // 4件目以降はスライド（最新3件）
+  const totalCount = parseInt(document.getElementById("header3").textContent) || 3;
+  const newRSST = [rsstArr[1], rsstArr[2], parseInt(rsstInput)];
+  const newPa   = [paArr[1], paArr[2], paValue];
+  const newTa   = [taArr[1], taArr[2], taValue];
+  const newKa   = [kaArr[1], kaArr[2], kaValue];
+
+  [1, 2, 3].forEach((i, idx) => {
+    document.getElementById(`rsst${i}`).textContent = newRSST[idx];
+    document.getElementById(`pa${i}`).textContent   = newPa[idx];
+    document.getElementById(`ta${i}`).textContent   = newTa[idx];
+    document.getElementById(`ka${i}`).textContent   = newKa[idx];
+  });
+
+  // 見出し更新（2〜4回目など）
+  updateTableHeaders(totalCount + 1);
+}
+
+function updateTableHeaders(latestIndex) {
+  const start = Math.max(1, latestIndex - 2);
+  document.getElementById("header1").textContent = `${start}回目`;
+  document.getElementById("header2").textContent = `${start + 1}回目`;
+  document.getElementById("header3").textContent = `${start + 2}回目`;
+}
 </script>
+
 <button onclick="submitData()">保存</button>
 <p id="saveStatus"></p>
 
