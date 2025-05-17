@@ -1284,74 +1284,131 @@ function clearBrLines() {
   selectedBrRanges.length = 0; // Brのデータも初期化
   document.getElementById("brStatus").textContent = "Br未選択";
 }
+</script>
+<!-- RSSTモーダル -->
+<div id="rsstModal" class="modal">
+  <div class="modal-content">
+    <h3>RSST・パ・タ・カ 記録入力</h3>
+    <label>RSST（回/30秒）<br><input type="number" id="rsstInput" style="font-size: 18px; width: 100%;" /></label><br><br>
+    <label>パ（回）<br><input type="number" id="paInput" style="font-size: 18px; width: 100%;" /></label><br><br>
+    <label>タ（回）<br><input type="number" id="taInput" style="font-size: 18px; width: 100%;" /></label><br><br>
+    <label>カ（回）<br><input type="number" id="kaInput" style="font-size: 18px; width: 100%;" /></label><br><br>
+    <button onclick="submitRSSTFromModal()">記録する</button>
+    <button onclick="closeRSSTModal()">キャンセル</button>
+  </div>
+</div>
 
-function recordRSST() {
-  const rsstArr = [1, 2, 3].map(i => document.getElementById(`rsst${i}`).textContent);
-  const paArr   = [1, 2, 3].map(i => document.getElementById(`pa${i}`).textContent);
-  const taArr   = [1, 2, 3].map(i => document.getElementById(`ta${i}`).textContent);
-  const kaArr   = [1, 2, 3].map(i => document.getElementById(`ka${i}`).textContent);
-
-  const rsstInput = prompt("RSSTは何回ですか？（整数）");
-  if (rsstInput === null || isNaN(rsstInput)) return;
-
-  const paRaw = prompt("「パ」の回数は何回ですか？（整数）");
-  if (paRaw === null || isNaN(paRaw)) return;
-  const paValue = (parseInt(paRaw) / 10).toFixed(1);
-
-  const taRaw = prompt("「タ」の回数は何回ですか？（整数）");
-  if (taRaw === null || isNaN(taRaw)) return;
-  const taValue = (parseInt(taRaw) / 10).toFixed(1);
-
-  const kaRaw = prompt("「カ」の回数は何回ですか？（整数）");
-  if (kaRaw === null || isNaN(kaRaw)) return;
-  const kaValue = (parseInt(kaRaw) / 10).toFixed(1);
-
-  const emptyIndex = rsstArr.findIndex(val => val === "");
-  if (emptyIndex !== -1) {
-    const i = emptyIndex + 1;
-    document.getElementById(`rsst${i}`).textContent = parseInt(rsstInput);
-    document.getElementById(`pa${i}`).textContent   = paValue;
-    document.getElementById(`ta${i}`).textContent   = taValue;
-    document.getElementById(`ka${i}`).textContent   = kaValue;
-
-    // 見出し更新（1〜3回目）
-    updateTableHeaders(i);
-    return;
+<!-- RSST用JS -->
+<script>
+  function recordRSST() {
+    document.getElementById("rsstModal").style.display = "flex";
+    setTimeout(() => {
+      document.getElementById("rsstInput").focus(); // 自動フォーカス
+    }, 100);
   }
 
-  // 4件目以降はスライド（最新3件）
-  const totalCount = parseInt(document.getElementById("header3").textContent) || 3;
-  const newRSST = [rsstArr[1], rsstArr[2], parseInt(rsstInput)];
-  const newPa   = [paArr[1], paArr[2], paValue];
-  const newTa   = [taArr[1], taArr[2], taValue];
-  const newKa   = [kaArr[1], kaArr[2], kaValue];
+  function submitRSSTFromModal() {
+    const rsstInput = document.getElementById("rsstInput").value;
+    const paRaw = document.getElementById("paInput").value;
+    const taRaw = document.getElementById("taInput").value;
+    const kaRaw = document.getElementById("kaInput").value;
 
-  [1, 2, 3].forEach((i, idx) => {
-    document.getElementById(`rsst${i}`).textContent = newRSST[idx];
-    document.getElementById(`pa${i}`).textContent   = newPa[idx];
-    document.getElementById(`ta${i}`).textContent   = newTa[idx];
-    document.getElementById(`ka${i}`).textContent   = newKa[idx];
-  });
+    if (!rsstInput || !paRaw || !taRaw || !kaRaw) {
+      alert("すべての項目を入力してください");
+      return;
+    }
 
-  // 見出し更新（2〜4回目など）
-  updateTableHeaders(totalCount + 1);
-}
+    const rsstArr = [1, 2, 3].map(i => document.getElementById(`rsst${i}`).textContent);
+    const paArr   = [1, 2, 3].map(i => document.getElementById(`pa${i}`).textContent);
+    const taArr   = [1, 2, 3].map(i => document.getElementById(`ta${i}`).textContent);
+    const kaArr   = [1, 2, 3].map(i => document.getElementById(`ka${i}`).textContent);
 
-function updateTableHeaders(latestIndex) {
-  const start = Math.max(1, latestIndex - 2);
-  document.getElementById("header1").textContent = `${start}回目`;
-  document.getElementById("header2").textContent = `${start + 1}回目`;
-  document.getElementById("header3").textContent = `${start + 2}回目`;
-}
+    const paValue = (parseInt(paRaw) / 10).toFixed(1);
+    const taValue = (parseInt(taRaw) / 10).toFixed(1);
+    const kaValue = (parseInt(kaRaw) / 10).toFixed(1);
+
+    const emptyIndex = rsstArr.findIndex(val => val === "");
+    if (emptyIndex !== -1) {
+      const i = emptyIndex + 1;
+      document.getElementById(`rsst${i}`).textContent = parseInt(rsstInput);
+      document.getElementById(`pa${i}`).textContent   = paValue;
+      document.getElementById(`ta${i}`).textContent   = taValue;
+      document.getElementById(`ka${i}`).textContent   = kaValue;
+      updateTableHeaders(i);
+    } else {
+      const totalCount = parseInt(document.getElementById("header3").textContent) || 3;
+      const newRSST = [rsstArr[1], rsstArr[2], parseInt(rsstInput)];
+      const newPa = [paArr[1], paArr[2], paValue];
+      const newTa = [taArr[1], taArr[2], taValue];
+      const newKa = [kaArr[1], kaArr[2], kaValue];
+
+      [1, 2, 3].forEach((i, idx) => {
+        document.getElementById(`rsst${i}`).textContent = newRSST[idx];
+        document.getElementById(`pa${i}`).textContent = newPa[idx];
+        document.getElementById(`ta${i}`).textContent = newTa[idx];
+        document.getElementById(`ka${i}`).textContent = newKa[idx];
+      });
+      updateTableHeaders(totalCount + 1);
+    }
+
+    closeRSSTModal();
+  }
+
+  function closeRSSTModal() {
+    document.getElementById("rsstModal").style.display = "none";
+    ["rsstInput", "paInput", "taInput", "kaInput"].forEach(id => {
+      document.getElementById(id).value = "";
+    });
+  }
+
+  function updateTableHeaders(latestIndex) {
+    const start = Math.max(1, latestIndex - 2);
+    document.getElementById("header1").textContent = `${start}回目`;
+    document.getElementById("header2").textContent = `${start + 1}回目`;
+    document.getElementById("header3").textContent = `${start + 2}回目`;
+  }
 </script>
 
+<!-- RSSTモーダルCSS -->
+<style>
+  #rsstModal {
+    display: none;
+    position: fixed;
+    background: rgba(0,0,0,0.6);
+    top: 0; left: 0; right: 0; bottom: 0;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+
+  #rsstModal .modal-content {
+    background: white;
+    padding: 1rem;
+    border-radius: 8px;
+    width: 300px;
+  }
+
+  #rsstModal .modal-content input {
+    width: 100%;
+    padding: 6px;
+    font-size: 18px;
+  }
+
+  #rsstModal .modal-content button {
+    margin-top: 1rem;
+    padding: 10px 20px;
+    font-size: 16px;
+  }
+</style>
+
+<!-- 保存ボタン（既存のまま） -->
 <button onclick="submitData()">保存</button>
 <p id="saveStatus"></p>
 
 <button onclick="submitData()">保存</button>
 <p id="saveStatus"></p>
 
-<!-- ← ここに追加します -->
+<!-- センターディバイダー調整（そのまま） -->
 <script>
   function updateCenterDivider() {
     const upper = document.getElementById("upperJaw");
@@ -1361,16 +1418,15 @@ function updateTableHeaders(latestIndex) {
     if (upper && lower && divider) {
       const upperTop = upper.offsetTop;
       const lowerBottom = lower.offsetTop + lower.offsetHeight;
-
       const height = lowerBottom - upperTop;
-
       divider.style.top = upperTop + "px";
       divider.style.height = height + "px";
-
     }
   }
   window.addEventListener("resize", updateCenterDivider);
 </script>
 
 </body>
+
+
 </html>
