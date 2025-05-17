@@ -240,11 +240,18 @@
 
 
 
+<!-- 【1】歯式セクション + 基本情報入力（iPad向けUI改善） -->
+<section id="tooth-section" style="margin-top: 2rem;">
   <h3>歯式（印付け）</h3>
   <div style="display: flex;">
     <div style="display: flex; flex-direction: column; align-items: flex-start; margin-right: 1rem; font-size: 16px;">
-      <button onclick="toggleBrMode()">Br作成</button>
-      <button onclick="clearBrLines()">Br消去</button>
+
+      <!-- ✅ Br作成・消去ボタンを横並び＋大きく -->
+      <div style="display: flex; gap: 1rem; margin-bottom: 1rem;">
+        <button onclick="toggleBrMode()" style="padding: 0.75em 1.5em; font-size: 1.1em;">Br作成</button>
+        <button onclick="clearBrLines()" style="padding: 0.75em 1.5em; font-size: 1.1em;">Br消去</button>
+      </div>
+
       <div id="brStatus" style="width: 200px; min-height: 2em; line-height: 1.4; white-space: pre-wrap;">
         Br未選択
       </div>
@@ -260,9 +267,13 @@
     <div style="position: relative; flex-grow: 1;">
       <div id="br-lines" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none;"></div>
 
-      <div class="tooth-grid" id="upperJaw"></div><!-- ✅ 歯番号表示はここ -->
+      <div class="tooth-grid" id="upperJaw" style="position: relative;"></div>
+      <div id="upper-toggle-wrapper" style="position: absolute;"></div>
+
       <div class="center-divider" style="height: calc(100% + 120px);"></div>
-      <div class="tooth-grid" id="lowerJaw"></div>
+
+      <div class="tooth-grid" id="lowerJaw" style="position: relative;"></div>
+      <div id="lower-toggle-wrapper" style="position: absolute;"></div>
     </div>
   </div>
 
@@ -288,6 +299,46 @@
     </div>
   </div>
 </section>
+
+<script>
+function cyclePdFd(btn) {
+  const states = ["", "PD", "FD"];
+  const current = btn.textContent.trim();
+  const nextIndex = (states.indexOf(current) + 1) % states.length;
+  btn.textContent = states[nextIndex];
+}
+
+function positionPdFdButtons() {
+  const upper8 = [...document.querySelectorAll("#upperJaw .tooth")].find(t => t.dataset.id === "8" && t.dataset.position === "right");
+  const lower8 = [...document.querySelectorAll("#lowerJaw .tooth")].find(t => t.dataset.id === "8" && t.dataset.position === "right");
+
+  const upperWrapper = document.getElementById("upper-toggle-wrapper");
+  const lowerWrapper = document.getElementById("lower-toggle-wrapper");
+
+  // 上顎の8番歯の右横にボタンを配置
+  if (upper8) {
+    const rect = upper8.getBoundingClientRect();
+    const gridOffset = document.getElementById("upperJaw").getBoundingClientRect();
+    upperWrapper.style.left = `${rect.right - gridOffset.left + 2 * rect.width + 5}px`;  // 歯の右2本分右に配置
+    upperWrapper.style.top = `${rect.top - gridOffset.top}px`;
+    upperWrapper.innerHTML = `<button onclick="cyclePdFd(this)" style="padding: 6px 10px; font-size: 14px;">　</button>`;
+  }
+
+  // 下顎の8番歯の右横にボタンを配置（少し下に調整）
+  if (lower8) {
+    const rect = lower8.getBoundingClientRect();
+    const gridOffset = document.getElementById("lowerJaw").getBoundingClientRect();
+    lowerWrapper.style.left = `${rect.right - gridOffset.left + 2 * rect.width + 5}px`;  // 歯の右2本分右に配置
+    lowerWrapper.style.top = `${rect.top - gridOffset.top + 85}px`; // PD/FDの位置をここで少し下に調整（85px）
+    lowerWrapper.innerHTML = `<button onclick="cyclePdFd(this)" style="padding: 6px 10px; font-size: 14px;">　</button>`;
+  }
+}
+
+window.addEventListener("load", positionPdFdButtons);
+window.addEventListener("resize", positionPdFdButtons);
+</script>
+
+
 
 <script>
   document.getElementById("birthday").addEventListener("change", function () {
