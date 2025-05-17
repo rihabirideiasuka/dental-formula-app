@@ -48,7 +48,6 @@
       line-height: 1;
     }
 
-
     .label-top, .label-bottom { /* ← 補助ラベルのフォント */
       font-size: 1.1em;
       font-weight: bold;
@@ -96,7 +95,7 @@
     .center-divider {
       position: absolute;
       top: 0;
-      bottom: 0;
+      /* height: 88px; /* ✅ 修正: 上顎＋下顎に対応する高さ この高さをBrボタン群に合わせて調整する */
       width: 2px;
       background-color: black;
       left: 431px; /* ← 80px（margin-left）+ 352px */
@@ -137,23 +136,23 @@
 <!-- 【1】歯式セクション + 基本情報入力（iPad向けUI改善） -->
 <section id="tooth-section" style="margin-top: 2rem;">
   <h3>基本情報</h3>
-  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; max-width: 600px;">
-    <label>氏名：<input type="text" id="name" style="width: 100%;"></label>
-    <label>ふりがな：<input type="text" id="furigana" style="width: 100%;"></label>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; max-width: 600px; font-size: 18px;">
+    <label>氏名：<input type="text" id="name" style="width: 100%; font-size: 18px;"></label>
+    <label>ふりがな：<input type="text" id="furigana" style="width: 100%; font-size: 18px;"></label>
 
     <label>性別：
-      <select id="gender" style="width: 100%;">
+      <select id="gender" style="width: 100%; font-size: 18px;">
         <option value="">選択してください</option>
         <option value="男">男</option>
         <option value="女">女</option>
       </select>
     </label>
 
-    <label>生年月日：<input type="date" id="birthday" style="width: 100%;"></label>
-    <label>年齢：<input type="number" id="age" style="width: 100%;" readonly></label>
+    <label>生年月日：<input type="date" id="birthday" style="width: 100%; font-size: 18px;"></label>
+    <label>年齢：<input type="number" id="age" style="width: 100%; font-size: 18px;" readonly></label>
 
     <label>要介護度：
-      <select id="care-level" style="width: 100%;">
+      <select id="care-level" style="width: 100%; font-size: 18px;">
         <option value="">選択してください</option>
         <option>支援1</option>
         <option>支援2</option>
@@ -166,7 +165,7 @@
     </label>
 
     <label>障害高齢者の日常生活自立度：
-      <select id="adl-disability" style="width: 100%;">
+      <select id="adl-disability" style="width: 100%; font-size: 18px;">
         <option value="">選択してください</option>
         <option>自立</option>
         <option>J1</option>
@@ -181,7 +180,7 @@
     </label>
 
     <label>認知症高齢者の日常生活自立度：
-      <select id="adl-dementia" style="width: 100%;">
+      <select id="adl-dementia" style="width: 100%; font-size: 18px;">
         <option value="">選択してください</option>
         <option>自立</option>
         <option>Ⅰ</option>
@@ -198,17 +197,29 @@
   <hr style="margin: 2rem 0;">
 
   <h3>歯式（印付け）</h3>
-  <div style="margin-bottom: 0.5rem;">
-    <button onclick="toggleBrMode()">Br作成</button>
-    <button onclick="clearBrLines()">Br消去</button>
-    <span id="brStatus">Br未選択</span>
-  </div>
+  <div style="display: flex;">
+    <div style="display: flex; flex-direction: column; align-items: flex-start; margin-right: 1rem; font-size: 16px;">
+      <button onclick="toggleBrMode()">Br作成</button>
+      <button onclick="clearBrLines()">Br消去</button>
+      <div id="brStatus" style="width: 200px; min-height: 2em; line-height: 1.4; white-space: pre-wrap;">
+        Br未選択
+      </div>
+      <div style="margin-top: 1rem;">
+        <div>健全歯：／</div>
+        <div>処置歯：○</div>
+        <div>欠損歯：×</div>
+        <div>う蝕：C</div>
+        <div>ｲﾝﾌﾟﾗﾝﾄ：IMPL</div>
+      </div>
+    </div>
 
-  <div style="position: relative;">
-    <div id="br-lines" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none;"></div>
-    <div class="tooth-grid" id="upperJaw"></div>
-    <div class="center-divider"></div>
-    <div class="tooth-grid" id="lowerJaw"></div>
+    <div style="position: relative; flex-grow: 1;">
+      <div id="br-lines" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none;"></div>
+
+      <div class="tooth-grid" id="upperJaw"></div><!-- ✅ 歯番号表示はここ -->
+      <div class="center-divider" style="height: calc(100% + 120px);"></div>
+      <div class="tooth-grid" id="lowerJaw"></div>
+    </div>
   </div>
 
   <!-- モーダル（歯の状態・補助ラベル） -->
@@ -228,10 +239,49 @@
       <button onclick="setLabel('残根')">残根</button>
       <button onclick="setLabel('C')">C</button>
       <button onclick="setLabel('C4')">C4</button>
+      <button onclick="setLabel('IMPL')">IMPL</button>
       <button onclick="setLabel('')">ラベル消去</button>
     </div>
   </div>
 </section>
+
+<script>
+  document.getElementById("birthday").addEventListener("change", function () {
+    const birth = new Date(this.value);
+    if (!isNaN(birth)) {
+      const today = new Date();
+      let age = today.getFullYear() - birth.getFullYear();
+      const m = today.getMonth() - birth.getMonth();
+      if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) {
+        age--;
+      }
+      document.getElementById("age").value = age;
+    }
+  });
+
+  document.getElementById("name").addEventListener("blur", function () {
+    const name = this.value.trim();
+    if (!name) return;
+
+    fetch("https://labs.goo.ne.jp/api/hiragana", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        app_id: "dummy", // ← 必ず本物のAPIキーに置き換えてください
+        sentence: name,
+        output_type: "hiragana"
+      })
+    })
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById("furigana").value = data.converted || "";
+      })
+      .catch(() => {
+        console.warn("ふりがな自動変換に失敗しました");
+      });
+  });
+</script>
+
 
 
 
@@ -913,7 +963,7 @@ button.selected {
         alert("同じ顎の歯を選択してください");
         brStart = null;
         brEnd = null;
-        status.textContent = "Brモード ON：何番から？";
+        status.innerHTML = `Brモード ON\n何番から？`; // 改行して表示幅を保つ
         return;
       }
 
@@ -930,7 +980,7 @@ button.selected {
       }
 
       const jawLabel = brStart.dataset.jaw === "upper" ? "上" : "下";
-      status.textContent = `Br選択完了（${jawLabel}）：${brStart.dataset.id}〜${brEnd.dataset.id}`;
+      status.innerHTML = `Br選択完了<br>（${jawLabel}）：${brStart.dataset.id}〜${brEnd.dataset.id}`;
 
       brMode = false;
       brStart = null;
@@ -1105,5 +1155,30 @@ function clearBrLines() {
 </script>
 <button onclick="submitData()">保存</button>
 <p id="saveStatus"></p>
+
+<button onclick="submitData()">保存</button>
+<p id="saveStatus"></p>
+
+<!-- ← ここに追加します -->
+<script>
+  function updateCenterDivider() {
+    const upper = document.getElementById("upperJaw");
+    const lower = document.getElementById("lowerJaw");
+    const divider = document.querySelector(".center-divider");
+
+    if (upper && lower && divider) {
+      const upperTop = upper.offsetTop;
+      const lowerBottom = lower.offsetTop + lower.offsetHeight;
+
+      const height = lowerBottom - upperTop;
+
+      divider.style.top = upperTop + "px";
+      divider.style.height = height + "px";
+
+    }
+  }
+  window.addEventListener("resize", updateCenterDivider);
+</script>
+
 </body>
 </html>
