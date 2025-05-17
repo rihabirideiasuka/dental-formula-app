@@ -1425,7 +1425,27 @@ function clearBrLines() {
   }
   window.addEventListener("resize", updateCenterDivider);
 </script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const fields = ["rsstInput", "paInput", "taInput", "kaInput"];
 
+  fields.forEach((id, index) => {
+    const input = document.getElementById(id);
+    input.addEventListener("keydown", function (e) {
+      if (e.key === "Enter" || e.key === "Tab") {
+        e.preventDefault();
+        const nextId = fields[index + 1];
+        if (nextId) {
+          document.getElementById(nextId).focus();
+        } else {
+          // 最後（kaInput）なら記録処理を実行
+          submitRSSTFromModal();
+        }
+      }
+    });
+  });
+});
+</script>
 </body>
 
 
