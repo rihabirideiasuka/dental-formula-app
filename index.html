@@ -134,74 +134,110 @@
 </head>
 <body onload="updateCenterDivider()">
 <!-- 【1】歯式セクション + 基本情報入力（iPad向けUI改善） -->
+<!-- 基本情報セクション（整ったフォーム表示） -->
 <section id="tooth-section" style="margin-top: 2rem;">
   <h3>基本情報</h3>
-  <div style="display: flex; flex-direction: column; gap: 1rem; max-width: 600px; font-size: 18px; border: 1px solid #ccc; padding: 1rem; border-radius: 8px; background-color: #f9f9f9;">
 
-    <!-- 氏名とふりがな -->
-    <div style="display: flex; flex-direction: column; border: 1px solid #aaa; padding: 0.5rem; border-radius: 6px;">
-      <label>ふりがな：<input type="text" id="furigana" style="width: 100%; font-size: 18px;"></label>
-      <label>氏名：<input type="text" id="name" style="width: 100%; font-size: 18px;"></label>
+  <div style="max-width: 500px; margin: auto; font-size: 16px; display: flex; flex-direction: column; gap: 1rem;">
+
+    <!-- 氏名・ふりがな -->
+    <div style="border: 1px solid #aaa; border-radius: 6px; padding: 1rem;">
+      <label style="display: block; margin-bottom: 0.5em;">ふりがな：
+        <input type="text" id="furigana" style="width: 100%; font-size: 16px;">
+      </label>
+      <label style="display: block;">氏名：
+        <input type="text" id="name" style="width: 100%; font-size: 16px; height: 2.5em;">
+      </label>
     </div>
 
-    <!-- 性別ラジオ -->
-    <div style="border: 1px solid #aaa; padding: 0.5rem; border-radius: 6px;">
-      性別：
+    <!-- 性別 -->
+    <div style="border: 1px solid #aaa; border-radius: 6px; padding: 1rem;">
+      <div>性別：</div>
       <label><input type="radio" name="gender" value="男"> 男</label>
-      <label style="margin-left: 1rem;"><input type="radio" name="gender" value="女"> 女</label>
+      <label style="margin-left: 1em;"><input type="radio" name="gender" value="女"> 女</label>
     </div>
 
     <!-- 生年月日と年齢 -->
-    <div style="border: 1px solid #aaa; padding: 0.5rem; border-radius: 6px;">
-      <label>生年月日：<input type="date" id="birthday" style="font-size: 18px;"></label>
-      <span style="margin-left: 1rem;">年齢：<span id="age">―</span>歳</span>
+    <div class="birth-age-group" style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+      <label style="font-size: 18px;">
+        生年月日：
+        <input type="date" id="birthday" style="width: 100%; font-size: 18px; padding: 10px; height: 44px; box-sizing: border-box;">
+      </label>
+
+      <label style="font-size: 18px;">
+        年齢：
+        <span id="age-display" style="
+          display: inline-block;
+          width: 100%;
+          font-size: 18px;
+          height: 44px;
+          line-height: 44px;
+          padding: 0 10px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+          box-sizing: border-box;
+          background-color: white;
+        ">-- 歳</span>
+      </label>
     </div>
 
-    <!-- 以下はそのまま -->
-    <label>要介護度：
-      <select id="care-level" style="width: 100%; font-size: 18px;">
-        <option value="">選択してください</option>
-        <option>支援1</option>
-        <option>支援2</option>
-        <option>介護1</option>
-        <option>介護2</option>
-        <option>介護3</option>
-        <option>介護4</option>
-        <option>介護5</option>
-      </select>
-    </label>
 
-    <label>障害高齢者の日常生活自立度：
-      <select id="adl-disability" style="width: 100%; font-size: 18px;">
-        <option value="">選択してください</option>
-        <option>自立</option>
-        <option>J1</option>
-        <option>J2</option>
-        <option>A1</option>
-        <option>A2</option>
-        <option>B1</option>
-        <option>B2</option>
-        <option>C1</option>
-        <option>C2</option>
-      </select>
-    </label>
+    <!-- 要介護度 -->
+    <div style="border: 1px solid #aaa; border-radius: 6px; padding: 1rem;">
+      <label style="display: block;">要介護度：
+        <select id="care-level" style="width: 100%; font-size: 16px;">
+          <option value="">選択してください</option>
+          <option>支援1</option>
+          <option>支援2</option>
+          <option>介護1</option>
+          <option>介護2</option>
+          <option>介護3</option>
+          <option>介護4</option>
+          <option>介護5</option>
+        </select>
+      </label>
+    </div>
 
-    <label>認知症高齢者の日常生活自立度：
-      <select id="adl-dementia" style="width: 100%; font-size: 18px;">
-        <option value="">選択してください</option>
-        <option>自立</option>
-        <option>Ⅰ</option>
-        <option>Ⅱa</option>
-        <option>Ⅱb</option>
-        <option>Ⅲa</option>
-        <option>Ⅲb</option>
-        <option>Ⅳ</option>
-        <option>M</option>
-      </select>
-    </label>
+    <!-- 障害高齢者の自立度 -->
+    <div style="border: 1px solid #aaa; border-radius: 6px; padding: 1rem;">
+      <label style="display: block;">障害高齢者の日常生活自立度：
+        <select id="adl-disability" style="width: 100%; font-size: 16px;">
+          <option value="">選択してください</option>
+          <option>自立</option>
+          <option>J1</option>
+          <option>J2</option>
+          <option>A1</option>
+          <option>A2</option>
+          <option>B1</option>
+          <option>B2</option>
+          <option>C1</option>
+          <option>C2</option>
+        </select>
+      </label>
+    </div>
+
+    <!-- 認知症高齢者の自立度 -->
+    <div style="border: 1px solid #aaa; border-radius: 6px; padding: 1rem;">
+      <label style="display: block;">認知症高齢者の日常生活自立度：
+        <select id="adl-dementia" style="width: 100%; font-size: 16px;">
+          <option value="">選択してください</option>
+          <option>自立</option>
+          <option>Ⅰ</option>
+          <option>Ⅱa</option>
+          <option>Ⅱb</option>
+          <option>Ⅲa</option>
+          <option>Ⅲb</option>
+          <option>Ⅳ</option>
+          <option>M</option>
+        </select>
+      </label>
+    </div>
   </div>
+</section>
 
-  <hr style="margin: 2rem 0;">
+
+  <hr style="margin: 2rem 0; border-top: 2px dashed #ccc;">
+
 
 
   <h3>歯式（印付け）</h3>
@@ -256,6 +292,8 @@
 <script>
   document.getElementById("birthday").addEventListener("change", function () {
     const birth = new Date(this.value);
+    const ageSpan = document.getElementById("age-display");
+
     if (!isNaN(birth)) {
       const today = new Date();
       let age = today.getFullYear() - birth.getFullYear();
@@ -263,12 +301,11 @@
       if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) {
         age--;
       }
-      document.getElementById("age").textContent = age;
+      ageSpan.textContent = `${age} 歳`;
     } else {
-      document.getElementById("age").textContent = "―";
+      ageSpan.textContent = "-- 歳";
     }
   });
-
 
   document.getElementById("name").addEventListener("blur", function () {
     const name = this.value.trim();
