@@ -110,24 +110,53 @@
       margin-top: 0.5em;
       font-weight: bold;
     }
-    .choice-group button {
-      margin: 2px;
-      padding: 0.5em 1em;
-      border: 1px solid #aaa;
-      border-radius: 6px;
-      background: #f9f9f9;
-      cursor: pointer;
-    }
-    .choice-group button.selected {
-      background-color: #4CAF50;
-      color: white;
-      border-color: #4CAF50;
-    }
-    button.selected {
-      background-color: #007BFF;
-      color: white;
-      font-weight: bold;
-    }
+/* 共通ボタンスタイル */
+button {
+  padding: 1em 2em;
+  font-size: 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin: 0.5em 0.5em 0.5em 0;
+  border: 1px solid #ccc;
+  background-color: white;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* 選択されたボタン */
+button.selected,
+.choice-group button.selected {
+  background-color: #007BFF;
+  color: white;
+  font-weight: bold;
+  border-color: #007BFF;
+}
+
+/* ホバー時の効果 */
+button:hover {
+  background-color: #0056b3;
+  color: white;
+  transform: scale(1.05);
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+/* ラベル類・その他 */
+.choice-label {
+  display: block;
+  margin-top: 0.5em;
+  font-weight: bold;
+}
+
+.choice-group {
+  margin-bottom: 1em;
+}
+
+.choice-group button {
+  margin: 0.3em;
+}
+
 
   </style>
 
@@ -402,19 +431,16 @@ window.addEventListener("resize", positionPdFdButtons);
     <button onclick="selectButton(this, 'dentist-year', 'last-visit-date', true)" style="padding: 1em 2em; font-size: 18px;">あり</button>
     <button onclick="selectButton(this, 'dentist-year', 'last-visit-date', false)" style="padding: 1em 2em; font-size: 18px;">なし</button>
     <div id="last-visit-date" style="display:none; margin-top: 0.5rem;">
-      最終受診年月: <input type="month" id="last-visit-month">
+      最終受診年月: <input type="month" id="last-visit-month" style="font-size: 18px;">
     </div>
   </p>
 
-  <!-- 義歯の使用 -->
+  <!-- 義歯の使用（部分・全部・なし） -->
   <p>
     義歯の使用:<br>
-    <button id="dentures-yes" onclick="selectButton(this, 'denture', 'denture-type', true)" style="padding: 1em 2em; font-size: 18px;">あり</button>
-    <button id="dentures-no" onclick="selectButton(this, 'denture', 'denture-type', false)" style="padding: 1em 2em; font-size: 18px;">なし</button>
-    <div id="denture-type" style="display:none; margin-top: 0.5rem;">
-      <button onclick="selectButton(this, 'denture-type')" style="padding: 1em 2em; font-size: 18px;">部分</button>
-      <button onclick="selectButton(this, 'denture-type')" style="padding: 1em 2em; font-size: 18px;">全部</button>
-    </div>
+    <button id="dentures-partial" onclick="selectDentureType(this, 'partial')" style="padding: 1em 2em; font-size: 18px;">部分</button>
+    <button id="dentures-full" onclick="selectDentureType(this, 'full')" style="padding: 1em 2em; font-size: 18px;">全部</button>
+    <button id="dentures-none" onclick="selectDentureType(this, 'none')" style="padding: 1em 2em; font-size: 18px;">なし</button>
   </p>
 
   <!-- 栄養補給法 -->
@@ -464,6 +490,7 @@ window.addEventListener("resize", positionPdFdButtons);
   </p>
 </section>
 
+<!-- スタイル -->
 <style>
   button.selected {
     background-color: #007BFF;
@@ -472,74 +499,50 @@ window.addEventListener("resize", positionPdFdButtons);
   }
 </style>
 
+<!-- スクリプト -->
 <script>
+  // 通常の単独選択ボタン処理
   function selectButton(btn, group, toggleId = null, show = null) {
     const buttons = document.querySelectorAll(`button[onclick*="'${group}'"]`);
-    
-    // 義歯の使用（あり/なし）の場合
-    if (group === 'denture') {
-      const denturesYesButton = document.getElementById('dentures-yes');
-      const denturesNoButton = document.getElementById('dentures-no');
-      
-      // ありボタンが選択された場合、青色を維持
-      if (btn === denturesYesButton) {
-        denturesYesButton.classList.add("selected");
-        denturesNoButton.classList.remove("selected");
-        
-        // 部分または全部を選択した場合でもありは青を保持
-        const dentureTypeButtons = document.querySelectorAll('#denture-type button');
-        dentureTypeButtons.forEach(button => {
-          button.classList.remove("selected");
-        });
-        
-        document.getElementById('denture-type').style.display = 'block'; // 部分・全部を表示
-        
-      } 
-      // なしボタンが選択された場合
-      else if (btn === denturesNoButton) {
-        denturesNoButton.classList.add("selected");
-        denturesYesButton.classList.remove("selected");
-        
-        // 部分や全部が選ばれた場合でもなしを青にして他を白
-        const dentureTypeButtons = document.querySelectorAll('#denture-type button');
-        dentureTypeButtons.forEach(button => {
-          button.classList.remove("selected");
-        });
-        
-        document.getElementById('denture-type').style.display = 'none'; // 部分・全部を非表示
-      }
-    }
+    buttons.forEach(b => b.classList.remove("selected"));
+    btn.classList.add("selected");
 
-    // 他のボタン（部分、全部）の場合
-    if (group === 'denture-type') {
-      const dentureTypeButtons = document.querySelectorAll('#denture-type button');
-      dentureTypeButtons.forEach(b => b.classList.remove("selected"));
-
-      btn.classList.add("selected");
-
-      // ありは青（選択状態）で維持
-      const denturesYesButton = document.getElementById('dentures-yes');
-      denturesYesButton.classList.add("selected");
-
-      // `toggleId`が指定されている場合は、その要素を表示・非表示
-      if (toggleId) {
-        document.getElementById(toggleId).style.display = show ? 'block' : 'none';
-      }
+    if (toggleId) {
+      document.getElementById(toggleId).style.display = show ? 'block' : 'none';
     }
   }
 
+  // 義歯の使用 専用処理（partial / full / none）
+  function selectDentureType(btn, type) {
+    const buttons = {
+      partial: document.getElementById('dentures-partial'),
+      full: document.getElementById('dentures-full'),
+      none: document.getElementById('dentures-none')
+    };
+
+    // すべてのボタンの選択解除
+    Object.values(buttons).forEach(b => b.classList.remove('selected'));
+
+    if (type === 'partial' || type === 'full') {
+      btn.classList.add('selected');
+      // 内部的に「あり」として扱いたい場合など、状態を保存してもよい
+      console.log("義歯使用: あり（" + type + "）");
+    } else if (type === 'none') {
+      btn.classList.add('selected');
+      console.log("義歯使用: なし");
+    }
+  }
+
+  // 栄養補給法サブボタンの複数選択処理
   function toggleSelection(btn) {
     btn.classList.toggle("selected");
   }
 </script>
 
-<style>
-button.selected {
-  background-color: #007BFF;
-  color: white;
-  font-weight: bold;
-}
 
+
+
+<style>
 button {
   padding: 1em 2em; /* ボタンのサイズを大きくして押しやすく */
   font-size: 18px;  /* 文字のサイズを大きくして視認性を高める */
@@ -547,6 +550,12 @@ button {
   cursor: pointer;  /* カーソルを指に変更してクリックしやすく */
   margin: 0.5em 0; /* ボタン同士の間隔を広くして押しやすく */
   transition: background-color 0.3s ease, transform 0.2s ease; /* ボタンの色とサイズをアニメーションで */
+}
+
+button.selected {
+  background-color: #007BFF;
+  color: white;
+  font-weight: bold;
 }
 
 button:hover {
@@ -558,6 +567,7 @@ button:active {
   transform: scale(0.98); /* クリック時に少し縮む */
 }
 </style>
+
 
 <!-- 1 口腔の健康状態の評価・再評価 -->
 <section id="oral-health-section" style="margin-top: 2rem;">
