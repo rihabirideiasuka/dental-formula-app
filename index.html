@@ -324,7 +324,6 @@ button:active {
       <button onclick="setLabel('Cr')">Cr</button>
       <button onclick="setLabel('In')">In</button>
       <button onclick="setLabel('Fck')">Fck</button>
-      <button onclick="setLabel('IMPL')">IMPL</button>
       <button onclick="setLabel('死根')">死根</button>
       <button onclick="setLabel('残根')">残根</button>
       <button onclick="setLabel('C')">C</button>
@@ -872,14 +871,21 @@ button:active {
   }
 
   // 「特記事項」用選択
-  function selectNote(btn) {
-    const parent = btn.parentElement;
-    Array.from(parent.querySelectorAll("button")).forEach(b => b.classList.remove("selected"));
-    btn.classList.add("selected");
+  function selectNote(button) {
+    // 選択状態をトグル（on/off）
+    button.classList.toggle("selected");
 
-    const isOther = btn.textContent.includes("その他");
-    document.getElementById("otherNote").style.display = isOther ? "inline" : "none";
+    // 「その他」ボタンが押された場合のみ、テキスト入力を表示・非表示
+    if (button.textContent === "その他") {
+      const input = document.getElementById("otherNote");
+      if (button.classList.contains("selected")) {
+        input.style.display = "block";
+      } else {
+        input.style.display = "none";
+      }
+    }
   }
+
 
   // 実施内容「その他」選択時に記述欄表示
   // 実施内容「その他」も複数選択可能にし、入力欄だけ表示
