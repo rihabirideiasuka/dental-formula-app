@@ -110,123 +110,89 @@
       margin-top: 0.5em;
       font-weight: bold;
     }
-/* 共通ボタンスタイル */
-button {
+/* ------------------------------------ */
+/* 共通ボタンスタイル（全ボタンに適用） */
+/* ------------------------------------ */
+button, .btn {
   padding: 1em 2em;
   font-size: 18px;
   border-radius: 8px;
   cursor: pointer;
-  margin: 0.5em 0.5em 0.5em 0;
+  margin: 0.5em;
   border: 1px solid #ccc;
   background-color: white;
   transition: background-color 0.3s ease, transform 0.2s ease;
+  min-width: 120px;
+  text-align: center;
+  box-sizing: border-box;
+  display: inline-block;
 }
 
-/* 選択されたボタン */
-button.selected,
-.choice-group button.selected {
+/* ホバー時（PC用） */
+button:hover, .btn:hover {
+  background-color: #0056b3;
+  color: white;
+  transform: scale(1.05);
+}
+
+/* タップ時（スマホ用） */
+button:active, .btn:active {
+  transform: scale(0.98);
+}
+
+/* 選択状態 */
+button.selected, .btn.selected {
   background-color: #007BFF;
   color: white;
   font-weight: bold;
   border-color: #007BFF;
 }
 
-/* ホバー時の効果 */
-button:hover {
+/* ------------------------------------ */
+/* モーダル内ボタンにも適用（継承）     */
+/* ------------------------------------ */
+.modal-content button {
+  font-size: 18px;
+  padding: 1em 2em;
+  margin: 0.5em;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background-color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  min-width: 120px;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+/* モーダル内 hover/active 効果も反映 */
+.modal-content button:hover {
   background-color: #0056b3;
   color: white;
   transform: scale(1.05);
 }
-
-button:active {
+.modal-content button:active {
   transform: scale(0.98);
 }
 
-/* ラベル類・その他 */
-.choice-label {
-  display: block;
-  margin-top: 0.5em;
-  font-weight: bold;
-}
-
-.choice-group {
-  margin-bottom: 1em;
-}
-
+/* ------------------------------------ */
+/* グループボタン（選択肢など）         */
+/* ------------------------------------ */
 .choice-group button {
   margin: 0.3em;
-}
-
-/* CSS内に追加 */
-.large-input {
   font-size: 18px;
-  width: 90%;
-  margin-top: 5px;
-}
-.rsst-button {
-  padding: 1em 2em;
-  font-size: 18px;
-  border-radius: 8px;
-  cursor: pointer;
-  margin: 0.5em 0.5em 0.5em 0;
-  border: 1px solid #ccc;
-  background-color: white;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  padding: 0.8em 1.5em;
 }
 
-.rsst-button:hover {
-  background-color: #0056b3;
-  color: white;
-  transform: scale(1.05);
-}
-
-.rsst-button:active {
-  transform: scale(0.98);
-}
-
-.rsst-button.selected {
-  background-color: #007BFF;
-  color: white;
-  font-weight: bold;
-  border-color: #007BFF;
-}
-
-#rsstModal .modal-content {
-  background: white;
-  padding: 1.5rem;
-  border-radius: 10px;
-  width: 95vw;
-  max-width: 750px;     /* ← 元の600pxから広げた */
-  box-sizing: border-box;
-}
-
-.label-text {
-  display: block;
-  font-size: 16px;
-  line-height: 1.5;
-  margin-bottom: 0.3em;
-  white-space: normal;
-  word-break: break-word;
-  overflow-wrap: break-word;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-.input-block {
-  margin-bottom: 1em;
-  padding: 0 0.5em;
-  width: 100%;
-  box-sizing: border-box;
-}
-
-
+/* ------------------------------------ */
+/* その他（フォーム・入力欄）           */
+/* ------------------------------------ */
 .large-input {
   font-size: 18px;
   width: 100%;
   padding: 6px;
   box-sizing: border-box;
 }
-
 
 
   </style>
@@ -1078,7 +1044,7 @@ button:active {
           </tr>
         </tbody>
       </table>
-    </div>
+
 
 <!--
 <div style="border: 1px solid black; padding: 10px; width: 220px; flex-shrink: 0;">
@@ -1093,10 +1059,12 @@ button:active {
 -->
 
 
-  <br>
-  <button class="rsst-button" onclick="recordRSST()">記録する</button>
-    <!-- RSSTの記録ボタンの近くに置く -->
-  <button class="rsst-button" onclick="editLastRSST()">記録訂正</button>
+      <!-- ✅ ボタンをテーブルの下に移動 -->
+      <div style="margin-top: 1rem; text-align: center;">
+        <button class="btn" onclick="recordRSST()">記録する</button>
+        <button class="btn" onclick="editLastRSST()">記録訂正</button>
+      </div>
+
 
 </section>
 
