@@ -164,6 +164,43 @@ button:active {
   margin-top: 5px;
 }
 
+#rsstModal .modal-content {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 10px;
+  width: 95vw;
+  max-width: 720px;     /* ← 元の600pxから広げた */
+  box-sizing: border-box;
+}
+
+.label-text {
+  display: block;
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 0.3em;
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.input-block {
+  margin-bottom: 1em;
+  padding: 0 0.5em;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+
+.large-input {
+  font-size: 18px;
+  width: 100%;
+  padding: 6px;
+  box-sizing: border-box;
+}
+
+
   </style>
 
 </head>
@@ -974,45 +1011,48 @@ button:active {
 
 <section id="rsst-section" style="margin-top: 2rem;">
   <h3>4. RSSTとオーラルディアドコキネシス</h3>
-  <div style="display: flex; justify-content: space-between;">
-    <table border="1" style="text-align: center; border-collapse: collapse; font-size: 0.9em;">
-      <thead>
-        <tr>
-          <th style="width: 80px;"></th>
-          <th id="header1" style="width: 80px;">1回目</th>
-          <th id="header2" style="width: 80px;">2回目</th>
-          <th id="header3" style="width: 80px;">3回目</th>
-        </tr>        
-      </thead>
-      <tbody>
-        <tr>
-          <th>RSST<br>(回/30秒)</th>
-          <td id="rsst1"></td>
-          <td id="rsst2"></td>
-          <td id="rsst3"></td>
-        </tr>
-        <tr>
-          <th>パ<br>(回)</th>
-          <td id="pa1"></td>
-          <td id="pa2"></td>
-          <td id="pa3"></td>
-        </tr>
-        <tr>
-          <th>タ<br>(回)</th>
-          <td id="ta1"></td>
-          <td id="ta2"></td>
-          <td id="ta3"></td>
-        </tr>
-        <tr>
-          <th>カ<br>(回)</th>
-          <td id="ka1"></td>
-          <td id="ka2"></td>
-          <td id="ka3"></td>
-        </tr>
-      </tbody>
-    </table>
 
-    <div style="border: 1px solid black; padding: 10px; margin-left: 20px; width: 220px;">
+  <div style="display: flex; flex-wrap: wrap; justify-content: flex-start; gap: 20px;">
+    <div style="width: 50%; min-width: 300px; overflow-x: auto;">
+      <table style="width: 100%; text-align: center; border-collapse: collapse; font-size: 1.2em; table-layout: fixed; border: 1px solid black;">
+        <thead>
+          <tr>
+            <th style="border: 1px solid black;"></th>
+            <th id="header1" style="border: 1px solid black;">1回目</th>
+            <th id="header2" style="border: 1px solid black;">2回目</th>
+            <th id="header3" style="border: 1px solid black;">3回目</th>
+          </tr>        
+        </thead>
+        <tbody>
+          <tr>
+            <th style="word-break: break-word; border: 1px solid black;">RSST(回/30秒)<br>正常値3回以上</th>
+            <td id="rsst1" style="border: 1px solid black;"></td>
+            <td id="rsst2" style="border: 1px solid black;"></td>
+            <td id="rsst3" style="border: 1px solid black;"></td>
+          </tr>
+          <tr>
+            <th style="word-break: break-word; border: 1px solid black;">パ(回)<br>男4.4～7.2 女4.2～7.2</th>
+            <td id="pa1" style="border: 1px solid black;"></td>
+            <td id="pa2" style="border: 1px solid black;"></td>
+            <td id="pa3" style="border: 1px solid black;"></td>
+          </tr>
+          <tr>
+            <th style="word-break: break-word; border: 1px solid black;">タ(回)<br>男4.2～7.0 女4.4～7.2</th>
+            <td id="ta1" style="border: 1px solid black;"></td>
+            <td id="ta2" style="border: 1px solid black;"></td>
+            <td id="ta3" style="border: 1px solid black;"></td>
+          </tr>
+          <tr>
+            <th style="word-break: break-word; border: 1px solid black;">カ(回)<br>男4.0～6.6 女4.1～6.7</th>
+            <td id="ka1" style="border: 1px solid black;"></td>
+            <td id="ka2" style="border: 1px solid black;"></td>
+            <td id="ka3" style="border: 1px solid black;"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div style="border: 1px solid black; padding: 10px; width: 220px; flex-shrink: 0;">
       <strong>説明日・同意日</strong>
       <div style="margin-top: 10px;">
         令和　　年　　月　　日
@@ -1022,6 +1062,7 @@ button:active {
       </div>
     </div>
   </div>
+
   <br>
   <button onclick="recordRSST()">記録する</button>
   <!-- RSSTの記録ボタンの近くに置く -->
@@ -1293,14 +1334,32 @@ function clearBrLines() {
 <div id="rsstModal" class="modal">
   <div class="modal-content">
     <h3>RSST・パ・タ・カ 記録入力</h3>
-    <label>RSST（回/30秒）<br><input type="number" id="rsstInput" style="font-size: 18px; width: 95%;" /></label><br><br>
-    <label>パ（回）<br><input type="number" id="paInput" style="font-size: 18px; width: 95%;" /></label><br><br>
-    <label>タ（回）<br><input type="number" id="taInput" style="font-size: 18px; width: 95%;" /></label><br><br>
-    <label>カ（回）<br><input type="number" id="kaInput" style="font-size: 18px; width: 95%;" /></label><br><br>
+
+    <div class="input-block">
+      <div class="label-text">RSST（回/30秒）<br>正常値 3回以上</div>
+      <input type="number" id="rsstInput" class="large-input" />
+    </div>
+
+    <div class="input-block">
+      <div class="label-text">パ（回）<br>パ/男4.4～7.2 女4.2～7.2</div>
+      <input type="number" id="paInput" class="large-input" />
+    </div>
+
+    <div class="input-block">
+      <div class="label-text">タ（回）<br>タ/男4.2～7.0 女4.4～7.2</div>
+      <input type="number" id="taInput" class="large-input" />
+    </div>
+
+    <div class="input-block">
+      <div class="label-text">カ（回）<br>/男4.0～6.6 女4.1～6.7</div>
+      <input type="number" id="kaInput" class="large-input" />
+    </div>
+
     <button onclick="submitRSSTFromModal()">記録する</button>
     <button onclick="closeRSSTModal()">キャンセル</button>
   </div>
 </div>
+
 
 <!-- RSST用JS -->
 <script>
@@ -1387,38 +1446,6 @@ function clearBrLines() {
     document.getElementById("header3").textContent = `${start + 2}回目`;
   }
 </script>
-
-<!-- RSSTモーダルCSS -->
-<style>
-  #rsstModal {
-    display: none;
-    position: fixed;
-    background: rgba(0,0,0,0.6);
-    top: 0; left: 0; right: 0; bottom: 0;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-  }
-
-  #rsstModal .modal-content {
-    background: white;
-    padding: 1rem;
-    border-radius: 8px;
-    width: 300px;
-  }
-
-  #rsstModal .modal-content input {
-    width: 100%;
-    padding: 6px;
-    font-size: 18px;
-  }
-
-  #rsstModal .modal-content button {
-    margin-top: 1rem;
-    padding: 10px 20px;
-    font-size: 16px;
-  }
-</style>
 
 <!-- 保存ボタン（既存のまま） -->
 <button onclick="submitData()">保存</button>
