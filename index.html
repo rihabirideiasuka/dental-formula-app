@@ -319,6 +319,7 @@ button:active {
       <button onclick="setState('○')">○</button>
       <button onclick="setState('×')">×</button>
       <button onclick="setState('／')">／</button>
+      <button onclick="setState('△')">△</button>
       <button onclick="setState('')">消去</button>
       <p>補助ラベル：</p>
       <button onclick="setLabel('Cr')">Cr</button>
@@ -1230,19 +1231,19 @@ button:active {
     const isUpper = (jaw === "upper");
 
     const y = isUpper
-      ? rect1.top - parentRect.top - 30  // 上顎：補助ラベルの上にBrを病が
-      : rect1.bottom - parentRect.top + 30;  // 下顎：数字の下にBrを病が
+      ? rect1.top - parentRect.top - 30
+      : rect1.bottom - parentRect.top + 30;
 
     // 横線
     const line = document.createElement("div");
     line.style.position = "absolute";
     line.style.left = minX + "px";
     line.style.top = y + "px";
-    line.style.width = (maxX - minX) + "px";
+    line.style.width = (maxX - minX + 2) + "px";// 線がぴったりするように調整+2に
     line.style.height = "2px";
     line.style.backgroundColor = "red";
 
-    // 左縦線
+    // 左縦線（start）
     const leftLine = document.createElement("div");
     leftLine.style.position = "absolute";
     leftLine.style.left = x1 + "px";
@@ -1251,18 +1252,16 @@ button:active {
     leftLine.style.backgroundColor = "red";
     leftLine.style.top = isUpper ? (y + "px") : (y - 10 + "px");
 
-    // 右縦線
+    // 右縦線（end）
     const rightLine = document.createElement("div");
     rightLine.style.position = "absolute";
-    rightLine.style.left = (maxX - 1) + "px";  // 横線の右端とぴったり揃える
+    rightLine.style.left = x2 + "px";
     rightLine.style.width = "2px";
     rightLine.style.height = "10px";
     rightLine.style.backgroundColor = "red";
-    rightLine.style.top = isUpper
-      ? (y + "px")           // 上顎：下向きに伸ばす
-      : ((y - 8) + "px");   // 下顎：上向きに伸ばす
+    rightLine.style.top = isUpper ? (y + "px") : (y - 8 + "px");// 線がぴったりするように調整-10を-8に
 
-    // ラベル
+    // Brラベル
     const label = document.createElement("div");
     label.textContent = "Br";
     label.style.position = "absolute";
@@ -1270,19 +1269,15 @@ button:active {
     label.style.top = isUpper ? (y - 20 + "px") : (y + 10 + "px");
     label.style.color = "red";
     label.style.fontWeight = "bold";
-    label.style.fontSize = "18px";　// Brのフォント大きさ
+    label.style.fontSize = "18px";
 
-    brContainer.appendChild(line);
-    brContainer.appendChild(leftLine);
-    brContainer.appendChild(rightLine);
-    brContainer.appendChild(label);
-
-    line.className = "br-line";
-    leftLine.className = "br-line";
-    rightLine.className = "br-line";
-    label.className = "br-line";
-
+    // DOM追加
+    [line, leftLine, rightLine, label].forEach(elem => {
+      elem.className = "br-line";
+      brContainer.appendChild(elem);
+    });
   }
+
 
 function clearBrLines() {
   const lines = document.querySelectorAll(".br-line");
