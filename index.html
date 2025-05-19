@@ -1024,6 +1024,9 @@ button:active {
   </div>
   <br>
   <button onclick="recordRSST()">記録する</button>
+  <!-- RSSTの記録ボタンの近くに置く -->
+  <button onclick="editLastRSST()">記録訂正</button>
+
 </section>
 
 <script>
@@ -1319,14 +1322,28 @@ function clearBrLines() {
       return;
     }
 
+    const paValue = (parseInt(paRaw) / 10).toFixed(1);
+    const taValue = (parseInt(taRaw) / 10).toFixed(1);
+    const kaValue = (parseInt(kaRaw) / 10).toFixed(1);
+
+    const editIndex = window.__editRSSTIndex;
+    if (editIndex) {
+      document.getElementById(`rsst${editIndex}`).textContent = parseInt(rsstInput);
+      document.getElementById(`pa${editIndex}`).textContent = paValue;
+      document.getElementById(`ta${editIndex}`).textContent = taValue;
+      document.getElementById(`ka${editIndex}`).textContent = kaValue;
+
+      updateTableHeaders(editIndex + 1);
+      closeRSSTModal();
+      delete window.__editRSSTIndex;
+      return;
+    }
+
+    // 新規記録モード（空欄に追加）
     const rsstArr = [1, 2, 3].map(i => document.getElementById(`rsst${i}`).textContent);
     const paArr   = [1, 2, 3].map(i => document.getElementById(`pa${i}`).textContent);
     const taArr   = [1, 2, 3].map(i => document.getElementById(`ta${i}`).textContent);
     const kaArr   = [1, 2, 3].map(i => document.getElementById(`ka${i}`).textContent);
-
-    const paValue = (parseInt(paRaw) / 10).toFixed(1);
-    const taValue = (parseInt(taRaw) / 10).toFixed(1);
-    const kaValue = (parseInt(kaRaw) / 10).toFixed(1);
 
     const emptyIndex = rsstArr.findIndex(val => val === "");
     if (emptyIndex !== -1) {
@@ -1354,6 +1371,7 @@ function clearBrLines() {
 
     closeRSSTModal();
   }
+
 
   function closeRSSTModal() {
     document.getElementById("rsstModal").style.display = "none";
@@ -1446,6 +1464,35 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 });
+</script>
+<script>
+function editLastRSST() {
+  const rsst3 = document.getElementById("rsst3").textContent;
+  const pa3 = document.getElementById("pa3").textContent;
+  const ta3 = document.getElementById("ta3").textContent;
+  const ka3 = document.getElementById("ka3").textContent;
+
+  // 3回目が空なら2回目、2回目も空なら1回目
+  let latestIndex = 3;
+  if (!rsst3) latestIndex = 2;
+  if (!document.getElementById(`rsst${latestIndex}`).textContent) latestIndex = 1;
+  if (!document.getElementById(`rsst${latestIndex}`).textContent) {
+    alert("まだ記録がありません。訂正できません。");
+    return;
+  }
+
+  // モーダルを開いて再入力
+  document.getElementById("rsstModal").style.display = "flex";
+
+  // モーダルに最新値を事前入力
+  document.getElementById("rsstInput").value = document.getElementById(`rsst${latestIndex}`).textContent || "";
+  document.getElementById("paInput").value = parseFloat(document.getElementById(`pa${latestIndex}`).textContent || "") * 10 || "";
+  document.getElementById("taInput").value = parseFloat(document.getElementById(`ta${latestIndex}`).textContent || "") * 10 || "";
+  document.getElementById("kaInput").value = parseFloat(document.getElementById(`ka${latestIndex}`).textContent || "") * 10 || "";
+
+  // 修正用フラグをセット
+  window.__editRSSTIndex = latestIndex;
+}
 </script>
 </body>
 
