@@ -163,6 +163,33 @@ button:active {
   width: 90%;
   margin-top: 5px;
 }
+.rsst-button {
+  padding: 1em 2em;
+  font-size: 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin: 0.5em 0.5em 0.5em 0;
+  border: 1px solid #ccc;
+  background-color: white;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.rsst-button:hover {
+  background-color: #0056b3;
+  color: white;
+  transform: scale(1.05);
+}
+
+.rsst-button:active {
+  transform: scale(0.98);
+}
+
+.rsst-button.selected {
+  background-color: #007BFF;
+  color: white;
+  font-weight: bold;
+  border-color: #007BFF;
+}
 
 #rsstModal .modal-content {
   background: white;
@@ -1067,9 +1094,9 @@ button:active {
 
 
   <br>
-  <button onclick="recordRSST()">記録する</button>
-  <!-- RSSTの記録ボタンの近くに置く -->
-  <button onclick="editLastRSST()">記録訂正</button>
+  <button class="rsst-button" onclick="recordRSST()">記録する</button>
+    <!-- RSSTの記録ボタンの近くに置く -->
+  <button class="rsst-button" onclick="editLastRSST()">記録訂正</button>
 
 </section>
 
@@ -1451,9 +1478,6 @@ function clearBrLines() {
 </script>
 
 <!-- 保存ボタン（既存のまま） -->
-<button onclick="submitData()">保存</button>
-<p id="saveStatus"></p>
-
 <button onclick="submitData()">保存</button>
 <p id="saveStatus"></p>
 
