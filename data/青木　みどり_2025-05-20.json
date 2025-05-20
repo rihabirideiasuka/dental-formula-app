@@ -4,8 +4,8 @@
   "date": "2025-05-20",
   "birthday": "1952-05-09",
   "careLevel": "支援1",
-  "adlDisability": "",
-  "adlDementia": "",
+  "adlDisability": "自立",
+  "adlDementia": "自立",
   "teeth": [
     {
       "number": "8",
@@ -18,98 +18,98 @@
       "number": "7",
       "jaw": "upper",
       "position": "left",
-      "state": "",
+      "state": "×",
       "label": ""
     },
     {
       "number": "6",
       "jaw": "upper",
       "position": "left",
-      "state": "",
+      "state": "○",
       "label": ""
     },
     {
       "number": "5",
       "jaw": "upper",
       "position": "left",
-      "state": "",
+      "state": "×",
       "label": ""
     },
     {
       "number": "4",
       "jaw": "upper",
       "position": "left",
-      "state": "",
+      "state": "○",
       "label": ""
     },
     {
       "number": "3",
       "jaw": "upper",
       "position": "left",
-      "state": "",
+      "state": "○",
       "label": ""
     },
     {
       "number": "2",
       "jaw": "upper",
       "position": "left",
-      "state": "",
+      "state": "／",
       "label": ""
     },
     {
       "number": "1",
       "jaw": "upper",
       "position": "left",
-      "state": "",
+      "state": "／",
       "label": ""
     },
     {
       "number": "1",
       "jaw": "upper",
       "position": "right",
-      "state": "",
+      "state": "／",
       "label": ""
     },
     {
       "number": "2",
       "jaw": "upper",
       "position": "right",
-      "state": "",
+      "state": "／",
       "label": ""
     },
     {
       "number": "3",
       "jaw": "upper",
       "position": "right",
-      "state": "",
+      "state": "／",
       "label": ""
     },
     {
       "number": "4",
       "jaw": "upper",
       "position": "right",
-      "state": "",
+      "state": "×",
       "label": ""
     },
     {
       "number": "5",
       "jaw": "upper",
       "position": "right",
-      "state": "",
+      "state": "／",
       "label": ""
     },
     {
       "number": "6",
       "jaw": "upper",
       "position": "right",
-      "state": "",
+      "state": "○",
       "label": ""
     },
     {
       "number": "7",
       "jaw": "upper",
       "position": "right",
-      "state": "",
+      "state": "×",
       "label": ""
     },
     {
@@ -123,136 +123,136 @@
       "number": "8",
       "jaw": "lower",
       "position": "left",
-      "state": "",
-      "label": ""
+      "state": "×",
+      "label": "C4"
     },
     {
       "number": "7",
       "jaw": "lower",
       "position": "left",
-      "state": "",
+      "state": "×",
       "label": ""
     },
     {
       "number": "6",
       "jaw": "lower",
       "position": "left",
-      "state": "",
+      "state": "×",
       "label": ""
     },
     {
       "number": "5",
       "jaw": "lower",
       "position": "left",
-      "state": "",
+      "state": "×",
       "label": ""
     },
     {
       "number": "4",
       "jaw": "lower",
       "position": "left",
-      "state": "",
+      "state": "○",
       "label": ""
     },
     {
       "number": "3",
       "jaw": "lower",
       "position": "left",
-      "state": "",
+      "state": "／",
       "label": ""
     },
     {
       "number": "2",
       "jaw": "lower",
       "position": "left",
-      "state": "",
+      "state": "／",
       "label": ""
     },
     {
       "number": "1",
       "jaw": "lower",
       "position": "left",
-      "state": "",
+      "state": "／",
       "label": ""
     },
     {
       "number": "1",
       "jaw": "lower",
       "position": "right",
-      "state": "",
+      "state": "／",
       "label": ""
     },
     {
       "number": "2",
       "jaw": "lower",
       "position": "right",
-      "state": "",
+      "state": "／",
       "label": ""
     },
     {
       "number": "3",
       "jaw": "lower",
       "position": "right",
-      "state": "",
+      "state": "／",
       "label": ""
     },
     {
       "number": "4",
       "jaw": "lower",
       "position": "right",
-      "state": "",
+      "state": "○",
       "label": ""
     },
     {
       "number": "5",
       "jaw": "lower",
       "position": "right",
-      "state": "",
+      "state": "×",
       "label": ""
     },
     {
       "number": "6",
       "jaw": "lower",
       "position": "right",
-      "state": "",
+      "state": "×",
       "label": ""
     },
     {
       "number": "7",
       "jaw": "lower",
       "position": "right",
-      "state": "",
+      "state": "×",
       "label": ""
     },
     {
       "number": "8",
       "jaw": "lower",
       "position": "right",
-      "state": "",
+      "state": "×",
       "label": ""
     }
   ],
   "brData": [],
   "rsst": {
     "rsst": [
-      "",
-      "",
-      ""
+      "8",
+      "3",
+      "4"
     ],
     "pa": [
-      "",
-      "",
-      ""
+      "3.8",
+      "4.0",
+      "4.6"
     ],
     "ta": [
-      "",
-      "",
-      ""
+      "4.0",
+      "4.8",
+      "4.4"
     ],
     "ka": [
-      "",
-      "",
-      ""
+      "4.8",
+      "5.0",
+      "4.4"
     ]
   }
 }
