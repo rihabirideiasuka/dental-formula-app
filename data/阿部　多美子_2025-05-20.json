@@ -60,8 +60,8 @@
       "number": "1",
       "jaw": "upper",
       "position": "left",
-      "state": "",
-      "label": ""
+      "state": "×",
+      "label": "Cr"
     },
     {
       "number": "1",
@@ -74,8 +74,8 @@
       "number": "2",
       "jaw": "upper",
       "position": "right",
-      "state": "",
-      "label": ""
+      "state": "△",
+      "label": "IMPL"
     },
     {
       "number": "3",
@@ -144,8 +144,8 @@
       "number": "5",
       "jaw": "lower",
       "position": "left",
-      "state": "",
-      "label": ""
+      "state": "×",
+      "label": "Cr"
     },
     {
       "number": "4",
@@ -200,15 +200,15 @@
       "number": "4",
       "jaw": "lower",
       "position": "right",
-      "state": "",
+      "state": "／",
       "label": ""
     },
     {
       "number": "5",
       "jaw": "lower",
       "position": "right",
-      "state": "",
-      "label": ""
+      "state": "／",
+      "label": "C"
     },
     {
       "number": "6",
@@ -234,19 +234,31 @@
   ],
   "brData": [
     {
+      "start": "6",
+      "end": "1",
+      "jaw": "lower",
+      "position": "right"
+    },
+    {
+      "start": "7",
+      "end": "5",
+      "jaw": "upper",
+      "position": "left"
+    },
+    {
       "start": "2",
       "end": "2",
       "jaw": "upper",
       "position": "right"
     },
     {
-      "start": "6",
-      "end": "3",
-      "jaw": "lower",
-      "position": "left"
+      "start": "5",
+      "end": "8",
+      "jaw": "upper",
+      "position": "right"
     },
     {
-      "start": "3",
+      "start": "4",
       "end": "7",
       "jaw": "lower",
       "position": "right"
