@@ -233,7 +233,50 @@
       "label": ""
     }
   ],
-  "brData": [],
+  "brData": [
+    {
+      "start": "8",
+      "end": "6",
+      "jaw": "upper",
+      "startPosition": "left",
+      "endPosition": "left"
+    },
+    {
+      "start": "3",
+      "end": "1",
+      "jaw": "upper",
+      "startPosition": "left",
+      "endPosition": "right"
+    },
+    {
+      "start": "6",
+      "end": "4",
+      "jaw": "lower",
+      "startPosition": "left",
+      "endPosition": "left"
+    },
+    {
+      "start": "2",
+      "end": "1",
+      "jaw": "lower",
+      "startPosition": "left",
+      "endPosition": "right"
+    },
+    {
+      "start": "3",
+      "end": "7",
+      "jaw": "lower",
+      "startPosition": "right",
+      "endPosition": "right"
+    },
+    {
+      "start": "3",
+      "end": "7",
+      "jaw": "upper",
+      "startPosition": "right",
+      "endPosition": "right"
+    }
+  ],
   "rsst": {
     "rsst": [
       "8",
