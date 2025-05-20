@@ -110,83 +110,113 @@
       margin-top: 0.5em;
       font-weight: bold;
     }
-/* ------------------------------------ */
-/* 共通ボタンスタイル（全ボタンに適用） */
-/* ------------------------------------ */
-button, .btn {
+/* 共通ボタンスタイル */
+button {
   padding: 1em 2em;
   font-size: 18px;
   border-radius: 8px;
   cursor: pointer;
-  margin: 0.5em;
+  margin: 0.5em 0.5em 0.5em 0;
   border: 1px solid #ccc;
   background-color: white;
   transition: background-color 0.3s ease, transform 0.2s ease;
-  min-width: 120px;
-  text-align: center;
-  box-sizing: border-box;
-  display: inline-block;
 }
 
-/* ホバー時（PC用） */
-button:hover, .btn:hover {
-  background-color: #0056b3;
-  color: white;
-  transform: scale(1.05);
-}
-
-/* タップ時（スマホ用） */
-button:active, .btn:active {
-  transform: scale(0.98);
-}
-
-/* 選択状態 */
-button.selected, .btn.selected {
+/* 選択されたボタン */
+button.selected,
+.choice-group button.selected {
   background-color: #007BFF;
   color: white;
   font-weight: bold;
   border-color: #007BFF;
 }
 
-/* ------------------------------------ */
-/* モーダル内ボタンにも適用（継承）     */
-/* ------------------------------------ */
-.modal-content button {
-  font-size: 18px;
-  padding: 1em 2em;
-  margin: 0.5em;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  background-color: white;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  min-width: 120px;
-  text-align: center;
-  box-sizing: border-box;
-}
-
-/* モーダル内 hover/active 効果も反映 */
-.modal-content button:hover {
+/* ホバー時の効果 */
+button:hover {
   background-color: #0056b3;
   color: white;
   transform: scale(1.05);
 }
-.modal-content button:active {
+
+button:active {
   transform: scale(0.98);
 }
 
-/* ------------------------------------ */
-/* グループボタン（選択肢など）         */
-/* ------------------------------------ */
-.choice-group button {
-  margin: 0.3em;
-  font-size: 18px;
-  padding: 0.8em 1.5em;
+/* ラベル類・その他 */
+.choice-label {
+  display: block;
+  margin-top: 0.5em;
+  font-weight: bold;
 }
 
-/* ------------------------------------ */
-/* その他（フォーム・入力欄）           */
-/* ------------------------------------ */
+.choice-group {
+  margin-bottom: 1em;
+}
+
+.choice-group button {
+  margin: 0.3em;
+}
+
+/* CSS内に追加 */
+.large-input {
+  font-size: 18px;
+  width: 90%;
+  margin-top: 5px;
+}
+/* 記録する、訂正するボタン */
+.btn {
+  padding: 1em 2em;
+  font-size: 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin: 0.5em 0;
+  border: 1px solid #ccc;
+  background-color: white;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.btn:hover {
+  background-color: #0056b3;
+  color: white;
+  transform: scale(1.05);
+}
+.btn:active {
+  transform: scale(0.98);
+}
+.btn.selected {
+  background-color: #007BFF;
+  color: white;
+  font-weight: bold;
+  border-color: #007BFF;
+}
+
+#rsstModal .modal-content {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 10px;
+  width: 95vw;
+  max-width: 750px;     /* ← 元の600pxから広げた */
+  box-sizing: border-box;
+}
+
+.label-text {
+  display: block;
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 0.3em;
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.input-block {
+  margin-bottom: 1em;
+  padding: 0 0.5em;
+  width: 100%;
+  box-sizing: border-box;
+}
+
 .large-input {
   font-size: 18px;
   width: 100%;
@@ -247,7 +277,6 @@ button.selected, .btn.selected {
       </label>
     </div>
 
-
     <!-- 要介護度 -->
     <div style="border: 1px solid #aaa; border-radius: 6px; padding: 1rem;">
       <label style="display: block;">要介護度：
@@ -301,9 +330,7 @@ button.selected, .btn.selected {
   </div>
 </section>
 
-
   <hr style="margin: 2rem 0; border-top: 2px dashed #ccc;">
-
 
 
 <!-- 【1】歯式セクション + 基本情報入力（iPad向けUI改善） -->
@@ -405,7 +432,6 @@ window.addEventListener("resize", positionPdFdButtons);
 </script>
 
 
-
 <script>
   document.getElementById("birthday").addEventListener("change", function () {
     const birth = new Date(this.value);
@@ -446,7 +472,6 @@ window.addEventListener("resize", positionPdFdButtons);
       });
   });
 </script>
-
 
 
 
@@ -578,7 +603,6 @@ window.addEventListener("resize", positionPdFdButtons);
 
 
 
-
 <style>
 button {
   padding: 1em 2em; /* ボタンのサイズを大きくして押しやすく */
@@ -604,7 +628,6 @@ button:active {
   transform: scale(0.98); /* クリック時に少し縮む */
 }
 </style>
-
 
 <!-- 1 口腔の健康状態の評価・再評価 -->
 <section id="oral-health-section" style="margin-top: 2rem;">
@@ -716,7 +739,6 @@ button:active {
     <input type="text" id="otherNote" placeholder="その他の内容を記入" style="display:none; width:90%; margin-top: 5px; font-size: 18px;">
   </div>
 </section>
-
 
 
 
@@ -845,7 +867,6 @@ button:active {
   </div>
 </section>
 
-
 <script>
   // デフォルト日付の自動入力（今日の日付）
   document.getElementById("plan-date").value = new Date().toISOString().split("T")[0];
@@ -918,7 +939,6 @@ button:active {
     }
   }
 
-
   // 実施内容「その他」選択時に記述欄表示
   // 実施内容「その他」も複数選択可能にし、入力欄だけ表示
   function selectOtherImplementation(btn) {
@@ -941,7 +961,6 @@ button:active {
   }
 
 </script>
-
 
 <!-- ※ 3. 実施記録 セクション -->
 <section id="record-section" style="margin-top: 2rem;">
@@ -1002,7 +1021,6 @@ button:active {
   }
 </script>
 
-
 <section id="rsst-section" style="margin-top: 2rem;">
   <h3>4. RSSTとオーラルディアドコキネシス</h3>
 
@@ -1058,13 +1076,11 @@ button:active {
 </div>
 -->
 
-
-      <!-- ✅ ボタンをテーブルの下に移動 -->
-      <div style="margin-top: 1rem; text-align: center;">
-        <button class="btn" onclick="recordRSST()">記録する</button>
-        <button class="btn" onclick="editLastRSST()">記録訂正</button>
-      </div>
-
+    <!-- ✅ 表の中央下にボタン配置 -->
+    <div style="margin-top: 1rem; text-align: center;">
+      <button class="btn" onclick="recordRSST()">記録する</button>
+      <button class="btn" onclick="editLastRSST()">記録訂正</button>
+    </div>
 
 </section>
 
@@ -1085,7 +1101,6 @@ button:active {
     input.style.display = btn.classList.contains("selected") ? "inline" : "none";
   }
 </script>
-
 
 
 
@@ -1320,7 +1335,6 @@ button:active {
     });
   }
 
-
 function clearBrLines() {
   const lines = document.querySelectorAll(".br-line");
   lines.forEach(line => line.remove());
@@ -1358,15 +1372,16 @@ function clearBrLines() {
   </div>
 </div>
 
-
 <!-- RSST用JS -->
 <script>
   function recordRSST() {
     document.getElementById("rsstModal").style.display = "flex";
     setTimeout(() => {
       document.getElementById("rsstInput").focus(); // 自動フォーカス
-    }, 100);
-  }
+    // iPadやモバイルデバイスでソフトウェアキーボードを表示
+    document.getElementById("rsstInput").scrollIntoView({ behavior: 'smooth' });
+  }, 100);
+}
 
   function submitRSSTFromModal() {
     const rsstInput = document.getElementById("rsstInput").value;
@@ -1428,7 +1443,6 @@ function clearBrLines() {
 
     closeRSSTModal();
   }
-
 
   function closeRSSTModal() {
     document.getElementById("rsstModal").style.display = "none";
@@ -1518,5 +1532,5 @@ function editLastRSST() {
 </script>
 </body>
 
-
 </html>
+
