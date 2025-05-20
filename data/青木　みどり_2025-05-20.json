@@ -230,10 +230,46 @@
       "jaw": "lower",
       "position": "right",
       "state": "",
-      "label": ""
+      "label": "IMPL"
     }
   ],
-  "brData": [],
+  "brData": [
+    {
+      "start": "7",
+      "end": "2",
+      "jaw": "upper",
+      "startPosition": "left",
+      "endPosition": "left"
+    },
+    {
+      "start": "5",
+      "end": "2",
+      "jaw": "lower",
+      "startPosition": "left",
+      "endPosition": "right"
+    },
+    {
+      "start": "1",
+      "end": "2",
+      "jaw": "upper",
+      "startPosition": "left",
+      "endPosition": "right"
+    },
+    {
+      "start": "5",
+      "end": "8",
+      "jaw": "upper",
+      "startPosition": "right",
+      "endPosition": "right"
+    },
+    {
+      "start": "5",
+      "end": "8",
+      "jaw": "lower",
+      "startPosition": "right",
+      "endPosition": "right"
+    }
+  ],
   "rsst": {
     "rsst": [
       "8",
@@ -270,30 +306,30 @@
     "otherNotes": "事前情報入力のその他特記事項"
   },
   "oralHealth": {
-    "口臭": "なし",
+    "口臭": "分からない",
     "歯の汚れ": "なし",
     "義歯の汚れ": "分からない",
-    "舌苔": "分からない",
-    "奥歯の咬合": "なし",
-    "食べこぼし": "あり",
+    "舌苔": "なし",
+    "奥歯の咬合": "分からない",
+    "食べこぼし": "なし",
     "むせ": "あり",
-    "口腔乾燥": "分からない",
+    "口腔乾燥": "なし",
     "舌の動きが悪い": "分からない",
     "ぶくぶくうがい": "できない",
-    "歯科受診の必要性": "あり"
+    "歯科受診の必要性": "分からない"
   },
   "specialNotes": [
-    "なし",
+    "分からない",
     "なし",
     "分からない",
+    "なし",
     "分からない",
     "なし",
     "あり",
-    "あり",
-    "分からない",
+    "なし",
     "分からない",
     "できない",
-    "あり",
+    "分からない",
     "歯（う蝕、修復物脱離等）、義歯、歯周病、口腔粘膜の疾患の可能性",
     "音声・言語機能に関する疾患の可能性",
     "その他"
