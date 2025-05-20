@@ -145,7 +145,7 @@
       "number": "5",
       "jaw": "lower",
       "position": "left",
-      "state": "",
+      "state": "△",
       "label": ""
     },
     {
@@ -233,7 +233,36 @@
       "label": "IMPL"
     }
   ],
-  "brData": [],
+  "brData": [
+    {
+      "start": "7",
+      "end": "2",
+      "jaw": "upper",
+      "startPosition": "left",
+      "endPosition": "left"
+    },
+    {
+      "start": "6",
+      "end": "2",
+      "jaw": "lower",
+      "startPosition": "left",
+      "endPosition": "right"
+    },
+    {
+      "start": "2",
+      "end": "5",
+      "jaw": "upper",
+      "startPosition": "right",
+      "endPosition": "right"
+    },
+    {
+      "start": "3",
+      "end": "6",
+      "jaw": "lower",
+      "startPosition": "right",
+      "endPosition": "right"
+    }
+  ],
   "rsst": {
     "rsst": [
       "3",
