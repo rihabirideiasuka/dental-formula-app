@@ -326,7 +326,23 @@
     "分からない"
   ],
   "specialOther": "",
-  "planGoals": [],
+  "planGoals": [
+    {
+      "name": "口腔衛生",
+      "action": "維持",
+      "detail": ""
+    },
+    {
+      "name": "食形態",
+      "action": "改善",
+      "detail": "食形態改善"
+    },
+    {
+      "name": "誤嚥性肺炎の予防",
+      "action": "",
+      "detail": ""
+    }
+  ],
   "record": {
     "recordDate": "2025-05-20",
     "recordProvider": "山田　太郎",
