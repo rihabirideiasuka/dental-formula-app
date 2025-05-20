@@ -1,0 +1,277 @@
+{
+  "name": "阿部　多美子",
+  "furigana": "あべ　たみこ",
+  "date": "2025-05-20",
+  "birthday": "1933-10-23",
+  "careLevel": "介護1",
+  "adlDisability": "自立",
+  "adlDementia": "自立",
+  "teeth": [
+    {
+      "number": "8",
+      "jaw": "upper",
+      "position": "left",
+      "state": "○",
+      "label": "In"
+    },
+    {
+      "number": "7",
+      "jaw": "upper",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "6",
+      "jaw": "upper",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "5",
+      "jaw": "upper",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "4",
+      "jaw": "upper",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "3",
+      "jaw": "upper",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "2",
+      "jaw": "upper",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "1",
+      "jaw": "upper",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "1",
+      "jaw": "upper",
+      "position": "right",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "2",
+      "jaw": "upper",
+      "position": "right",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "3",
+      "jaw": "upper",
+      "position": "right",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "4",
+      "jaw": "upper",
+      "position": "right",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "5",
+      "jaw": "upper",
+      "position": "right",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "6",
+      "jaw": "upper",
+      "position": "right",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "7",
+      "jaw": "upper",
+      "position": "right",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "8",
+      "jaw": "upper",
+      "position": "right",
+      "state": "○",
+      "label": "In"
+    },
+    {
+      "number": "8",
+      "jaw": "lower",
+      "position": "left",
+      "state": "○",
+      "label": "残根"
+    },
+    {
+      "number": "7",
+      "jaw": "lower",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "6",
+      "jaw": "lower",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "5",
+      "jaw": "lower",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "4",
+      "jaw": "lower",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "3",
+      "jaw": "lower",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "2",
+      "jaw": "lower",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "1",
+      "jaw": "lower",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "1",
+      "jaw": "lower",
+      "position": "right",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "2",
+      "jaw": "lower",
+      "position": "right",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "3",
+      "jaw": "lower",
+      "position": "right",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "4",
+      "jaw": "lower",
+      "position": "right",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "5",
+      "jaw": "lower",
+      "position": "right",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "6",
+      "jaw": "lower",
+      "position": "right",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "7",
+      "jaw": "lower",
+      "position": "right",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "8",
+      "jaw": "lower",
+      "position": "right",
+      "state": "○",
+      "label": "Fck"
+    }
+  ],
+  "brData": [
+    {
+      "start": "2",
+      "end": "2",
+      "jaw": "upper",
+      "position": "right"
+    },
+    {
+      "start": "6",
+      "end": "3",
+      "jaw": "lower",
+      "position": "left"
+    },
+    {
+      "start": "3",
+      "end": "7",
+      "jaw": "lower",
+      "position": "right"
+    }
+  ],
+  "rsst": {
+    "rsst": [
+      "",
+      "",
+      ""
+    ],
+    "pa": [
+      "",
+      "",
+      ""
+    ],
+    "ta": [
+      "",
+      "",
+      ""
+    ],
+    "ka": [
+      "",
+      "",
+      ""
+    ]
+  }
+}
