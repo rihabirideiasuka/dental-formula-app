@@ -1376,12 +1376,21 @@ function clearBrLines() {
 <script>
   function recordRSST() {
     document.getElementById("rsstModal").style.display = "flex";
+
+    // モーダルが開いた後、100ms 後にフォーカスを当てる
     setTimeout(() => {
-      document.getElementById("rsstInput").focus(); // 自動フォーカス
-    // iPadやモバイルデバイスでソフトウェアキーボードを表示
-    document.getElementById("rsstInput").scrollIntoView({ behavior: 'smooth' });
-  }, 100);
-}
+      const rsstInputField = document.getElementById("rsstInput");
+
+      // まず、フォームにフォーカスを当てる
+      rsstInputField.focus();
+
+      // 次に、画面がスクロールして入力フォームが表示されるようにする
+      rsstInputField.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+      // iPadやモバイルデバイスでは、inputをフォーカスさせた後にキーボードが表示されるはずです
+    }, 100);
+  }
+
 
   function submitRSSTFromModal() {
     const rsstInput = document.getElementById("rsstInput").value;
