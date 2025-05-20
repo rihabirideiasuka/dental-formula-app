@@ -359,7 +359,7 @@
     "otherImplementation": "集団口腔体操及び個別指導"
   },
   "pdFdStates": {
-    "upper": "PD",
-    "lower": "FD"
+    "upper": "FD",
+    "lower": "PD"
   }
 }
