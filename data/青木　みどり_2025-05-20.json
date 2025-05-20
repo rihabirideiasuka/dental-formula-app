@@ -1,0 +1,254 @@
+{
+  "name": "青木　みどり",
+  "furigana": "あおき　みどり",
+  "date": "2025-05-20",
+  "teeth": [
+    {
+      "id": "8",
+      "jaw": "upper",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "id": "7",
+      "jaw": "upper",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "id": "6",
+      "jaw": "upper",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "id": "5",
+      "jaw": "upper",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "id": "4",
+      "jaw": "upper",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "id": "3",
+      "jaw": "upper",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "id": "2",
+      "jaw": "upper",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "id": "1",
+      "jaw": "upper",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "id": "1",
+      "jaw": "upper",
+      "position": "right",
+      "state": "",
+      "label": ""
+    },
+    {
+      "id": "2",
+      "jaw": "upper",
+      "position": "right",
+      "state": "",
+      "label": ""
+    },
+    {
+      "id": "3",
+      "jaw": "upper",
+      "position": "right",
+      "state": "",
+      "label": ""
+    },
+    {
+      "id": "4",
+      "jaw": "upper",
+      "position": "right",
+      "state": "",
+      "label": ""
+    },
+    {
+      "id": "5",
+      "jaw": "upper",
+      "position": "right",
+      "state": "",
+      "label": ""
+    },
+    {
+      "id": "6",
+      "jaw": "upper",
+      "position": "right",
+      "state": "",
+      "label": ""
+    },
+    {
+      "id": "7",
+      "jaw": "upper",
+      "position": "right",
+      "state": "",
+      "label": ""
+    },
+    {
+      "id": "8",
+      "jaw": "upper",
+      "position": "right",
+      "state": "",
+      "label": ""
+    },
+    {
+      "id": "8",
+      "jaw": "lower",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "id": "7",
+      "jaw": "lower",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "id": "6",
+      "jaw": "lower",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "id": "5",
+      "jaw": "lower",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "id": "4",
+      "jaw": "lower",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "id": "3",
+      "jaw": "lower",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "id": "2",
+      "jaw": "lower",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "id": "1",
+      "jaw": "lower",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "id": "1",
+      "jaw": "lower",
+      "position": "right",
+      "state": "",
+      "label": ""
+    },
+    {
+      "id": "2",
+      "jaw": "lower",
+      "position": "right",
+      "state": "",
+      "label": ""
+    },
+    {
+      "id": "3",
+      "jaw": "lower",
+      "position": "right",
+      "state": "",
+      "label": ""
+    },
+    {
+      "id": "4",
+      "jaw": "lower",
+      "position": "right",
+      "state": "",
+      "label": ""
+    },
+    {
+      "id": "5",
+      "jaw": "lower",
+      "position": "right",
+      "state": "",
+      "label": ""
+    },
+    {
+      "id": "6",
+      "jaw": "lower",
+      "position": "right",
+      "state": "",
+      "label": ""
+    },
+    {
+      "id": "7",
+      "jaw": "lower",
+      "position": "right",
+      "state": "",
+      "label": ""
+    },
+    {
+      "id": "8",
+      "jaw": "lower",
+      "position": "right",
+      "state": "",
+      "label": ""
+    }
+  ],
+  "brData": [],
+  "rsst": {
+    "rsst": [
+      "",
+      "",
+      ""
+    ],
+    "pa": [
+      "",
+      "",
+      ""
+    ],
+    "ta": [
+      "",
+      "",
+      ""
+    ],
+    "ka": [
+      "",
+      "",
+      ""
+    ]
+  }
+}
