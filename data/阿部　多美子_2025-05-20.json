@@ -234,22 +234,16 @@
   ],
   "brData": [
     {
-      "start": "6",
-      "end": "1",
-      "jaw": "lower",
-      "position": "right"
-    },
-    {
       "start": "7",
       "end": "5",
       "jaw": "upper",
       "position": "left"
     },
     {
-      "start": "2",
-      "end": "2",
-      "jaw": "upper",
-      "position": "right"
+      "start": "6",
+      "end": "1",
+      "jaw": "lower",
+      "position": "left"
     },
     {
       "start": "5",
