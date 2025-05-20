@@ -12,7 +12,7 @@
       "jaw": "upper",
       "position": "left",
       "state": "○",
-      "label": "In"
+      "label": ""
     },
     {
       "number": "7",
@@ -33,7 +33,7 @@
       "jaw": "upper",
       "position": "left",
       "state": "",
-      "label": ""
+      "label": "In"
     },
     {
       "number": "4",
@@ -60,8 +60,8 @@
       "number": "1",
       "jaw": "upper",
       "position": "left",
-      "state": "×",
-      "label": "Cr"
+      "state": "",
+      "label": ""
     },
     {
       "number": "1",
@@ -72,23 +72,23 @@
     },
     {
       "number": "2",
+      "jaw": "upper",
+      "position": "right",
+      "state": "／",
+      "label": ""
+    },
+    {
+      "number": "3",
+      "jaw": "upper",
+      "position": "right",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "4",
       "jaw": "upper",
       "position": "right",
       "state": "△",
-      "label": "IMPL"
-    },
-    {
-      "number": "3",
-      "jaw": "upper",
-      "position": "right",
-      "state": "",
-      "label": ""
-    },
-    {
-      "number": "4",
-      "jaw": "upper",
-      "position": "right",
-      "state": "",
       "label": ""
     },
     {
@@ -116,64 +116,64 @@
       "number": "8",
       "jaw": "upper",
       "position": "right",
-      "state": "○",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "8",
+      "jaw": "lower",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "7",
+      "jaw": "lower",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "6",
+      "jaw": "lower",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "5",
+      "jaw": "lower",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "4",
+      "jaw": "lower",
+      "position": "left",
+      "state": "△",
       "label": "In"
     },
     {
-      "number": "8",
-      "jaw": "lower",
-      "position": "left",
-      "state": "○",
-      "label": "残根"
-    },
-    {
-      "number": "7",
+      "number": "3",
       "jaw": "lower",
       "position": "left",
       "state": "",
       "label": ""
     },
     {
-      "number": "6",
+      "number": "2",
       "jaw": "lower",
       "position": "left",
       "state": "",
       "label": ""
     },
     {
-      "number": "5",
+      "number": "1",
       "jaw": "lower",
       "position": "left",
       "state": "×",
-      "label": "Cr"
-    },
-    {
-      "number": "4",
-      "jaw": "lower",
-      "position": "left",
-      "state": "",
-      "label": ""
-    },
-    {
-      "number": "3",
-      "jaw": "lower",
-      "position": "left",
-      "state": "",
-      "label": ""
-    },
-    {
-      "number": "2",
-      "jaw": "lower",
-      "position": "left",
-      "state": "",
-      "label": ""
-    },
-    {
-      "number": "1",
-      "jaw": "lower",
-      "position": "left",
-      "state": "",
-      "label": ""
+      "label": "In"
     },
     {
       "number": "1",
@@ -191,24 +191,24 @@
     },
     {
       "number": "3",
-      "jaw": "lower",
-      "position": "right",
-      "state": "",
-      "label": ""
-    },
-    {
-      "number": "4",
       "jaw": "lower",
       "position": "right",
       "state": "／",
+      "label": ""
+    },
+    {
+      "number": "4",
+      "jaw": "lower",
+      "position": "right",
+      "state": "",
       "label": ""
     },
     {
       "number": "5",
       "jaw": "lower",
       "position": "right",
-      "state": "／",
-      "label": "C"
+      "state": "",
+      "label": "残根"
     },
     {
       "number": "6",
@@ -228,34 +228,52 @@
       "number": "8",
       "jaw": "lower",
       "position": "right",
-      "state": "○",
-      "label": "Fck"
+      "state": "",
+      "label": ""
     }
   ],
   "brData": [
     {
-      "start": "7",
-      "end": "5",
+      "start": "2",
+      "end": "1",
       "jaw": "upper",
-      "position": "left"
+      "startPosition": "left",
+      "endPosition": "right"
     },
     {
-      "start": "6",
-      "end": "1",
+      "start": "3",
+      "end": "3",
       "jaw": "lower",
-      "position": "left"
+      "startPosition": "right",
+      "endPosition": "left"
+    },
+    {
+      "start": "8",
+      "end": "6",
+      "jaw": "upper",
+      "startPosition": "left",
+      "endPosition": "left"
     },
     {
       "start": "5",
       "end": "8",
       "jaw": "upper",
-      "position": "right"
+      "startPosition": "right",
+      "endPosition": "right"
+    },
+    {
+      "start": "7",
+      "end": "5",
+      "jaw": "lower",
+      "startPosition": "left",
+      "endPosition": "left"
     },
     {
       "start": "4",
-      "end": "7",
+      "end": "6",
       "jaw": "lower",
-      "position": "right"
+      "startPosition": "right",
+      "endPosition": "right"
     }
   ],
   "rsst": {
