@@ -8,31 +8,10 @@
   "adlDementia": "自立",
   "teeth": [
     {
-      "number": "8",
-      "jaw": "upper",
-      "position": "left",
-      "state": "",
-      "label": ""
-    },
-    {
-      "number": "7",
-      "jaw": "upper",
-      "position": "left",
-      "state": "",
-      "label": ""
-    },
-    {
-      "number": "6",
-      "jaw": "upper",
-      "position": "left",
-      "state": "",
-      "label": ""
-    },
-    {
       "number": "5",
       "jaw": "upper",
       "position": "left",
-      "state": "",
+      "state": "○",
       "label": ""
     },
     {
@@ -43,52 +22,10 @@
       "label": "In"
     },
     {
-      "number": "3",
-      "jaw": "upper",
-      "position": "left",
-      "state": "",
-      "label": ""
-    },
-    {
-      "number": "2",
-      "jaw": "upper",
-      "position": "left",
-      "state": "",
-      "label": ""
-    },
-    {
-      "number": "1",
-      "jaw": "upper",
-      "position": "left",
-      "state": "",
-      "label": ""
-    },
-    {
-      "number": "1",
-      "jaw": "upper",
-      "position": "right",
-      "state": "",
-      "label": ""
-    },
-    {
-      "number": "2",
-      "jaw": "upper",
-      "position": "right",
-      "state": "",
-      "label": ""
-    },
-    {
-      "number": "3",
-      "jaw": "upper",
-      "position": "right",
-      "state": "",
-      "label": ""
-    },
-    {
       "number": "4",
       "jaw": "upper",
       "position": "right",
-      "state": "",
+      "state": "△",
       "label": ""
     },
     {
@@ -99,74 +36,11 @@
       "label": "死根"
     },
     {
-      "number": "6",
-      "jaw": "upper",
-      "position": "right",
-      "state": "",
-      "label": ""
-    },
-    {
-      "number": "7",
-      "jaw": "upper",
-      "position": "right",
-      "state": "",
-      "label": ""
-    },
-    {
-      "number": "8",
-      "jaw": "upper",
-      "position": "right",
-      "state": "",
-      "label": ""
-    },
-    {
-      "number": "8",
-      "jaw": "lower",
-      "position": "left",
-      "state": "",
-      "label": ""
-    },
-    {
-      "number": "7",
-      "jaw": "lower",
-      "position": "left",
-      "state": "",
-      "label": ""
-    },
-    {
-      "number": "6",
-      "jaw": "lower",
-      "position": "left",
-      "state": "",
-      "label": ""
-    },
-    {
-      "number": "5",
-      "jaw": "lower",
-      "position": "left",
-      "state": "",
-      "label": ""
-    },
-    {
       "number": "4",
       "jaw": "lower",
       "position": "left",
       "state": "",
       "label": "死根"
-    },
-    {
-      "number": "3",
-      "jaw": "lower",
-      "position": "left",
-      "state": "",
-      "label": ""
-    },
-    {
-      "number": "2",
-      "jaw": "lower",
-      "position": "left",
-      "state": "",
-      "label": ""
     },
     {
       "number": "1",
@@ -176,32 +50,11 @@
       "label": ""
     },
     {
-      "number": "1",
-      "jaw": "lower",
-      "position": "right",
-      "state": "",
-      "label": ""
-    },
-    {
       "number": "2",
       "jaw": "lower",
       "position": "right",
       "state": "",
-      "label": ""
-    },
-    {
-      "number": "3",
-      "jaw": "lower",
-      "position": "right",
-      "state": "",
-      "label": ""
-    },
-    {
-      "number": "4",
-      "jaw": "lower",
-      "position": "right",
-      "state": "",
-      "label": ""
+      "label": "Fck"
     },
     {
       "number": "5",
@@ -209,30 +62,52 @@
       "position": "right",
       "state": "○",
       "label": "In"
-    },
-    {
-      "number": "6",
-      "jaw": "lower",
-      "position": "right",
-      "state": "",
-      "label": ""
-    },
-    {
-      "number": "7",
-      "jaw": "lower",
-      "position": "right",
-      "state": "",
-      "label": ""
-    },
-    {
-      "number": "8",
-      "jaw": "lower",
-      "position": "right",
-      "state": "",
-      "label": ""
     }
   ],
-  "brData": [],
+  "brData": [
+    {
+      "start": "7",
+      "end": "5",
+      "jaw": "upper",
+      "startPosition": "left",
+      "endPosition": "left"
+    },
+    {
+      "start": "2",
+      "end": "1",
+      "jaw": "upper",
+      "startPosition": "left",
+      "endPosition": "right"
+    },
+    {
+      "start": "2",
+      "end": "2",
+      "jaw": "lower",
+      "startPosition": "left",
+      "endPosition": "right"
+    },
+    {
+      "start": "8",
+      "end": "7",
+      "jaw": "lower",
+      "startPosition": "left",
+      "endPosition": "left"
+    },
+    {
+      "start": "7",
+      "end": "4",
+      "jaw": "lower",
+      "startPosition": "right",
+      "endPosition": "right"
+    },
+    {
+      "start": "3",
+      "end": "7",
+      "jaw": "upper",
+      "startPosition": "right",
+      "endPosition": "right"
+    }
+  ],
   "rsst": {
     "rsst": [
       "8",
