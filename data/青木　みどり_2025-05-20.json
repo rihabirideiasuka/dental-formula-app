@@ -3,10 +3,32 @@
   "furigana": "あおき　みどり",
   "date": "2025-05-20",
   "birthday": "1952-05-09",
+  "gender": "女",
   "careLevel": "支援1",
   "adlDisability": "自立",
   "adlDementia": "自立",
   "teeth": [
+    {
+      "number": "8",
+      "jaw": "upper",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "7",
+      "jaw": "upper",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "6",
+      "jaw": "upper",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
     {
       "number": "5",
       "jaw": "upper",
@@ -20,6 +42,48 @@
       "position": "left",
       "state": "○",
       "label": "In"
+    },
+    {
+      "number": "3",
+      "jaw": "upper",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "2",
+      "jaw": "upper",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "1",
+      "jaw": "upper",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "1",
+      "jaw": "upper",
+      "position": "right",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "2",
+      "jaw": "upper",
+      "position": "right",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "3",
+      "jaw": "upper",
+      "position": "right",
+      "state": "",
+      "label": ""
     },
     {
       "number": "4",
@@ -36,6 +100,55 @@
       "label": "死根"
     },
     {
+      "number": "6",
+      "jaw": "upper",
+      "position": "right",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "7",
+      "jaw": "upper",
+      "position": "right",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "8",
+      "jaw": "upper",
+      "position": "right",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "8",
+      "jaw": "lower",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "7",
+      "jaw": "lower",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "6",
+      "jaw": "lower",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "5",
+      "jaw": "lower",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
       "number": "4",
       "jaw": "lower",
       "position": "left",
@@ -43,10 +156,31 @@
       "label": "死根"
     },
     {
+      "number": "3",
+      "jaw": "lower",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "2",
+      "jaw": "lower",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
       "number": "1",
       "jaw": "lower",
       "position": "left",
       "state": "○",
+      "label": ""
+    },
+    {
+      "number": "1",
+      "jaw": "lower",
+      "position": "right",
+      "state": "",
       "label": ""
     },
     {
@@ -57,57 +191,49 @@
       "label": "Fck"
     },
     {
+      "number": "3",
+      "jaw": "lower",
+      "position": "right",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "4",
+      "jaw": "lower",
+      "position": "right",
+      "state": "",
+      "label": ""
+    },
+    {
       "number": "5",
       "jaw": "lower",
       "position": "right",
       "state": "○",
       "label": "In"
+    },
+    {
+      "number": "6",
+      "jaw": "lower",
+      "position": "right",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "7",
+      "jaw": "lower",
+      "position": "right",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "8",
+      "jaw": "lower",
+      "position": "right",
+      "state": "",
+      "label": ""
     }
   ],
-  "brData": [
-    {
-      "start": "7",
-      "end": "5",
-      "jaw": "upper",
-      "startPosition": "left",
-      "endPosition": "left"
-    },
-    {
-      "start": "2",
-      "end": "1",
-      "jaw": "upper",
-      "startPosition": "left",
-      "endPosition": "right"
-    },
-    {
-      "start": "2",
-      "end": "2",
-      "jaw": "lower",
-      "startPosition": "left",
-      "endPosition": "right"
-    },
-    {
-      "start": "8",
-      "end": "7",
-      "jaw": "lower",
-      "startPosition": "left",
-      "endPosition": "left"
-    },
-    {
-      "start": "7",
-      "end": "4",
-      "jaw": "lower",
-      "startPosition": "right",
-      "endPosition": "right"
-    },
-    {
-      "start": "3",
-      "end": "7",
-      "jaw": "upper",
-      "startPosition": "right",
-      "endPosition": "right"
-    }
-  ],
+  "brData": [],
   "rsst": {
     "rsst": [
       "8",
@@ -129,5 +255,43 @@
       "5.0",
       "4.4"
     ]
+  },
+  "preInfo": {
+    "dentistCurrent": "あり",
+    "dentistYear": "なし",
+    "lastVisitMonth": "",
+    "dentures": "なし",
+    "nutrition": "経口のみ",
+    "nutritionSubs": [],
+    "meal": "常食",
+    "mealCode": "4",
+    "pneumonia": "なし",
+    "pneumoniaMonth": "",
+    "otherNotes": ""
+  },
+  "oralHealth": {
+    "口臭": "なし",
+    "歯の汚れ": "なし",
+    "義歯の汚れ": "分からない",
+    "舌苔": "分からない",
+    "奥歯の咬合": "なし",
+    "食べこぼし": "あり",
+    "むせ": "あり",
+    "口腔乾燥": "分からない",
+    "舌の動きが悪い": "分からない",
+    "ぶくぶくうがい": "できない",
+    "歯科受診の必要性": "あり"
+  },
+  "record": {
+    "recordDate": "2025-05-20",
+    "recordProvider": "山田　太郎",
+    "recordQualification": "歯科衛生士",
+    "implementations": [
+      "口腔清掃に関する指導",
+      "摂食嚥下等の口腔機能に関する指導",
+      "誤嚥性肺炎の予防に関する指導",
+      "その他"
+    ],
+    "otherImplementation": "集団口腔体操及び個別指導"
   }
 }
