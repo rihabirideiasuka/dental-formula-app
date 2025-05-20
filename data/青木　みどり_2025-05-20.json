@@ -233,7 +233,29 @@
       "label": ""
     }
   ],
-  "brData": [],
+  "brData": [
+    {
+      "start": "3",
+      "end": "2",
+      "jaw": "upper",
+      "startPosition": "left",
+      "endPosition": "right"
+    },
+    {
+      "start": "8",
+      "end": "2",
+      "jaw": "lower",
+      "startPosition": "left",
+      "endPosition": "right"
+    },
+    {
+      "start": "3",
+      "end": "7",
+      "jaw": "lower",
+      "startPosition": "right",
+      "endPosition": "right"
+    }
+  ],
   "rsst": {
     "rsst": [
       "8",
@@ -293,5 +315,26 @@
       "その他"
     ],
     "otherImplementation": "集団口腔体操及び個別指導の最初"
-  }
+  },
+  "notes": [
+    "なし",
+    "なし",
+    "分からない",
+    "分からない",
+    "なし",
+    "あり",
+    "あり",
+    "分からない",
+    "分からない",
+    "できない",
+    "あり",
+    "歯（う蝕、修復物脱離等）、義歯、歯周病、口腔粘膜の疾患の可能性",
+    "音声・言語機能に関する疾患の可能性",
+    "その他"
+  ],
+  "otherNote": "",
+  "goals": [
+    "口腔衛生",
+    "誤嚥性肺炎の予防"
+  ]
 }
