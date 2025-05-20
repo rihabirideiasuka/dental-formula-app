@@ -233,50 +233,7 @@
       "label": ""
     }
   ],
-  "brData": [
-    {
-      "start": "8",
-      "end": "6",
-      "jaw": "upper",
-      "startPosition": "left",
-      "endPosition": "left"
-    },
-    {
-      "start": "3",
-      "end": "1",
-      "jaw": "upper",
-      "startPosition": "left",
-      "endPosition": "right"
-    },
-    {
-      "start": "6",
-      "end": "4",
-      "jaw": "lower",
-      "startPosition": "left",
-      "endPosition": "left"
-    },
-    {
-      "start": "2",
-      "end": "1",
-      "jaw": "lower",
-      "startPosition": "left",
-      "endPosition": "right"
-    },
-    {
-      "start": "3",
-      "end": "7",
-      "jaw": "lower",
-      "startPosition": "right",
-      "endPosition": "right"
-    },
-    {
-      "start": "3",
-      "end": "7",
-      "jaw": "upper",
-      "startPosition": "right",
-      "endPosition": "right"
-    }
-  ],
+  "brData": [],
   "rsst": {
     "rsst": [
       "8",
@@ -310,7 +267,7 @@
     "mealCode": "4",
     "pneumonia": "なし",
     "pneumoniaMonth": "",
-    "otherNotes": ""
+    "otherNotes": "事前情報入力のその他特記事項"
   },
   "oralHealth": {
     "口臭": "なし",
@@ -335,6 +292,6 @@
       "誤嚥性肺炎の予防に関する指導",
       "その他"
     ],
-    "otherImplementation": "集団口腔体操及び個別指導"
+    "otherImplementation": "集団口腔体操及び個別指導の最初"
   }
 }
