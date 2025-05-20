@@ -18,49 +18,49 @@
       "number": "7",
       "jaw": "upper",
       "position": "left",
-      "state": "×",
+      "state": "",
       "label": ""
     },
     {
       "number": "6",
       "jaw": "upper",
       "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "5",
+      "jaw": "upper",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "4",
+      "jaw": "upper",
+      "position": "left",
       "state": "○",
-      "label": ""
-    },
-    {
-      "number": "5",
-      "jaw": "upper",
-      "position": "left",
-      "state": "／",
-      "label": ""
-    },
-    {
-      "number": "4",
-      "jaw": "upper",
-      "position": "left",
-      "state": "×",
-      "label": ""
+      "label": "In"
     },
     {
       "number": "3",
       "jaw": "upper",
       "position": "left",
-      "state": "／",
+      "state": "",
       "label": ""
     },
     {
       "number": "2",
       "jaw": "upper",
       "position": "left",
-      "state": "／",
+      "state": "",
       "label": ""
     },
     {
       "number": "1",
       "jaw": "upper",
       "position": "left",
-      "state": "／",
+      "state": "",
       "label": ""
     },
     {
@@ -95,8 +95,8 @@
       "number": "5",
       "jaw": "upper",
       "position": "right",
-      "state": "",
-      "label": ""
+      "state": "○",
+      "label": "死根"
     },
     {
       "number": "6",
@@ -123,59 +123,59 @@
       "number": "8",
       "jaw": "lower",
       "position": "left",
-      "state": "×",
+      "state": "",
       "label": ""
     },
     {
       "number": "7",
       "jaw": "lower",
       "position": "left",
-      "state": "×",
+      "state": "",
       "label": ""
     },
     {
       "number": "6",
       "jaw": "lower",
       "position": "left",
-      "state": "×",
+      "state": "",
       "label": ""
     },
     {
       "number": "5",
       "jaw": "lower",
       "position": "left",
-      "state": "×",
+      "state": "",
       "label": ""
     },
     {
       "number": "4",
+      "jaw": "lower",
+      "position": "left",
+      "state": "",
+      "label": "死根"
+    },
+    {
+      "number": "3",
+      "jaw": "lower",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "2",
+      "jaw": "lower",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "1",
       "jaw": "lower",
       "position": "left",
       "state": "○",
       "label": ""
     },
     {
-      "number": "3",
-      "jaw": "lower",
-      "position": "left",
-      "state": "／",
-      "label": ""
-    },
-    {
-      "number": "2",
-      "jaw": "lower",
-      "position": "left",
-      "state": "／",
-      "label": ""
-    },
-    {
-      "number": "1",
-      "jaw": "lower",
-      "position": "left",
-      "state": "／",
-      "label": ""
-    },
-    {
       "number": "1",
       "jaw": "lower",
       "position": "right",
@@ -207,8 +207,8 @@
       "number": "5",
       "jaw": "lower",
       "position": "right",
-      "state": "",
-      "label": ""
+      "state": "○",
+      "label": "In"
     },
     {
       "number": "6",
@@ -232,20 +232,7 @@
       "label": ""
     }
   ],
-  "brData": [
-    {
-      "start": "8",
-      "end": "1",
-      "jaw": "upper",
-      "position": "left"
-    },
-    {
-      "start": "6",
-      "end": "1",
-      "jaw": "lower",
-      "position": "left"
-    }
-  ],
+  "brData": [],
   "rsst": {
     "rsst": [
       "8",
