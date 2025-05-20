@@ -323,11 +323,26 @@
     "なし",
     "分からない",
     "できる",
-    "あり",
-    "その他"
+    "あり"
   ],
   "specialOther": "その他",
-  "planGoals": [],
+  "planGoals": [
+    {
+      "name": "口腔衛生",
+      "action": "維持",
+      "detail": ""
+    },
+    {
+      "name": "音声・言語機能",
+      "action": "改善",
+      "detail": "音声・言語機能の改善"
+    },
+    {
+      "name": "誤嚥性肺炎の予防",
+      "action": "",
+      "detail": ""
+    }
+  ],
   "record": {
     "recordDate": "2025-05-20",
     "recordProvider": "山田　太郎",
@@ -338,6 +353,6 @@
       "誤嚥性肺炎の予防に関する指導",
       "その他"
     ],
-    "otherImplementation": "集団口腔体操及び個別指導まえ"
+    "otherImplementation": "集団口腔体操及び個別指導"
   }
 }
