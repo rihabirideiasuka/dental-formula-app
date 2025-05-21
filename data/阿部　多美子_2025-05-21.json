@@ -1,0 +1,345 @@
+{
+  "name": "阿部　多美子",
+  "furigana": "あべ　たみこ",
+  "date": "2025-05-21",
+  "birthday": "",
+  "gender": "女",
+  "careLevel": "",
+  "adlDisability": "",
+  "adlDementia": "",
+  "teeth": [
+    {
+      "number": "8",
+      "jaw": "upper",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "7",
+      "jaw": "upper",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "6",
+      "jaw": "upper",
+      "position": "left",
+      "state": "",
+      "label": "In"
+    },
+    {
+      "number": "5",
+      "jaw": "upper",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "4",
+      "jaw": "upper",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "3",
+      "jaw": "upper",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "2",
+      "jaw": "upper",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "1",
+      "jaw": "upper",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "1",
+      "jaw": "upper",
+      "position": "right",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "2",
+      "jaw": "upper",
+      "position": "right",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "3",
+      "jaw": "upper",
+      "position": "right",
+      "state": "○",
+      "label": ""
+    },
+    {
+      "number": "4",
+      "jaw": "upper",
+      "position": "right",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "5",
+      "jaw": "upper",
+      "position": "right",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "6",
+      "jaw": "upper",
+      "position": "right",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "7",
+      "jaw": "upper",
+      "position": "right",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "8",
+      "jaw": "upper",
+      "position": "right",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "8",
+      "jaw": "lower",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "7",
+      "jaw": "lower",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "6",
+      "jaw": "lower",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "5",
+      "jaw": "lower",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "4",
+      "jaw": "lower",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "3",
+      "jaw": "lower",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "2",
+      "jaw": "lower",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "1",
+      "jaw": "lower",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "1",
+      "jaw": "lower",
+      "position": "right",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "2",
+      "jaw": "lower",
+      "position": "right",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "3",
+      "jaw": "lower",
+      "position": "right",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "4",
+      "jaw": "lower",
+      "position": "right",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "5",
+      "jaw": "lower",
+      "position": "right",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "6",
+      "jaw": "lower",
+      "position": "right",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "7",
+      "jaw": "lower",
+      "position": "right",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "8",
+      "jaw": "lower",
+      "position": "right",
+      "state": "",
+      "label": ""
+    }
+  ],
+  "brData": [
+    {
+      "start": "6",
+      "end": "2",
+      "jaw": "upper",
+      "startPosition": "left",
+      "endPosition": "right"
+    },
+    {
+      "start": "4",
+      "end": "2",
+      "jaw": "lower",
+      "startPosition": "right",
+      "endPosition": "left"
+    }
+  ],
+  "rsst": {
+    "rsst": [
+      "1",
+      "",
+      ""
+    ],
+    "pa": [
+      "1.1",
+      "",
+      ""
+    ],
+    "ta": [
+      "1.1",
+      "",
+      ""
+    ],
+    "ka": [
+      "1.1",
+      "",
+      ""
+    ],
+    "latestIndex": 3
+  },
+  "preInfo": {
+    "dentistCurrent": "あり",
+    "dentistYear": "あり",
+    "lastVisitMonth": "2025-04",
+    "dentures": "部分",
+    "nutrition": "経口のみ",
+    "nutritionSubs": [],
+    "meal": "常食",
+    "mealCode": "4",
+    "pneumonia": "なし",
+    "pneumoniaMonth": "",
+    "otherNotes": ""
+  },
+  "oralHealth": {
+    "口臭": "なし",
+    "歯の汚れ": "なし",
+    "義歯の汚れ": "あり",
+    "舌苔": "なし",
+    "奥歯の咬合": "あり",
+    "食べこぼし": "なし",
+    "むせ": "なし",
+    "口腔乾燥": "なし",
+    "舌の動きが悪い": "なし",
+    "ぶくぶくうがい": "できる",
+    "歯科受診の必要性": "あり",
+    "特記事項": "歯（う蝕、修復物脱離等）、義歯、歯周病、口腔粘膜の疾患の可能性"
+  },
+  "specialNotes": [
+    "なし",
+    "なし",
+    "あり",
+    "なし",
+    "あり",
+    "なし",
+    "なし",
+    "なし",
+    "なし",
+    "できる",
+    "あり",
+    "歯（う蝕、修復物脱離等）、義歯、歯周病、口腔粘膜の疾患の可能性"
+  ],
+  "specialOther": "",
+  "planGoals": [
+    {
+      "name": "口腔衛生",
+      "action": "維持",
+      "detail": ""
+    },
+    {
+      "name": "誤嚥性肺炎の予防",
+      "action": "",
+      "detail": ""
+    }
+  ],
+  "record": {
+    "recordDate": "2025-05-21",
+    "recordProvider": "坂口　建治",
+    "recordQualification": "歯科衛生士",
+    "implementations": [
+      "口腔清掃に関する指導",
+      "摂食嚥下等の口腔機能に関する指導",
+      "誤嚥性肺炎の予防に関する指導",
+      "その他"
+    ],
+    "otherImplementation": "集団口腔体操及び個別指導"
+  },
+  "pdFdStates": {
+    "upper": "",
+    "lower": ""
+  }
+}
