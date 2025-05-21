@@ -1,0 +1,293 @@
+{
+  "name": "青木　直子",
+  "furigana": "あおき　なおこ",
+  "date": "2025-05-21",
+  "birthday": "",
+  "gender": "女",
+  "careLevel": "",
+  "adlDisability": "",
+  "adlDementia": "",
+  "teeth": [
+    {
+      "number": "8",
+      "jaw": "upper",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "7",
+      "jaw": "upper",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "6",
+      "jaw": "upper",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "5",
+      "jaw": "upper",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "4",
+      "jaw": "upper",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "3",
+      "jaw": "upper",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "2",
+      "jaw": "upper",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "1",
+      "jaw": "upper",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "1",
+      "jaw": "upper",
+      "position": "right",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "2",
+      "jaw": "upper",
+      "position": "right",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "3",
+      "jaw": "upper",
+      "position": "right",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "4",
+      "jaw": "upper",
+      "position": "right",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "5",
+      "jaw": "upper",
+      "position": "right",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "6",
+      "jaw": "upper",
+      "position": "right",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "7",
+      "jaw": "upper",
+      "position": "right",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "8",
+      "jaw": "upper",
+      "position": "right",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "8",
+      "jaw": "lower",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "7",
+      "jaw": "lower",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "6",
+      "jaw": "lower",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "5",
+      "jaw": "lower",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "4",
+      "jaw": "lower",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "3",
+      "jaw": "lower",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "2",
+      "jaw": "lower",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "1",
+      "jaw": "lower",
+      "position": "left",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "1",
+      "jaw": "lower",
+      "position": "right",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "2",
+      "jaw": "lower",
+      "position": "right",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "3",
+      "jaw": "lower",
+      "position": "right",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "4",
+      "jaw": "lower",
+      "position": "right",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "5",
+      "jaw": "lower",
+      "position": "right",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "6",
+      "jaw": "lower",
+      "position": "right",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "7",
+      "jaw": "lower",
+      "position": "right",
+      "state": "",
+      "label": ""
+    },
+    {
+      "number": "8",
+      "jaw": "lower",
+      "position": "right",
+      "state": "",
+      "label": ""
+    }
+  ],
+  "brData": [],
+  "rsst": {
+    "rsst": [
+      "",
+      "",
+      ""
+    ],
+    "pa": [
+      "",
+      "",
+      ""
+    ],
+    "ta": [
+      "",
+      "",
+      ""
+    ],
+    "ka": [
+      "",
+      "",
+      ""
+    ],
+    "latestIndex": 3
+  },
+  "preInfo": {
+    "dentistCurrent": "",
+    "dentistYear": "",
+    "lastVisitMonth": "",
+    "dentures": "",
+    "nutrition": "",
+    "nutritionSubs": [],
+    "meal": "",
+    "mealCode": "4",
+    "pneumonia": "",
+    "pneumoniaMonth": "",
+    "otherNotes": ""
+  },
+  "oralHealth": {},
+  "specialNotes": [],
+  "specialOther": "",
+  "planGoals": [],
+  "record": {
+    "recordDate": "2025-05-21",
+    "recordProvider": "山田　太郎",
+    "recordQualification": "歯科衛生士",
+    "implementations": [
+      "口腔清掃に関する指導",
+      "摂食嚥下等の口腔機能に関する指導",
+      "誤嚥性肺炎の予防に関する指導",
+      "その他"
+    ],
+    "otherImplementation": "集団口腔体操及び個別指導"
+  },
+  "pdFdStates": {
+    "upper": "",
+    "lower": ""
+  }
+}
