@@ -233,7 +233,22 @@
       "label": ""
     }
   ],
-  "brData": [],
+  "brData": [
+    {
+      "start": "6",
+      "end": "3",
+      "jaw": "upper",
+      "startPosition": "left",
+      "endPosition": "right"
+    },
+    {
+      "start": "3",
+      "end": "6",
+      "jaw": "lower",
+      "startPosition": "left",
+      "endPosition": "right"
+    }
+  ],
   "rsst": {
     "rsst": [
       "2",
