@@ -2,278 +2,313 @@
   "name": "青木　直子",
   "furigana": "あおき　なおこ",
   "date": "2025-05-21",
-  "birthday": "",
+  "birthday": "1935-08-09",
   "gender": "女",
-  "careLevel": "",
-  "adlDisability": "",
-  "adlDementia": "",
+  "careLevel": "支援1",
+  "adlDisability": "自立",
+  "adlDementia": "自立",
   "teeth": [
     {
       "number": "8",
       "jaw": "upper",
       "position": "left",
-      "state": "",
+      "state": "×",
       "label": ""
     },
     {
       "number": "7",
       "jaw": "upper",
       "position": "left",
-      "state": "",
+      "state": "×",
       "label": ""
     },
     {
       "number": "6",
       "jaw": "upper",
       "position": "left",
-      "state": "",
+      "state": "○",
       "label": ""
     },
     {
       "number": "5",
       "jaw": "upper",
       "position": "left",
-      "state": "",
+      "state": "○",
       "label": ""
     },
     {
       "number": "4",
       "jaw": "upper",
       "position": "left",
-      "state": "",
+      "state": "○",
       "label": ""
     },
     {
       "number": "3",
       "jaw": "upper",
       "position": "left",
-      "state": "",
+      "state": "○",
       "label": ""
     },
     {
       "number": "2",
       "jaw": "upper",
       "position": "left",
-      "state": "",
+      "state": "×",
       "label": ""
     },
     {
       "number": "1",
       "jaw": "upper",
       "position": "left",
-      "state": "",
+      "state": "×",
       "label": ""
     },
     {
       "number": "1",
       "jaw": "upper",
       "position": "right",
-      "state": "",
+      "state": "○",
       "label": ""
     },
     {
       "number": "2",
       "jaw": "upper",
       "position": "right",
-      "state": "",
+      "state": "○",
       "label": ""
     },
     {
       "number": "3",
       "jaw": "upper",
       "position": "right",
-      "state": "",
+      "state": "○",
       "label": ""
     },
     {
       "number": "4",
       "jaw": "upper",
       "position": "right",
-      "state": "",
+      "state": "×",
       "label": ""
     },
     {
       "number": "5",
       "jaw": "upper",
       "position": "right",
-      "state": "",
+      "state": "×",
       "label": ""
     },
     {
       "number": "6",
       "jaw": "upper",
       "position": "right",
-      "state": "",
+      "state": "×",
       "label": ""
     },
     {
       "number": "7",
       "jaw": "upper",
       "position": "right",
-      "state": "",
+      "state": "×",
       "label": ""
     },
     {
       "number": "8",
       "jaw": "upper",
       "position": "right",
-      "state": "",
+      "state": "×",
       "label": ""
     },
     {
       "number": "8",
       "jaw": "lower",
       "position": "left",
-      "state": "",
+      "state": "×",
       "label": ""
     },
     {
       "number": "7",
       "jaw": "lower",
       "position": "left",
-      "state": "",
+      "state": "×",
       "label": ""
     },
     {
       "number": "6",
       "jaw": "lower",
       "position": "left",
-      "state": "",
+      "state": "×",
       "label": ""
     },
     {
       "number": "5",
       "jaw": "lower",
       "position": "left",
-      "state": "",
+      "state": "×",
       "label": ""
     },
     {
       "number": "4",
       "jaw": "lower",
       "position": "left",
-      "state": "",
+      "state": "×",
       "label": ""
     },
     {
       "number": "3",
       "jaw": "lower",
       "position": "left",
-      "state": "",
+      "state": "○",
       "label": ""
     },
     {
       "number": "2",
       "jaw": "lower",
       "position": "left",
-      "state": "",
+      "state": "○",
       "label": ""
     },
     {
       "number": "1",
       "jaw": "lower",
       "position": "left",
-      "state": "",
+      "state": "○",
       "label": ""
     },
     {
       "number": "1",
       "jaw": "lower",
       "position": "right",
-      "state": "",
+      "state": "×",
       "label": ""
     },
     {
       "number": "2",
       "jaw": "lower",
       "position": "right",
-      "state": "",
+      "state": "○",
       "label": ""
     },
     {
       "number": "3",
       "jaw": "lower",
       "position": "right",
-      "state": "",
+      "state": "○",
       "label": ""
     },
     {
       "number": "4",
       "jaw": "lower",
       "position": "right",
-      "state": "",
+      "state": "○",
       "label": ""
     },
     {
       "number": "5",
       "jaw": "lower",
       "position": "right",
-      "state": "",
+      "state": "○",
       "label": ""
     },
     {
       "number": "6",
       "jaw": "lower",
       "position": "right",
-      "state": "",
+      "state": "○",
       "label": ""
     },
     {
       "number": "7",
       "jaw": "lower",
       "position": "right",
-      "state": "",
+      "state": "／",
       "label": ""
     },
     {
       "number": "8",
       "jaw": "lower",
       "position": "right",
-      "state": "",
+      "state": "×",
       "label": ""
     }
   ],
   "brData": [],
   "rsst": {
     "rsst": [
-      "",
-      "",
+      "2",
+      "1",
       ""
     ],
     "pa": [
-      "",
-      "",
+      "5.8",
+      "6.0",
       ""
     ],
     "ta": [
-      "",
-      "",
+      "5.2",
+      "5.4",
       ""
     ],
     "ka": [
-      "",
-      "",
+      "5.4",
+      "5.4",
       ""
     ],
     "latestIndex": 3
   },
   "preInfo": {
-    "dentistCurrent": "",
-    "dentistYear": "",
-    "lastVisitMonth": "",
-    "dentures": "",
-    "nutrition": "",
+    "dentistCurrent": "あり",
+    "dentistYear": "あり",
+    "lastVisitMonth": "2025-03",
+    "dentures": "部分",
+    "nutrition": "経口のみ",
     "nutritionSubs": [],
-    "meal": "",
+    "meal": "常食",
     "mealCode": "4",
-    "pneumonia": "",
+    "pneumonia": "なし",
     "pneumoniaMonth": "",
     "otherNotes": ""
   },
-  "oralHealth": {},
-  "specialNotes": [],
+  "oralHealth": {
+    "口臭": "なし",
+    "歯の汚れ": "なし",
+    "義歯の汚れ": "なし",
+    "舌苔": "なし",
+    "奥歯の咬合": "なし",
+    "食べこぼし": "なし",
+    "むせ": "なし",
+    "口腔乾燥": "なし",
+    "舌の動きが悪い": "なし",
+    "ぶくぶくうがい": "できる",
+    "歯科受診の必要性": "あり"
+  },
+  "specialNotes": [
+    "なし",
+    "なし",
+    "なし",
+    "なし",
+    "なし",
+    "なし",
+    "なし",
+    "なし",
+    "なし",
+    "できる",
+    "あり"
+  ],
   "specialOther": "",
-  "planGoals": [],
+  "planGoals": [
+    {
+      "name": "口腔衛生",
+      "action": "維持",
+      "detail": ""
+    },
+    {
+      "name": "誤嚥性肺炎の予防",
+      "action": "",
+      "detail": ""
+    }
+  ],
   "record": {
     "recordDate": "2025-05-21",
     "recordProvider": "山田　太郎",
@@ -287,7 +322,7 @@
     "otherImplementation": "集団口腔体操及び個別指導"
   },
   "pdFdStates": {
-    "upper": "",
-    "lower": ""
+    "upper": "PD",
+    "lower": "PD"
   }
 }
