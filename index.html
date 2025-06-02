@@ -201,6 +201,19 @@
       position: absolute; top: 0; left: 0; right: 0; bottom: 0;
       pointer-events: none;
     }
+
+    /* 歯の状態選択ボタンの共通スタイル */
+    .modal button.state-btn {
+      font-size: 20px;
+      padding: 10px 16px;
+      margin: 6px;
+      min-width: 60px;
+      border-radius: 8px;
+      border: 1px solid #888;
+      background-color: #f8f8f8;
+      cursor: pointer;
+    }
+
     /* 補助ラベルのボタン大きくするために設置 */
     .label-btn {
       font-size: 18px;
@@ -337,11 +350,12 @@
 <div class="modal" id="modal">
   <div class="modal-content">
     <p>歯の状態を選択：</p>
-    <button onclick="setState('○')">○</button>
-    <button onclick="setState('×')">×</button>
-    <button onclick="setState('／')">／</button>
-    <button onclick="setState('△')">△</button>
-    <button onclick="setState('')">消去</button>
+    <button class="state-btn" onclick="setState('○')">○</button>
+    <button class="state-btn" onclick="setState('×')">×</button>
+    <button class="state-btn" onclick="setState('／')">／</button>
+    <button class="state-btn" onclick="setState('△')">△</button>
+    <button class="state-btn" onclick="setState('')">消去</button>
+
     <p>補助ラベル：</p>
     <button class="label-btn" onclick="setLabel('Cr')">Cr</button>
     <button class="label-btn" onclick="setLabel('In')">In</button>
