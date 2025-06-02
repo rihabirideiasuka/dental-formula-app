@@ -96,9 +96,14 @@
       width: 100%;
       left: 0;
       text-align: center;
+      display: flex;               /* ← 追加 */
+      justify-content: center;     /* ← 横中央 */
+      align-items: center;         /* ← 縦中央 */
+      height: 1.2em;               /* ← 必要なら高さ固定 */
+
     }
-    .label-top { top: -1.2em; }
-    .label-bottom { bottom: -1.2em; }
+    .label-top { top: -1.4em; } /* ← 上顎の補助ラベルの縦位置 */
+    .label-bottom { bottom: -1.4em; }  /* ← 下顎の補助ラベルの縦位置 */
     .center-divider {
       position: absolute;
       width: 0px;
@@ -196,8 +201,18 @@
       position: absolute; top: 0; left: 0; right: 0; bottom: 0;
       pointer-events: none;
     }
+    /* 補助ラベルのボタン大きくするために設置 */
+    .label-btn {
+      font-size: 18px;
+      padding: 10px 16px;
+      margin: 6px;
+      min-width: 70px;
+      border-radius: 8px;
+      border: 1px solid #888;
+      background-color: #f8f8f8;
+      cursor: pointer;
+    }
   </style>
-
   <script>
     window.addEventListener('DOMContentLoaded', () => {
       const birthdayInput = document.getElementById('birthday');
@@ -289,7 +304,7 @@
     </table>
 
 
-<h2 style="font-size: 14px;">歯式</h2>
+<!--<h2 style="font-size: 14px;">歯式</h2>-->
 
 <!-- Br操作ボタン -->
 <button onclick="toggleBrMode()">Br作成</button>
@@ -328,15 +343,16 @@
     <button onclick="setState('△')">△</button>
     <button onclick="setState('')">消去</button>
     <p>補助ラベル：</p>
-    <button onclick="setLabel('Cr')">Cr</button>
-    <button onclick="setLabel('In')">In</button>
-    <button onclick="setLabel('Fck')">Fck</button>
-    <button onclick="setLabel('死根')">死根</button>
-    <button onclick="setLabel('残根')">残根</button>
-    <button onclick="setLabel('C')">C</button>
-    <button onclick="setLabel('C4')">C4</button>
-    <button onclick="setLabel('IMPL')">IMPL</button>
-    <button onclick="setLabel('')">ラベル消去</button>
+    <button class="label-btn" onclick="setLabel('Cr')">Cr</button>
+    <button class="label-btn" onclick="setLabel('In')">In</button>
+    <button class="label-btn" onclick="setLabel('Fck')">Fck</button>
+    <button class="label-btn" onclick="setLabel('死根')">死根</button>
+    <button class="label-btn" onclick="setLabel('残根')">残根</button>
+    <button class="label-btn" onclick="setLabel('C')">C</button>
+    <button class="label-btn" onclick="setLabel('C4')">C4</button>
+    <button class="label-btn" onclick="setLabel('IMPL')">IMPL</button>
+    <button class="label-btn" onclick="setLabel('')">ラベル消去</button>
+
   </div>
 </div>
 
@@ -423,20 +439,32 @@ function drawBrLine(startElem, endElem) {
   const r1 = startElem.getBoundingClientRect();
   const r2 = endElem.getBoundingClientRect();
   const p = container.getBoundingClientRect();
+
   const x1 = r1.left + r1.width / 2 - p.left;
   const x2 = r2.left + r2.width / 2 - p.left;
-  const y = startElem.dataset.jaw === "upper" ? r1.top - p.top - 12 : r1.bottom - p.top + 10;
-  const minX = Math.min(x1, x2), maxX = Math.max(x1, x2), midX = (minX + maxX) / 2;
+  const minX = Math.min(x1, x2);
+  const maxX = Math.max(x1, x2);
+  const midX = (minX + maxX) / 2;
 
+  const jaw = startElem.dataset.jaw;
+  const verticalLineHeight = 6;
+
+  // 基準y座標：上顎は下端 - 12px, 下顎は上端 + 10px
+  const yBase = jaw === "upper"
+    ? r1.top - p.top - 18 // ← ここをさらに上にずらすなら数字を増やす
+    : r1.bottom - p.top + 12;
+
+  // 横線のY座標は上顎は縦線の上端と同じ、下顎は縦線の下端
+  const yHorizontal = jaw === "upper" ? yBase : yBase + verticalLineHeight;
 
   // 水平線（Brの横線）
   const line = document.createElement("div");
   Object.assign(line.style, {
     position: "absolute",
-    top: y + "px",
-    left: minX + "px",
-    width: (maxX - minX + 1) + "px",
-    height: "0px", // 高さ0で border-top を使用
+    top: `${yHorizontal}px`,
+    left: `${minX}px`,
+    width: `${maxX - minX + 1}px`,
+    height: "0px",
     borderTop: "1px solid red"
   });
 
@@ -444,38 +472,43 @@ function drawBrLine(startElem, endElem) {
   const leftLine = document.createElement("div");
   Object.assign(leftLine.style, {
     position: "absolute",
-    left: x1 + "px",
+    left: `${x1}px`,
     width: "0px",
-    height: "6px",
+    height: `${verticalLineHeight}px`,
     borderLeft: "1px solid red",
-    top: startElem.dataset.jaw === "upper" ? y + "px" : (y - 6) + "px"
+    top: `${yBase}px`
   });
 
   // 右側の縦線
   const rightLine = document.createElement("div");
   Object.assign(rightLine.style, {
     position: "absolute",
-    left: x2 + "px",
+    left: `${x2}px`,
     width: "0px",
-    height: "6px",
+    height: `${verticalLineHeight}px`,
     borderLeft: "1px solid red",
-    top: startElem.dataset.jaw === "upper" ? y + "px" : (y - 6) + "px"
+    top: `${yBase}px`
   });
 
-
+  // Brラベル
   const label = document.createElement("div");
-  label.textContent = "Br";
   Object.assign(label.style, {
-    position: "absolute", left: (midX - 5) + "px",
-    top: startElem.dataset.jaw === "upper" ? (y - 12) + "px" : (y - 2) + "px",
-    color: "red", fontSize: "10px", fontWeight: "bold"
+    position: "absolute",
+    left: `${midX - 5}px`,
+    top: jaw === "upper" ? `${yHorizontal - 12}px` : `${yHorizontal + 2}px`,
+    color: "red",
+    fontSize: "10px",
+    fontWeight: "bold"
   });
+  label.textContent = "Br";
 
+  // 追加
   [line, leftLine, rightLine, label].forEach(el => {
     el.className = "br-line";
     container.appendChild(el);
   });
 }
+
 function clearBrLines() {
   document.querySelectorAll(".br-line").forEach(e => e.remove());
   selectedBrRanges = [];
@@ -787,8 +820,8 @@ function updateHorizontalDivider() {
     <h2 class="section-title">2. 口腔機能改善管理指導計画</h2>
     <table style="font-size: 9.5pt; width: 100%; border-collapse: collapse; line-height: 1.1; margin-left: 0; text-align: left;">
       <tr>
-        <td class="label" style="width:80px;">実施日</td>
-        <td style="width:110px;"><input type="date" id="examDate" /></td>
+        <td class="label" rowspan="2" style="width:80px; vertical-align: middle; text-align: center;">実施日</td>
+        <td rowspan="2" style="width:110px; vertical-align: middle;"><input type="date" id="examDate" /></td>
         <td class="label" style="width:90px;">計画立案者</td>
         <td style="width:100px;"><input type="text" id="examWriter" /></td>
         <td style="white-space: nowrap;">
@@ -798,96 +831,127 @@ function updateHorizontalDivider() {
         </td>
       </tr>
       <tr>
-      <td></td>
-      <td></td>
-      <td class="label" style="width:90px; text-align: center;">サービス提供者</td>
-      <td style="width:100px;"><input type="text" name="providerName"></td>
-      <td style="white-space: nowrap;">
-        <label><input type="checkbox" name="provider" value="歯科衛生士"> 歯科衛生士</label>
-        <label><input type="checkbox" name="provider" value="看護師"> 看護師</label>
-        <label><input type="checkbox" name="provider" value="言語聴覚士"> 言語聴覚士</label>
-      </td>
-    </tr>
-    </table>
-
-    <table style="font-size: 9.5pt; width: 100%; border-collapse: collapse; line-height: 1.1; margin-left: 0; text-align: left;">
-      <tr>
-        <td class="label" style="width: 80px; text-align: center; vertical-align: middle;">目標</td>
-        <td style="text-align: left;"> <!-- ← ここを追加 -->
-          <div style="border-bottom: 1px dotted #000; padding-bottom: 4px; margin-bottom: 4px;">
-            <label><input type="checkbox" name="goal1"> 歯科疾患</label>
-            <label><input type="radio" name="goal1_detail" value="重症化防止"> 重症化防止</label>
-            <label><input type="radio" name="goal1_detail" value="維持"> 維持</label>
-            <label><input type="radio" name="goal1_detail" value="改善"> 改善</label>
-          </div>
-
-          <div style="border-bottom: 1px dotted #000; padding-bottom: 4px; margin-bottom: 4px;">
-            <label><input type="checkbox" name="goal2"> 口腔衛生</label>
-            <label><input type="radio" name="goal2_detail" value="維持"> 維持</label>
-            <label><input type="radio" name="goal2_detail" value="改善"> 改善</label>
-            <input type="text" name="goal2_text" placeholder="改善内容" style="width: 60%; display: none;">
-          </div>
-
-          <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px; border-bottom: 1px dotted #000; padding-bottom: 4px; margin-bottom: 4px;">
-            <label><input type="checkbox" name="goal3"> 摂食嚥下等の口腔機能</label>
-            <label><input type="radio" name="goal3_detail" value="維持"> 維持</label>
-            <label><input type="radio" name="goal3_detail" value="改善"> 改善</label>
-            <input type="text" name="goal3_text" placeholder="改善内容" style="flex: 1; min-width: 200px; display: none;">
-          </div>
-
-          <div style="border-bottom: 1px dotted #000; padding-bottom: 4px; margin-bottom: 4px;">
-            <label><input type="checkbox" name="goal4"> 食形態</label>
-            <label><input type="radio" name="goal4_detail" value="維持"> 維持</label>
-            <label><input type="radio" name="goal4_detail" value="改善"> 改善</label>
-            <input type="text" name="goal4_text" placeholder="改善内容" style="width: 60%; display: none;">
-          </div>
-
-          <div style="border-bottom: 1px dotted #000; padding-bottom: 4px; margin-bottom: 4px;">
-            <label><input type="checkbox" name="goal5"> 栄養状態</label>
-            <label><input type="radio" name="goal5_detail" value="維持"> 維持</label>
-            <label><input type="radio" name="goal5_detail" value="改善"> 改善</label>
-            <input type="text" name="goal5_text" placeholder="改善内容" style="width: 60%; display: none;">
-          </div>
-
-          <div style="border-bottom: 1px dotted #000; padding-bottom: 4px; margin-bottom: 4px;">
-            <label><input type="checkbox" name="goal6"> 音声・言語機能</label>
-            <label><input type="radio" name="goal6_detail" value="維持"> 維持</label>
-            <label><input type="radio" name="goal6_detail" value="改善"> 改善</label>
-            <input type="text" name="goal6_text" placeholder="改善内容" style="width: 60%; display: none;">
-          </div>
-
-          <div style="border-bottom: 1px dotted #000; padding-bottom: 4px; margin-bottom: 4px;">
-            <label><input type="checkbox" name="goal7"> 誤嚥性肺炎の予防</label>
-          </div>
-
-          <div>
-            <label><input type="checkbox" name="goal8"> その他（ <input type="text" style="width: 60%; display: inline-block;"> ）</label>
-          </div>
+        <!-- ここから下は実施日・年月日のセルが結合されたので削除 -->
+        <td class="label" style="width:90px; text-align: center;">サービス提供者</td>
+        <td style="width:100px;"><input type="text" name="providerName"></td>
+        <td style="white-space: nowrap;">
+          <label><input type="checkbox" name="provider" value="歯科衛生士"> 歯科衛生士</label>
+          <label><input type="checkbox" name="provider" value="看護師"> 看護師</label>
+          <label><input type="checkbox" name="provider" value="言語聴覚士"> 言語聴覚士</label>
         </td>
       </tr>
+
     </table>
+
+<table style="font-size: 9.5pt; width: 100%; border-collapse: collapse; line-height: 1.1; margin-left: 0; text-align: left;">
+  <tr>
+    <td class="label" style="width: 80px; text-align: center; vertical-align: middle;">目標</td>
+    <td style="text-align: left;">
+      <!-- ✅ 各項目に点線を付ける -->
+      <div style="border-bottom: 1px dotted #000; padding-bottom: 4px; margin-bottom: 4px;">
+        <label><input type="checkbox" name="goal1" id="goal1Check"> 歯科疾患</label>
+        <label><input type="radio" name="goal1_detail" value="重症化防止" disabled> 重症化防止</label>
+        <label><input type="radio" name="goal1_detail" value="維持" disabled> 維持</label>
+        <label><input type="radio" name="goal1_detail" value="改善" disabled> 改善</label>
+      </div>
+
+      <div style="border-bottom: 1px dotted #000; padding-bottom: 4px; margin-bottom: 4px;">
+        <label><input type="checkbox" name="goal2" id="goal2Check"> 口腔衛生</label>
+        <label><input type="radio" name="goal2_detail" value="維持" disabled> 維持</label>
+        <label><input type="radio" name="goal2_detail" value="改善" disabled> 改善</label>
+        <input type="text" name="goal2_text" placeholder="改善内容" style="width: 60%; display: none;">
+      </div>
+
+      <div style="border-bottom: 1px dotted #000; padding-bottom: 4px; margin-bottom: 4px;">
+        <label><input type="checkbox" name="goal3" id="goal3Check"> 摂食嚥下等の口腔機能</label>
+        <label><input type="radio" name="goal3_detail" value="維持" disabled> 維持</label>
+        <label><input type="radio" name="goal3_detail" value="改善" disabled> 改善</label>
+        <input type="text" name="goal3_text" placeholder="改善内容" style="width: 60%; display: none;">
+      </div>
+
+      <div style="border-bottom: 1px dotted #000; padding-bottom: 4px; margin-bottom: 4px;">
+        <label><input type="checkbox" name="goal4" id="goal4Check"> 食形態</label>
+        <label><input type="radio" name="goal4_detail" value="維持" disabled> 維持</label>
+        <label><input type="radio" name="goal4_detail" value="改善" disabled> 改善</label>
+        <input type="text" name="goal4_text" placeholder="改善内容" style="width: 60%; display: none;">
+      </div>
+
+      <div style="border-bottom: 1px dotted #000; padding-bottom: 4px; margin-bottom: 4px;">
+        <label><input type="checkbox" name="goal5" id="goal5Check"> 栄養状態</label>
+        <label><input type="radio" name="goal5_detail" value="維持" disabled> 維持</label>
+        <label><input type="radio" name="goal5_detail" value="改善" disabled> 改善</label>
+        <input type="text" name="goal5_text" placeholder="改善内容" style="width: 60%; display: none;">
+      </div>
+
+      <div style="border-bottom: 1px dotted #000; padding-bottom: 4px; margin-bottom: 4px;">
+        <label><input type="checkbox" name="goal6" id="goal6Check"> 音声・言語機能</label>
+        <label><input type="radio" name="goal6_detail" value="維持" disabled> 維持</label>
+        <label><input type="radio" name="goal6_detail" value="改善" disabled> 改善</label>
+        <input type="text" name="goal6_text" placeholder="改善内容" style="width: 60%; display: none;">
+      </div>
+
+      <!-- 以降の項目も同様 -->
+      <div style="border-bottom: 1px dotted #000; padding-bottom: 4px; margin-bottom: 4px;">
+        <label><input type="checkbox" name="goal7"> 誤嚥性肺炎の予防</label>
+      </div>
+
+      <div>
+        <label><input type="checkbox" name="goal8"> その他（ <input type="text" style="width: 60%; display: inline-block;"> ）</label>
+      </div>
+    </td>
+  </tr>
+</table>
+
 
 
     <script>
+
       document.addEventListener('DOMContentLoaded', () => {
-        const goalGroups = [2,3,4,5,6];
-        goalGroups.forEach(i => {
-          const radios = document.getElementsByName(`goal${i}_detail`);
-          const input = document.querySelector(`[name='goal${i}_text']`);
-          radios.forEach(r => {
-            r.addEventListener('change', () => {
-              if (r.value === '改善') {
-                input.style.display = 'inline-block';
-                input.required = true;
-              } else {
-                input.style.display = 'none';
-                input.required = false;
-              }
+        for (let i = 1; i <= 6; i++) {
+          const check = document.querySelector(`input[name="goal${i}"]`);
+          const radios = document.querySelectorAll(`input[name="goal${i}_detail"]`);
+          const input = document.querySelector(`input[name="goal${i}_text"]`);
+
+          if (!check) continue;
+
+          const update = () => {
+            const enabled = check.checked;
+            radios.forEach(r => {
+              r.disabled = !enabled;
+              if (!enabled) r.checked = false;
             });
+
+            if (input) {
+              const isImprovement = enabled && [...radios].some(r => r.value === "改善" && r.checked);
+              input.style.display = isImprovement ? "inline-block" : "none";
+              input.required = isImprovement;
+
+              // () で囲む処理（見た目上の入力に）
+              if (isImprovement && input.value && !input.value.startsWith("（")) {
+                input.value = `（${input.value}）`;
+              }
+
+              // チェックを外した場合に括弧も除去（必要なら）
+              if (!isImprovement && input.value.startsWith("（") && input.value.endsWith("）")) {
+                input.value = input.value.slice(1, -1);
+              }
+            }
+          };
+
+          check.addEventListener("change", update);
+          radios.forEach(r => r.addEventListener("change", update));
+          input && input.addEventListener("blur", () => {
+            if (input.value && !input.value.startsWith("（")) {
+              input.value = `（${input.value}）`;
+            }
           });
-        });
+
+          update();
+        }
       });
+
     </script>
+
 
 
     <table style="font-size: 9.5pt; width: 100%; border-collapse: collapse; margin: 0; line-height: 1.0; text-align: left;">
