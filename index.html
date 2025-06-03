@@ -233,6 +233,22 @@
       background-color: #f8f8f8;
       cursor: pointer;
     }
+    /* モーダル表示の米村美奈子をボタン大きくするために設置 */
+    .person-button {
+      font-size: 20px;
+      padding: 12px 24px;
+      margin: 8px 0;
+      width: 100%;
+      border-radius: 8px;
+      border: 1px solid #888;
+      background-color: #f0f0f0;
+      cursor: pointer;
+    }
+
+    .person-button:hover {
+      background-color: #0056b3;
+      color: white;
+    }
   </style>
   <script>
     window.addEventListener('DOMContentLoaded', () => {
@@ -271,7 +287,12 @@
         <td class="label" style="width: 60px;">生年月日</td>
         <td style="width: 110px;"><input type="date" id="birthday" /></td>
         <td class="label" style="width: 30px;">年齢</td>
-        <td style="width: 40px;"><input type="text" id="age" placeholder="" readonly /></td>
+        <td class="label" style="width: 30px; text-align: center;">年齢</td>
+        <td style="width: 40px; text-align: center;">
+          <input type="text" id="age" placeholder="" readonly 
+                style="max-width: 36px; font-size: 9pt; text-align: center;" />
+        </td>
+
       </tr>
       <tr>
         <td class="label" rowspan="2">氏名</td>
@@ -818,8 +839,10 @@ function updateHorizontalDivider() {
     <div id="personModal" class="modal" style="display:none; position:fixed; background:rgba(0,0,0,0.6); top:0; left:0; right:0; bottom:0; justify-content:center; align-items:center; z-index:1000;">
       <div class="modal-content" style="background:white; padding:1rem; border-radius:8px; width:90%; max-width:400px; font-size:18px;">
         <h3>記入者を選択</h3>
-        <button onclick="selectPerson('米村　美奈子', '歯科衛生士')">米村　美奈子</button><br>
-        <button onclick="selectPerson('近藤　真由美', '看護師')">近藤　真由美</button><br>
+
+        <button class="person-button" onclick="selectPerson('米村　美奈子', '歯科衛生士')">米村　美奈子</button><br>
+        <button class="person-button" onclick="selectPerson('近藤　真由美', '看護師')">近藤　真由美</button><br>
+
 
         <button onclick="showOtherInput()">その他</button>
 
