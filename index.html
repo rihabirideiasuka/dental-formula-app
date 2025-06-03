@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>口腔記録フォーム</title>
   <style>
-    @page { size: A4; margin: 5mm; }
+    @page { size: A4; margin: 3mm 5mm; } /* 上下3mm、左右5mm */
     html, body {
       margin: 0;
       padding: 0;
@@ -18,20 +18,20 @@
 
     /* テーブルと基本フォーム */
     .container {
-      padding: 4mm;
+      padding: 2mm 4mm; /* 上下2mm、左右4mm */
       border: 1px solid #000;
     }
     table {
       border-collapse: collapse;
       width: 100%;
-      margin-bottom: 10px;
-      font-size: 8.5pt;
-      text-align: center;
-      line-height: 1.1;
+      font-size: 8.3pt;
+      line-height: 1.0;
+      margin-bottom: 1px;
     }
+
     th, td {
       border: 1px solid black;
-      padding: 2px 6px;
+      padding: 1px 3px;
       white-space: nowrap;
       vertical-align: middle;
     }
@@ -51,8 +51,8 @@
     /* セクションタイトルと名前 */
     .section-title {
       font-weight: bold;
-      font-size: 11pt;
-      margin: 12px 0 6px;
+      font-size: 10pt;
+      margin: 2px 0; /* ← これでセクション間が詰まる */
     }
     #name {
       font-size: 14pt;
@@ -175,19 +175,20 @@
     .consent-box {
       font-size: 8pt;
       border: 1px solid black;
-      padding: 6px;
+      padding: 4px;
       margin-left: 0;
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-start;
       text-align: center;
-      min-width: 180px;
-      height: 100%;
+      flex-grow: 1;      /* ← 残りスペースを全て使う */
+      min-width: 0;      /* ← 最小幅制限を外す */
+      height: auto;
     }
     .signature-space {
       border-bottom: 1px solid black;
-      height: 40px;
-      margin-top: 8px;
+      height: 24px;
+      margin-top: 4px;
     }
 
     .input-block {
@@ -292,8 +293,9 @@
 
 <body onload="updateCenterDivider()">
   <div class="container">
-    <h1 style="text-align:center; font-size:13pt; margin-bottom:10px;">口腔機能向上サービスに関する計画書・アセスメント・モニタリング・評価表</h1>
-
+    <h1 style="text-align:center; font-size:13pt; margin: 2px 0;">
+      口腔機能向上サービスに関する計画書・アセスメント・モニタリング・評価表
+    </h1>
     <table>
       <tr>
         <td class="label" style="width: 60px;">ふりがな</td>
@@ -382,13 +384,13 @@
   <!-- PD/FDボタン -->
   <div id="upper-toggle-wrapper"></div>
   <div id="lower-toggle-wrapper"></div>
-  <!-- 歯の表示エリア -->
+  <!-- 歯の表示エリア ------------------------------------------------------------------------------->
   <div style="position: relative;">
     <div id="br-lines"></div>
-    <div class="tooth-grid" id="upperJaw"></div>
+    <div class="tooth-grid" id="upperJaw" style="margin-top: 10px; margin-bottom: 10px;"></div>
     <div class="center-divider"></div>
     <div class="horizontal-divider" id="horizontal-divider"></div>
-    <div class="tooth-grid" id="lowerJaw" style="margin-top: 20px;"></div>
+    <div class="tooth-grid" id="lowerJaw" style="margin-top: 30px; margin-bottom: 30px;"></div>
   </div>
 </div>
 
@@ -682,7 +684,7 @@ function updateHorizontalDivider() {
       rightEdge = upperRect.right - containerRect.left;
     }
 
-    horizontal.style.top = (lower.offsetTop - 10) + "px";
+    horizontal.style.top = (lower.offsetTop - 15) + "px";
     horizontal.style.left = `${left}px`;
     horizontal.style.width = `${rightEdge - left}px`;
   }
@@ -693,7 +695,7 @@ function updateHorizontalDivider() {
 
     <!-- この下に「最初の項目→→→→→→→→→→→→→→→→→→→→かかりつけ医とか義歯の使用とか」を続けていきます -->
     <!-- <h2 class="section-title">口腔に関する基本情報</h2> -->
-    <table style="font-size: 9.5pt; width: 100%; border-collapse: collapse; line-height: 1.1; margin-left: 0; text-align: left;">
+    <table style="font-size: 8.8pt; width: 100%; border-collapse: collapse; line-height: 1.05; margin-left: 0; text-align: left;">
       <tr>
         <td class="label" style="background: #e0e0e0; width: 20%;">現在の歯科受診 かかりつけ医</td>
         <td colspan="4">
@@ -845,8 +847,7 @@ function updateHorizontalDivider() {
       }
 
     </script>
-
-    <table style="font-size: 9.5pt; width: 100%; border-collapse: collapse; line-height: 1.1; margin-left: 0; text-align: left;">
+    <table style="font-size: 8.8pt; width: 100%; border-collapse: collapse; line-height: 1.05; margin-left: 0; text-align: left;">
       <tr>
         <td class="label" style="width:80px;">実施日</td>
         <td style="width:110px;"><input type="date" id="examDate" /></td>
@@ -856,7 +857,7 @@ function updateHorizontalDivider() {
        placeholder="記入者を選択" 
        readonly 
        onclick="openPersonModal()" 
-       style="cursor:pointer; max-width: 90px; font-size: 9.5pt;" />
+       style="cursor:pointer; max-width: 90px; font-size: 8.8pt;" />
 
         </td>
         <td style="white-space: nowrap;">
@@ -896,7 +897,7 @@ function updateHorizontalDivider() {
 
 
 
-    <table style="font-size: 9.5pt; table-layout: fixed; width: 100%; margin: 0; line-height: 1.0;">
+    <table style="font-size: 8.8pt; table-layout: fixed; width: 100%; margin: 0; line-height: 1.0;">
       <colgroup>
         <col style="width: 13%;">
         <col style="width: 10%;">
@@ -919,7 +920,7 @@ function updateHorizontalDivider() {
       </tr>
     </table>
 
-    <table style="font-size: 9.5pt; table-layout: fixed; width: 100%; margin: 0; line-height: 1.0;">
+    <table style="font-size: 8.8pt; table-layout: fixed; width: 100%; margin: 0; line-height: 1.0;">
       <colgroup>
         <col style="width: 13%;">
         <col style="width: 10%;">
@@ -948,7 +949,7 @@ function updateHorizontalDivider() {
       </tr>
     </table>
 
-    <table style="font-size: 9.5pt; width: 100%; border-collapse: collapse; line-height: 1.1; margin-left: 0; text-align: left;">
+    <table style="font-size: 8.8pt; width: 100%; border-collapse: collapse; line-height: 1.05; margin-left: 0; text-align: left;">
       <tr>
         <td class="label" style="width: 18%;">歯科受診の必要性</td>
         <td>
@@ -959,7 +960,7 @@ function updateHorizontalDivider() {
       </tr>
     </table>
 
-    <table style="font-size: 9.5pt; width: 100%; border-collapse: collapse; line-height: 1.1; margin-left: 0; text-align: left;">
+    <table style="font-size: 8.8pt; width: 100%; border-collapse: collapse; line-height: 1.05; margin-left: 0; text-align: left;">
       <tr>
         <td class="label" style="width: 13%; text-align: center; vertical-align: middle;">特記事項</td>
         <td>
@@ -974,7 +975,7 @@ function updateHorizontalDivider() {
     <!-- この下に「2. 口腔機能改善管理指導計画を続けていきます -->
 
     <h2 class="section-title" style="margin: 0; padding: 0;">2. 口腔機能改善管理指導計画</h2>
-    <table style="font-size: 9.5pt; width: 100%; border-collapse: collapse; line-height: 1.1; margin-left: 0; text-align: left;">
+    <table style="font-size: 8.8pt; width: 100%; border-collapse: collapse; line-height: 1.05; margin-left: 0; text-align: left;">
       <tr>
         <td class="label" rowspan="2" style="width:80px; vertical-align: middle; text-align: center;">実施日</td>
         <td rowspan="2" style="width:110px; vertical-align: middle;"><input type="date" id="examDatePlan" /></td>
@@ -1012,7 +1013,7 @@ function updateHorizontalDivider() {
     }
     </script>
 
-<table style="font-size: 9.5pt; width: 100%; border-collapse: collapse; line-height: 1.1; margin-left: 0; text-align: left;">
+<table style="font-size: 8.8pt; width: 100%; border-collapse: collapse; line-height: 1.05; margin-left: 0; text-align: left;">
   <tr>
     <td class="label" style="width: 80px; text-align: center; vertical-align: middle;">目標</td>
     <td style="text-align: left;">
@@ -1123,7 +1124,7 @@ function updateHorizontalDivider() {
 
 
 
-    <table style="font-size: 9.5pt; width: 100%; border-collapse: collapse; margin: 0; line-height: 1.0; text-align: left;">
+    <table style="font-size: 8.8pt; width: 100%; border-collapse: collapse; margin: 0; line-height: 1.05; text-align: left;">
       <tr>
         <td class="label" style="width: 80px; text-align: center; vertical-align: middle; border: 1px solid #000;">実施内容</td>
         <td style="border: 1px solid #000; padding: 4px 2px; text-align: left;">
@@ -1155,7 +1156,7 @@ function updateHorizontalDivider() {
 
     <!-- この下に「3. 実施記録を続けていきます -->
     <h3 class="section-title" style="margin: 0; padding: 0;">3. 実施記録</h3>
-    <table style="font-size: 9.5pt; width: 100%; border-collapse: collapse; line-height: 1.1; margin-left: 0; text-align: left;">
+    <table style="font-size: 8.8pt; width: 100%; border-collapse: collapse; line-height: 1.05; margin-left: 0; text-align: left;">
       <tr>
         <td class="label" style="width:80px;">実施日</td>
         <td style="width:110px;"><input type="date" id="examDateRecord" /></td>
@@ -1190,34 +1191,29 @@ function updateHorizontalDivider() {
     }
     </script>
 
-    <table style="font-size: 9.5pt; width: 100%; border-collapse: collapse; line-height: 1.1; margin-left: 0; text-align: left;">
+    <table style="font-size: 8.5pt; width: 100%; border-collapse: collapse; margin: 0; line-height: 1.1; text-align: left;">
       <tr>
-        <!-- 左列 -->
-        <td style="width: 50%; border: 1px solid #000; vertical-align: top; background: #e0e0e0;">
-          <div style="display: grid; grid-template-columns: 1fr; row-gap: 4px;">
-            <label style="border-bottom: 1px dotted #000; padding-bottom: 2px;">
-              <input type="checkbox" name="record1"> 口腔清掃
+        <td class="label" style="width: 80px; text-align: center; vertical-align: middle; border: 1px solid #000;">実施内容</td>
+        <td style="border: 1px solid #000; padding: 4px 2px; text-align: left;">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; row-gap: 2px; column-gap: 4px;">
+            <label style="border-bottom: 1px dotted #000; padding-bottom: 1px; margin-bottom: 0px; font-size: 8.3pt;">
+              <input type="checkbox" name="content1"> 口腔清掃
             </label>
-            <label style="border-bottom: 1px dotted #000; padding-bottom: 2px;">
-              <input type="checkbox" name="record2" checked> 摂食嚥下等の口腔機能に関する指導
+            <label style="border-bottom: 1px dotted #000; padding-bottom: 1px; margin-bottom: 0px; font-size: 8.3pt;">
+              <input type="checkbox" name="content2" checked> 口腔清掃に関する指導
             </label>
-            <label>
-              <input type="checkbox" name="record3" checked> 誤嚥性肺炎の予防に関する指導
+            <label style="border-bottom: 1px dotted #000; padding-bottom: 1px; margin-bottom: 0px; font-size: 8.3pt;">
+              <input type="checkbox" name="content3" checked> 摂食嚥下等の口腔機能に関する指導
             </label>
-          </div>
-        </td>
-
-        <!-- 右列 -->
-        <td style="width: 50%; border: 1px solid #000; vertical-align: top; background: #f8f8f8;">
-          <div style="display: grid; grid-template-columns: 1fr; row-gap: 4px;">
-            <label style="border-bottom: 1px dotted #000; padding-bottom: 2px;">
-              <input type="checkbox" name="record4" checked> 口腔清掃に関する指導
+            <label style="border-bottom: 1px dotted #000; padding-bottom: 1px; margin-bottom: 0px; font-size: 8.3pt;">
+              <input type="checkbox" name="content4"> 音声・言語機能に関する指導
             </label>
-            <label style="border-bottom: 1px dotted #000; padding-bottom: 2px;">
-              <input type="checkbox" name="record5"> 音声・言語機能に関する指導
+            <label style="font-size: 8.3pt;">
+              <input type="checkbox" name="content5" checked> 誤嚥性肺炎の予防に関する指導
             </label>
-            <label>
-              <input type="checkbox" name="record6" checked> その他（<input type="text" name="record6_text" value="集団口腔体操及び個別指導" style="width: 70%;">）
+            <label style="font-size: 8.3pt;">
+              <input type="checkbox" name="content6" checked>
+              その他（<input type="text" value="集団口腔体操及び個別指導" style="width: 70%;">）
             </label>
           </div>
         </td>
@@ -1225,13 +1221,20 @@ function updateHorizontalDivider() {
     </table>
 
 
+
     <h4 class="section-title" style="margin: 0; padding: 0;">RSSTとオーラルディアドコキネシス</h4>
     <div class="print-wrapper" style="display: flex; align-items: flex-start; gap: 1rem;">
       <!-- 左の表 -->
-      <div class="left-box" style="flex: 1;">
-        <table style="table-layout: auto; border-collapse: collapse; font-size: 9.5pt; font-family: sans-serif; text-align: center; width: 100%;">
+      <div class="left-box" style="flex: 0 0 440px; max-width: 440px;">
+        <table style="table-layout: fixed; border-collapse: collapse; font-size: 8.5pt; font-family: sans-serif; text-align: center; width: 100%;">
+          <colgroup>
+            <col style="width: 46%;">
+            <col style="width: 18%;">
+            <col style="width: 18%;">
+            <col style="width: 18%;">
+          </colgroup>
           <thead>
-            <tr style="height: 28px;">
+            <tr style="height: 22px;">
               <th style="text-align: left;">※RSST→30秒間の咽頭挙上の回数</th>
               <th id="header1">1回目</th>
               <th id="header2">2回目</th>
@@ -1239,20 +1242,20 @@ function updateHorizontalDivider() {
             </tr>
           </thead>
           <tbody>
-            <tr style="height: 28px;">
-              <th style="text-align: left;">RSST（正常値3回以上）</th>
+            <tr style="height: 22px;">
+              <th style="text-align: left; width: 48%;">RSST（正常値3回以上）</th>
               <td id="rsst1"></td><td id="rsst2"></td><td id="rsst3"></td>
             </tr>
-            <tr style="height: 28px;">
-              <th style="text-align: left;">パ（回/秒） 男4.4～7.2 女4.2～7.2</th>
+            <tr style="height: 22px;">
+              <th style="text-align: left; width: 48%;">パ（回/秒） 男4.4～7.2 女4.2～7.2</th>
               <td id="pa1"></td><td id="pa2"></td><td id="pa3"></td>
             </tr>
-            <tr style="height: 28px;">
-              <th style="text-align: left;">タ（回/秒） 男4.2～7.0 女4.4～7.2</th>
+            <tr style="height: 22px;">
+              <th style="text-align: left; width: 48%;">タ（回/秒） 男4.2～7.0 女4.4～7.2</th>
               <td id="ta1"></td><td id="ta2"></td><td id="ta3"></td>
             </tr>
-            <tr style="height: 28px;">
-              <th style="text-align: left;">カ（回/秒） 男4.0～6.6 女4.1～6.7</th>
+            <tr style="height: 22px;">
+              <th style="text-align: left; width: 48%;">カ（回/秒） 男4.0～6.6 女4.1～6.7</th>
               <td id="ka1"></td><td id="ka2"></td><td id="ka3"></td>
             </tr>
           </tbody>
@@ -1278,10 +1281,10 @@ function updateHorizontalDivider() {
         margin-top: 0;
       ">
         <strong>説明日・同意日</strong>
-        <div style="margin-top: 4px;">令和　　　年　　　月　　　日</div>
-        <div style="margin-top: 6px;">
+        <div style="margin-top: 0px;">　　　　年　　　　月　　　　日</div>
+        <div style="margin-top: 0px;">
           利用者同意書サイン（本人）<br><br>
-          <div class="signature-space" style="border-bottom: 1px solid black; height: 40px; margin-top: 4px;"></div>
+          <div class="signature-space" style="border-bottom: 1px solid black; height: 24px; margin-top: 4px;"></div>
         </div>
       </div>
     </div>
