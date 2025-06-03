@@ -148,6 +148,14 @@
       background-color: #0056b3;
       color: white;
     }
+    input[readonly] {
+      background-color: #f9f9f9;
+      cursor: pointer;
+    }
+    #otherInput input, #otherInput select {
+      font-size: 16px;
+      margin-top: 6px;
+    }
 
     /* その他レイアウト */
     .print-wrapper {
@@ -728,6 +736,7 @@ function updateHorizontalDivider() {
     <!-- この下に「1.口腔の健康状態の評価・再評価」を続けていきます -->
 
     <h2 class="section-title">1. 口腔の健康状態の評価・再評価（口腔に関する問題点等）</h2>
+
     <script>
       document.addEventListener('DOMContentLoaded', function () {
         const examDate = document.getElementById('examDate');
@@ -736,22 +745,94 @@ function updateHorizontalDivider() {
           examDate.value = today;
         }
       });
-    </script>
 
+      function openPersonModal() {
+        document.getElementById("personModal").style.display = "flex";
+        document.getElementById("otherInput").style.display = "none";
+      }
+
+      function closePersonModal() {
+        document.getElementById("personModal").style.display = "none";
+      }
+
+      function showOtherInput() {
+        document.getElementById("otherInput").style.display = "block";
+      }
+
+      function selectPerson(name, qualification) {
+        document.getElementById("examWriterMain").value = name;
+
+        const checkboxes = document.getElementsByName("writerTypeMain");
+        checkboxes.forEach(box => {
+          box.checked = (box.value === qualification);
+        });
+
+        // 他の欄（計画立案者・サービス提供者）にも反映
+        applyWriterToAll(name, qualification);
+
+        closePersonModal();
+      }
+
+      function confirmOther() {
+        const name = document.getElementById("otherName").value.trim();
+        const role = document.getElementById("otherRole").value;
+        if (!name || !role) {
+          alert("氏名と資格を入力してください");
+          return;
+        }
+
+        document.getElementById("examWriterMain").value = name;
+        const checkboxes = document.getElementsByName("writerTypeMain");
+        checkboxes.forEach(box => {
+          box.checked = (box.value === role);
+        });
+
+        closePersonModal();
+      }
+
+    </script>
 
     <table style="font-size: 9.5pt; width: 100%; border-collapse: collapse; line-height: 1.1; margin-left: 0; text-align: left;">
       <tr>
         <td class="label" style="width:80px;">実施日</td>
         <td style="width:110px;"><input type="date" id="examDate" /></td>
         <td class="label" style="width:90px;">記入者</td>
-        <td style="width:100px;"><input type="text" id="examWriter" /></td>
+        <td style="width:100px;">
+          <input type="text" id="examWriterMain" placeholder="記入者を選択" readonly onclick="openPersonModal()" />
+        </td>
         <td style="white-space: nowrap;">
-          <label><input type="checkbox" name="writerType" value="歯科衛生士" /> 歯科衛生士</label>
-          <label><input type="checkbox" name="writerType" value="看護師" /> 看護師</label>
-          <label><input type="checkbox" name="writerType" value="言語聴覚士" /> 言語聴覚士</label>
+          <label><input type="checkbox" name="writerTypeMain" value="歯科衛生士" /> 歯科衛生士</label>
+          <label><input type="checkbox" name="writerTypeMain" value="看護師" /> 看護師</label>
+          <label><input type="checkbox" name="writerTypeMain" value="言語聴覚士" /> 言語聴覚士</label>
         </td>
       </tr>
     </table>
+
+
+    <!-- モーダル -->
+    <div id="personModal" class="modal" style="display:none; position:fixed; background:rgba(0,0,0,0.6); top:0; left:0; right:0; bottom:0; justify-content:center; align-items:center; z-index:1000;">
+      <div class="modal-content" style="background:white; padding:1rem; border-radius:8px; width:90%; max-width:400px; font-size:18px;">
+        <h3>記入者を選択</h3>
+        <button onclick="selectPerson('米村　美奈子', '歯科衛生士')">米村　美奈子</button><br>
+        <button onclick="selectPerson('近藤　真由美', '看護師')">近藤　真由美</button><br>
+
+        <button onclick="showOtherInput()">その他</button>
+
+        <div id="otherInput" style="display:none; margin-top:1em;">
+          <input type="text" id="otherName" placeholder="氏名を入力" style="width:90%; margin-bottom:6px;"><br>
+          <select id="otherRole" style="width:90%; margin-bottom:6px;">
+            <option value="">資格を選択</option>
+            <option value="歯科衛生士">歯科衛生士</option>
+            <option value="看護師">看護師</option>
+            <option value="言語聴覚士">言語聴覚士</option>
+          </select><br>
+          <button onclick="confirmOther()">入力して決定</button>
+        </div>
+
+        <button onclick="closePersonModal()" style="margin-top:1em;">キャンセル</button>
+      </div>
+    </div>
+
 
 
     <table style="font-size: 9.5pt; table-layout: fixed; width: 100%; margin: 0; line-height: 1.0;">
@@ -835,27 +916,40 @@ function updateHorizontalDivider() {
     <table style="font-size: 9.5pt; width: 100%; border-collapse: collapse; line-height: 1.1; margin-left: 0; text-align: left;">
       <tr>
         <td class="label" rowspan="2" style="width:80px; vertical-align: middle; text-align: center;">実施日</td>
-        <td rowspan="2" style="width:110px; vertical-align: middle;"><input type="date" id="examDate" /></td>
+        <td rowspan="2" style="width:110px; vertical-align: middle;"><input type="date" id="examDatePlan" /></td>
+
         <td class="label" style="width:90px;">計画立案者</td>
-        <td style="width:100px;"><input type="text" id="examWriter" /></td>
+        <td style="width:100px;"><input type="text" id="examWriterPlan" /></td>
         <td style="white-space: nowrap;">
-          <label><input type="checkbox" name="writerType" value="歯科衛生士" /> 歯科衛生士</label>
-          <label><input type="checkbox" name="writerType" value="看護師" /> 看護師</label>
-          <label><input type="checkbox" name="writerType" value="言語聴覚士" /> 言語聴覚士</label>
+          <label><input type="checkbox" name="writerTypePlan" value="歯科衛生士" /> 歯科衛生士</label>
+          <label><input type="checkbox" name="writerTypePlan" value="看護師" /> 看護師</label>
+          <label><input type="checkbox" name="writerTypePlan" value="言語聴覚士" /> 言語聴覚士</label>
         </td>
       </tr>
       <tr>
-        <!-- ここから下は実施日・年月日のセルが結合されたので削除 -->
         <td class="label" style="width:90px; text-align: center;">サービス提供者</td>
-        <td style="width:100px;"><input type="text" name="providerName"></td>
+        <td style="width:100px;"><input type="text" id="examWriterProvider" /></td>
         <td style="white-space: nowrap;">
-          <label><input type="checkbox" name="provider" value="歯科衛生士"> 歯科衛生士</label>
-          <label><input type="checkbox" name="provider" value="看護師"> 看護師</label>
-          <label><input type="checkbox" name="provider" value="言語聴覚士"> 言語聴覚士</label>
+          <label><input type="checkbox" name="writerTypeProvider" value="歯科衛生士" /> 歯科衛生士</label>
+          <label><input type="checkbox" name="writerTypeProvider" value="看護師" /> 看護師</label>
+          <label><input type="checkbox" name="writerTypeProvider" value="言語聴覚士" /> 言語聴覚士</label>
         </td>
       </tr>
-
     </table>
+
+    <script>
+    function applyWriterToAll(name, role) {
+      // 計画立案者
+      document.getElementById("examWriterPlan").value = name;
+      const planChecks = document.getElementsByName("writerTypePlan");
+      planChecks.forEach(c => c.checked = (c.value === role));
+
+      // サービス提供者
+      document.getElementById("examWriterProvider").value = name;
+      const providerChecks = document.getElementsByName("writerTypeProvider");
+      providerChecks.forEach(c => c.checked = (c.value === role));
+    }
+    </script>
 
 <table style="font-size: 9.5pt; width: 100%; border-collapse: collapse; line-height: 1.1; margin-left: 0; text-align: left;">
   <tr>
@@ -1003,16 +1097,38 @@ function updateHorizontalDivider() {
     <table style="font-size: 9.5pt; width: 100%; border-collapse: collapse; line-height: 1.1; margin-left: 0; text-align: left;">
       <tr>
         <td class="label" style="width:80px;">実施日</td>
-        <td style="width:110px;"><input type="date" id="examDate" /></td>
+        <td style="width:110px;"><input type="date" id="examDateRecord" /></td>
+
         <td class="label" style="width:90px;">サービス提供者</td>
-        <td style="width:100px;"><input type="text" id="examWriter" /></td>
+        <td style="width:100px;"><input type="text" id="examWriterRecord" /></td>
+
         <td style="white-space: nowrap;">
-          <label><input type="checkbox" name="writerType" value="歯科衛生士" /> 歯科衛生士</label>
-          <label><input type="checkbox" name="writerType" value="看護師" /> 看護師</label>
-          <label><input type="checkbox" name="writerType" value="言語聴覚士" /> 言語聴覚士</label>
+          <label><input type="checkbox" name="writerTypeRecord" value="歯科衛生士" /> 歯科衛生士</label>
+          <label><input type="checkbox" name="writerTypeRecord" value="看護師" /> 看護師</label>
+          <label><input type="checkbox" name="writerTypeRecord" value="言語聴覚士" /> 言語聴覚士</label>
         </td>
       </tr>
     </table>
+
+    <script>
+    function applyWriterToAll(name, role) {
+      // 計画立案者
+      document.getElementById("examWriterPlan").value = name;
+      const planChecks = document.getElementsByName("writerTypePlan");
+      planChecks.forEach(c => c.checked = (c.value === role));
+
+      // サービス提供者（計画）
+      document.getElementById("examWriterProvider").value = name;
+      const providerChecks = document.getElementsByName("writerTypeProvider");
+      providerChecks.forEach(c => c.checked = (c.value === role));
+
+      // サービス提供者（実施記録）
+      document.getElementById("examWriterRecord").value = name;
+      const recordChecks = document.getElementsByName("writerTypeRecord");
+      recordChecks.forEach(c => c.checked = (c.value === role));
+    }
+    </script>
+
     <table style="font-size: 9.5pt; width: 100%; border-collapse: collapse; line-height: 1.1; margin-left: 0; text-align: left;">
       <tr>
         <!-- 左列 -->
