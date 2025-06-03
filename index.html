@@ -761,16 +761,19 @@ function updateHorizontalDivider() {
 
     <script>
       document.addEventListener('DOMContentLoaded', function () {
-        const examDate = document.getElementById('examDate');
-        if (examDate) {
-          const today = new Date().toISOString().split('T')[0];
-          examDate.value = today;
-        }
+        const today = new Date().toISOString().split('T')[0];
+
         // 実施日を変更したとき、他の欄にも反映する
         const mainDateInput = document.getElementById('examDate');
         const planDateInput = document.getElementById('examDatePlan');
         const recordDateInput = document.getElementById('examDateRecord');
 
+        // すべての実施日に初期値（本日）を設定
+        if (mainDateInput) mainDateInput.value = today;
+        if (planDateInput) planDateInput.value = today;
+        if (recordDateInput) recordDateInput.value = today;
+
+        // mainDateInput を変更したときに他の2つへ連動
         if (mainDateInput && planDateInput && recordDateInput) {
           mainDateInput.addEventListener('change', function () {
             planDateInput.value = mainDateInput.value;
