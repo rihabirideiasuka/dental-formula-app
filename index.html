@@ -270,7 +270,7 @@
         <td style="width: 25px;"><input type="radio" name="gender" value="女" /></td>
         <td class="label" style="width: 60px;">生年月日</td>
         <td style="width: 110px;"><input type="date" id="birthday" /></td>
-        <td class="label" style="width: 25px;">年齢</td>
+        <td class="label" style="width: 30px;">年齢</td>
         <td style="width: 40px;"><input type="text" id="age" placeholder="" readonly /></td>
       </tr>
       <tr>
@@ -796,9 +796,14 @@ function updateHorizontalDivider() {
       <tr>
         <td class="label" style="width:80px;">実施日</td>
         <td style="width:110px;"><input type="date" id="examDate" /></td>
-        <td class="label" style="width:60px;">記入者</td>
+        <td class="label" style="width:80px;">記入者</td>
         <td style="width:100px;">
-          <input type="text" id="examWriterMain" placeholder="記入者を選択" readonly onclick="openPersonModal()" />
+          <input type="text" id="examWriterMain" 
+       placeholder="記入者を選択" 
+       readonly 
+       onclick="openPersonModal()" 
+       style="cursor:pointer; max-width: 90px; font-size: 9pt;" />
+
         </td>
         <td style="white-space: nowrap;">
           <label><input type="checkbox" name="writerTypeMain" value="歯科衛生士" /> 歯科衛生士</label>
