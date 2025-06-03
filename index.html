@@ -766,6 +766,17 @@ function updateHorizontalDivider() {
           const today = new Date().toISOString().split('T')[0];
           examDate.value = today;
         }
+        // 実施日を変更したとき、他の欄にも反映する
+        const mainDateInput = document.getElementById('examDate');
+        const planDateInput = document.getElementById('examDatePlan');
+        const recordDateInput = document.getElementById('examDateRecord');
+
+        if (mainDateInput && planDateInput && recordDateInput) {
+          mainDateInput.addEventListener('change', function () {
+            planDateInput.value = mainDateInput.value;
+            recordDateInput.value = mainDateInput.value;
+          });
+        }
       });
 
       function openPersonModal() {
