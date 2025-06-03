@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>口腔記録フォーム</title>
   <style>
-    @page { size: A4; margin: 6mm; }
+    @page { size: A4; margin: 5mm; }
     html, body {
       margin: 0;
       padding: 0;
@@ -18,14 +18,14 @@
 
     /* テーブルと基本フォーム */
     .container {
-      padding: 6mm;
+      padding: 4mm;
       border: 1px solid #000;
     }
     table {
       border-collapse: collapse;
       width: 100%;
       margin-bottom: 10px;
-      font-size: 8pt;
+      font-size: 8.5pt;
       text-align: center;
       line-height: 1.1;
     }
@@ -252,8 +252,6 @@
       color: white;
     }
     @media print {
-    html, body {
-      zoom: 0.9;      
       .no-print {
         display: none !important;
       }
@@ -297,7 +295,7 @@
     <h1 style="text-align:center; font-size:13pt; margin-bottom:10px;">口腔機能向上サービスに関する計画書・アセスメント・モニタリング・評価表</h1>
 
     <table>
-      <tr style="height: 16px;">
+      <tr>
         <td class="label" style="width: 60px;">ふりがな</td>
         <td style="width: 140px;"><input type="text" id="furigana" /></td>
         <td class="label" style="width: 25px;">男</td>
@@ -777,7 +775,7 @@ function updateHorizontalDivider() {
 
     <!-- この下に「1.口腔の健康状態の評価・再評価」を続けていきます -->
 
-    <h2 class="section-title">1. 口腔の健康状態の評価・再評価（口腔に関する問題点等）</h2>
+    <h2 class="section-title" style="margin: 0; padding: 0;">1. 口腔の健康状態の評価・再評価（口腔に関する問題点等）</h2>
 
     <script>
       document.addEventListener('DOMContentLoaded', function () {
@@ -975,7 +973,7 @@ function updateHorizontalDivider() {
 
     <!-- この下に「2. 口腔機能改善管理指導計画を続けていきます -->
 
-    <h2 class="section-title">2. 口腔機能改善管理指導計画</h2>
+    <h2 class="section-title" style="margin: 0; padding: 0;">2. 口腔機能改善管理指導計画</h2>
     <table style="font-size: 9.5pt; width: 100%; border-collapse: collapse; line-height: 1.1; margin-left: 0; text-align: left;">
       <tr>
         <td class="label" rowspan="2" style="width:80px; vertical-align: middle; text-align: center;">実施日</td>
@@ -1014,75 +1012,64 @@ function updateHorizontalDivider() {
     }
     </script>
 
-<style>
-  .goal-block {
-    border-bottom: 1px dotted #000;
-    padding: 1px 0;
-    margin: 1px 0;
-    line-height: 1.0;
-    font-size: 9pt;
-  }
-</style>
-
 <table style="font-size: 9.5pt; width: 100%; border-collapse: collapse; line-height: 1.1; margin-left: 0; text-align: left;">
   <tr>
     <td class="label" style="width: 80px; text-align: center; vertical-align: middle;">目標</td>
-    <td style="text-align: left; vertical-align: top; padding: 4px; font-size: 9pt;">
-      
-      <div class="goal-block">
+    <td style="text-align: left;">
+      <!-- ✅ 各項目に点線を付ける -->
+      <div style="border-bottom: 1px dotted #000; padding-bottom: 4px; margin-bottom: 4px;">
         <label><input type="checkbox" name="goal1" id="goal1Check"> 歯科疾患</label>
         <label><input type="radio" name="goal1_detail" value="重症化防止" disabled> 重症化防止</label>
         <label><input type="radio" name="goal1_detail" value="維持" disabled> 維持</label>
         <label><input type="radio" name="goal1_detail" value="改善" disabled> 改善</label>
       </div>
 
-      <div class="goal-block">
+      <div style="border-bottom: 1px dotted #000; padding-bottom: 4px; margin-bottom: 4px;">
         <label><input type="checkbox" name="goal2" id="goal2Check"> 口腔衛生</label>
         <label><input type="radio" name="goal2_detail" value="維持" disabled> 維持</label>
         <label><input type="radio" name="goal2_detail" value="改善" disabled> 改善</label>
         <input type="text" name="goal2_text" placeholder="改善内容" style="width: 60%; display: none;">
       </div>
 
-      <div class="goal-block">
+      <div style="border-bottom: 1px dotted #000; padding-bottom: 4px; margin-bottom: 4px;">
         <label><input type="checkbox" name="goal3" id="goal3Check"> 摂食嚥下等の口腔機能</label>
         <label><input type="radio" name="goal3_detail" value="維持" disabled> 維持</label>
         <label><input type="radio" name="goal3_detail" value="改善" disabled> 改善</label>
         <input type="text" name="goal3_text" placeholder="改善内容" style="width: 60%; display: none;">
       </div>
 
-      <div class="goal-block">
+      <div style="border-bottom: 1px dotted #000; padding-bottom: 4px; margin-bottom: 4px;">
         <label><input type="checkbox" name="goal4" id="goal4Check"> 食形態</label>
         <label><input type="radio" name="goal4_detail" value="維持" disabled> 維持</label>
         <label><input type="radio" name="goal4_detail" value="改善" disabled> 改善</label>
         <input type="text" name="goal4_text" placeholder="改善内容" style="width: 60%; display: none;">
       </div>
 
-      <div class="goal-block">
+      <div style="border-bottom: 1px dotted #000; padding-bottom: 4px; margin-bottom: 4px;">
         <label><input type="checkbox" name="goal5" id="goal5Check"> 栄養状態</label>
         <label><input type="radio" name="goal5_detail" value="維持" disabled> 維持</label>
         <label><input type="radio" name="goal5_detail" value="改善" disabled> 改善</label>
         <input type="text" name="goal5_text" placeholder="改善内容" style="width: 60%; display: none;">
       </div>
 
-      <div class="goal-block">
+      <div style="border-bottom: 1px dotted #000; padding-bottom: 4px; margin-bottom: 4px;">
         <label><input type="checkbox" name="goal6" id="goal6Check"> 音声・言語機能</label>
         <label><input type="radio" name="goal6_detail" value="維持" disabled> 維持</label>
         <label><input type="radio" name="goal6_detail" value="改善" disabled> 改善</label>
         <input type="text" name="goal6_text" placeholder="改善内容" style="width: 60%; display: none;">
       </div>
 
-      <div class="goal-block">
+      <!-- 以降の項目も同様 -->
+      <div style="border-bottom: 1px dotted #000; padding-bottom: 4px; margin-bottom: 4px;">
         <label><input type="checkbox" name="goal7"> 誤嚥性肺炎の予防</label>
       </div>
 
-      <div class="goal-block" style="border-bottom: none;">
+      <div>
         <label><input type="checkbox" name="goal8"> その他（ <input type="text" style="width: 60%; display: inline-block;"> ）</label>
       </div>
-
     </td>
   </tr>
 </table>
-
 
 
 
@@ -1139,18 +1126,18 @@ function updateHorizontalDivider() {
     <table style="font-size: 9.5pt; width: 100%; border-collapse: collapse; margin: 0; line-height: 1.0; text-align: left;">
       <tr>
         <td class="label" style="width: 80px; text-align: center; vertical-align: middle; border: 1px solid #000;">実施内容</td>
-        <td style="border: 1px solid #000; padding: 2px; font-size: 9pt; vertical-align: top; line-height: 1.0;">
+        <td style="border: 1px solid #000; padding: 4px 2px; text-align: left;">
           <div style="display: grid; grid-template-columns: 1fr 1fr; row-gap: 0; column-gap: 4px;">
-            <label style="border-bottom: 1px dotted #000; padding-bottom: 1px; margin-bottom: 1px;">
+            <label style="border-bottom: 1px dotted #000; padding-bottom: 2px; margin-bottom: 2px;">
               <input type="checkbox" name="content1"> 口腔清掃
             </label>
-            <label style="border-bottom: 1px dotted #000; padding-bottom: 1px; margin-bottom: 1px;">
+            <label style="border-bottom: 1px dotted #000; padding-bottom: 2px; margin-bottom: 2px;">
               <input type="checkbox" name="content2" checked> 口腔清掃に関する指導
             </label>
-            <label style="border-bottom: 1px dotted #000; padding-bottom: 1px; margin-bottom: 1px;">
+            <label style="border-bottom: 1px dotted #000; padding-bottom: 2px; margin-bottom: 2px;">
               <input type="checkbox" name="content3" checked> 摂食嚥下等の口腔機能に関する指導
             </label>
-            <label style="border-bottom: 1px dotted #000; padding-bottom: 1px; margin-bottom: 1px;">
+            <label style="border-bottom: 1px dotted #000; padding-bottom: 2px; margin-bottom: 2px;">
               <input type="checkbox" name="content4"> 音声・言語機能に関する指導
             </label>
             <label>
@@ -1166,9 +1153,8 @@ function updateHorizontalDivider() {
 
 
 
-
     <!-- この下に「3. 実施記録を続けていきます -->
-    <h3 class="section-title">3. 実施記録</h3>
+    <h3 class="section-title" style="margin: 0; padding: 0;">3. 実施記録</h3>
     <table style="font-size: 9.5pt; width: 100%; border-collapse: collapse; line-height: 1.1; margin-left: 0; text-align: left;">
       <tr>
         <td class="label" style="width:80px;">実施日</td>
@@ -1239,13 +1225,7 @@ function updateHorizontalDivider() {
     </table>
 
 
-
-
-
-
-    <h4>RSSTとオーラルディアドコキネシス</h4>
-
-
+    <h4 class="section-title" style="margin: 0; padding: 0;">RSSTとオーラルディアドコキネシス</h4>
     <div class="print-wrapper" style="display: flex; align-items: flex-start; gap: 1rem;">
       <!-- 左の表 -->
       <div class="left-box" style="flex: 1;">
