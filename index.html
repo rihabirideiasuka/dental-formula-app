@@ -1355,19 +1355,19 @@ function updateHorizontalDivider() {
         <h3>RSST・パ・タ・カ 記録入力</h3>
         <div class="input-block">
           <div class="label-text">RSST（回/30秒）</div>
-          <input type="text" id="rsstInput" class="large-input" autocomplete="off" enterkeyhint="next" />
+          <input type="number" id="rsstInput" class="large-input" />
         </div>
         <div class="input-block">
           <div class="label-text">パ（回）</div>
-          <input type="text" id="paInput" class="large-input" autocomplete="off" enterkeyhint="next" />
+          <input type="number" id="paInput" class="large-input" />
         </div>
         <div class="input-block">
           <div class="label-text">タ（回）</div>
-          <input type="text" id="taInput" class="large-input" autocomplete="off" enterkeyhint="next" />
+          <input type="number" id="taInput" class="large-input" />
         </div>
         <div class="input-block">
           <div class="label-text">カ（回）</div>
-          <input type="text" id="kaInput" class="large-input" autocomplete="off" enterkeyhint="done" />
+          <input type="number" id="kaInput" class="large-input" />
         </div>
         <button class="btn" onclick="submitModal()">記録する</button>
         <button class="btn" onclick="closeModal()">キャンセル</button>
@@ -1382,16 +1382,13 @@ function updateHorizontalDivider() {
         setTimeout(() => document.getElementById("rsstInput").focus(), 100);
       }
 
-
       function closeModal() {
         document.getElementById("rsstModal").style.display = "none";
         ["rsstInput", "paInput", "taInput", "kaInput"].forEach(id => {
-          const el = document.getElementById(id);
-          if (el) el.value = "";
+          document.getElementById(id).value = "";
         });
-        delete window.__editRSSTIndex;
+        delete window.__editRSSTIndex;  // 訂正モードをリセット
       }
-
 
       function submitModal() {
         const rsst = document.getElementById("rsstInput").value;
