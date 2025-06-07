@@ -1391,40 +1391,35 @@ function updateHorizontalDivider() {
         delete window.__editRSSTIndex;  // 訂正モードをリセット
       }
 
-
       function submitModal() {
-        const rsstValue = document.getElementById("rsstInput").value.trim();
-        const paValue = document.getElementById("paInput").value.trim();
-        const taValue = document.getElementById("taInput").value.trim();
-        const kaValue = document.getElementById("kaInput").value.trim();
+        const rsst = document.getElementById("rsstInput").value;
+        const pa = (parseInt(document.getElementById("paInput").value) / 10).toFixed(1);
+        const ta = (parseInt(document.getElementById("taInput").value) / 10).toFixed(1);
+        const ka = (parseInt(document.getElementById("kaInput").value) / 10).toFixed(1);
 
-        // バリデーション
-        if (!/^[0-9]$/.test(rsstValue)) {
-          alert("RSSTは1桁の整数で入力してください");
-          document.getElementById("rsstInput").focus();
-          return;
-        }
-        if (!/^[0-9]{2}$/.test(paValue)) {
-          alert("パは2桁の整数で入力してください");
-          document.getElementById("paInput").focus();
-          return;
-        }
-        if (!/^[0-9]{2}$/.test(taValue)) {
-          alert("タは2桁の整数で入力してください");
-          document.getElementById("taInput").focus();
-          return;
-        }
-        if (!/^[0-9]{2}$/.test(kaValue)) {
-          alert("カは2桁の整数で入力してください");
-          document.getElementById("kaInput").focus();
+        if (!rsst || isNaN(pa) || isNaN(ta) || isNaN(ka)) {
+          alert("すべての項目を正しく入力してください");
           return;
         }
 
-        const rsst = rsstValue;
-        const pa = (parseInt(paValue) / 10).toFixed(1);
-        const ta = (parseInt(taValue) / 10).toFixed(1);
-        const ka = (parseInt(kaValue) / 10).toFixed(1);
+        // 訂正時の処理
+        if (window.__editRSSTIndex) {
+          const i = window.__editRSSTIndex;
 
+          // 記録を上書き
+          document.getElementById(`rsst${i}`).textContent = rsst;
+          document.getElementById(`pa${i}`).textContent = pa;
+          document.getElementById(`ta${i}`).textContent = ta;
+          document.getElementById(`ka${i}`).textContent = ka;
+
+          // ヘッダーの更新（回数を元のまま維持）
+          updateHeaders(recordCount);
+
+          // 訂正後、インデックスをリセット
+          delete window.__editRSSTIndex;
+          closeModal();
+          return;
+        }
 
         // 新規記録の場合
         recordCount++;
@@ -1486,49 +1481,42 @@ function updateHorizontalDivider() {
         document.getElementById("header3").textContent = `${start + 2}回目`;
       }
 
-      // 入力ごとに次の項目へ自動フォーカスする関数
       document.addEventListener("DOMContentLoaded", () => {
-        const rsst = document.getElementById("rsstInput");
-        const pa = document.getElementById("paInput");
-        const ta = document.getElementById("taInput");
-        const ka = document.getElementById("kaInput");
+        const rsstInput = document.getElementById("rsstInput");
+        const paInput = document.getElementById("paInput");
+        const taInput = document.getElementById("taInput");
+        const kaInput = document.getElementById("kaInput");
 
-        // RSST：1桁でパへ
-        rsst.addEventListener("keydown", (e) => {
-          setTimeout(() => {
-            if (/^[0-9]$/.test(rsst.value)) {
-              pa.focus();
-            }
-          }, 10);
+        rsstInput.addEventListener("keydown", (e) => {
+          if (e.key === "Enter") {
+            e.preventDefault();
+            paInput.focus();
+          }
         });
 
-        // パ：2桁でタへ
-        pa.addEventListener("keydown", (e) => {
-          setTimeout(() => {
-            if (/^[0-9]{2}$/.test(pa.value)) {
-              ta.focus();
-            }
-          }, 10);
+        paInput.addEventListener("keydown", (e) => {
+          if (e.key === "Enter") {
+            e.preventDefault();
+            taInput.focus();
+          }
         });
 
-        // タ：2桁でカへ
-        ta.addEventListener("keydown", (e) => {
-          setTimeout(() => {
-            if (/^[0-9]{2}$/.test(ta.value)) {
-              ka.focus();
-            }
-          }, 10);
+        taInput.addEventListener("keydown", (e) => {
+          if (e.key === "Enter") {
+            e.preventDefault();
+            kaInput.focus();
+          }
         });
 
-        // カ：2桁でsubmitModal() 自動記録
-        ka.addEventListener("keydown", (e) => {
-          setTimeout(() => {
-            if (/^[0-9]{2}$/.test(ka.value)) {
-              submitModal();
-            }
-          }, 10);
+        kaInput.addEventListener("keydown", (e) => {
+          if (e.key === "Enter") {
+            e.preventDefault();
+            submitModal();
+          }
         });
       });
+
+
     </script>
   </div>
   <div id="footer-info">
