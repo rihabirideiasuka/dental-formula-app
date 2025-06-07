@@ -1360,20 +1360,17 @@ function updateHorizontalDivider() {
         </div>
         <div class="input-block">
           <div class="label-text">パ（回）</div>
-          <input type="tel" inputmode="numeric" pattern="[0-9]*" id="rsstInput" class="large-input" />
+          <input type="tel" inputmode="numeric" pattern="[0-9]*" id="paInput" class="large-input" />
         </div>
         <div class="input-block">
           <div class="label-text">タ（回）</div>
-          <input type="tel" inputmode="numeric" pattern="[0-9]*" id="rsstInput" class="large-input" />
+          <input type="tel" inputmode="numeric" pattern="[0-9]*" id="taInput" class="large-input" />
         </div>
         <div class="input-block">
           <div class="label-text">カ（回）</div>
-          <input type="tel" inputmode="numeric" pattern="[0-9]*" id="rsstInput" class="large-input" />
+          <input type="tel" inputmode="numeric" pattern="[0-9]*" id="kaInput" class="large-input" />
         </div>
-        <button class="btn" onclick="submitModal()">記録する</button>
-        <button class="btn" onclick="closeModal()">キャンセル</button>
-      </div>
-    </div>
+
 
     <script>
       let recordCount = 0;
@@ -1386,10 +1383,12 @@ function updateHorizontalDivider() {
       function closeModal() {
         document.getElementById("rsstModal").style.display = "none";
         ["rsstInput", "paInput", "taInput", "kaInput"].forEach(id => {
-          document.getElementById(id).value = "";
+          const el = document.getElementById(id);
+          if (el) el.value = "";
         });
-        delete window.__editRSSTIndex;  // 訂正モードをリセット
+        delete window.__editRSSTIndex;
       }
+
 
       function submitModal() {
         const rsst = document.getElementById("rsstInput").value;
@@ -1515,6 +1514,7 @@ function updateHorizontalDivider() {
           }
         });
       });
+
 
 
     </script>
