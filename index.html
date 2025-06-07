@@ -21,7 +21,7 @@
 
     .container {
       padding: 4mm;
-      border: 1px solid #000;
+      /* border: 1px solid #000; ← この行を削除またはコメントアウト */
       box-sizing: border-box;
       height: auto;               /* 高さを内容に合わせて伸縮 */
       overflow: visible;          /* はみ出し許可（必要に応じて scroll にしてもOK） */
@@ -271,8 +271,7 @@
         overflow: hidden;
       }
       .container {
-        height: 287mm; /* A4 - 上下マージン約10mm */
-        overflow: hidden;
+        border: none !important;
       }
       .no-print {
         display: none !important;
@@ -300,6 +299,15 @@
       }
       .pd-fd-button:empty {
         display: none !important;
+      }
+      #footer-info {
+        position: absolute;
+        bottom: 3mm;
+        left: 0;
+        width: 100%;
+        text-align: center;      /* ← 管理者名等をセンターに印刷right;だと右端が切れる */
+        font-size: 6pt;
+        padding-right: 5mm;
       }
     }
   </style>
@@ -731,12 +739,12 @@ function updateHorizontalDivider() {
     <!-- <h2 class="section-title">口腔に関する基本情報</h2> -->
     <table style="font-size: 8.3pt; width: 100%; border-collapse: collapse; line-height: 1.05; margin-left: 0; text-align: left;">
       <tr>
-        <td class="label" style="background: #e0e0e0; width: 15%;">現在の歯科受診 かかりつけ医</td>
+        <td class="label" style="background: #e0e0e0; width: 15%;">かかりつけ歯科医師</td>
         <td style="width: 35%;">
           <label><input type="radio" name="kakaritsuke" value="あり">あり</label>
           <label><input type="radio" name="kakaritsuke" value="なし">なし</label>
         </td>
-        <td class="label" style="background: #e0e0e0; width: 20%;">直近1年間の歯科受診</td>
+        <td class="label" style="background: #e0e0e0; width: 20%;">直近1年歯科受診</td>
         <td colspan="2">
           <label><input type="radio" name="shika_lastyear" value="あり">あり</label>
           （最終：<input type="month" name="lastVisitMonth" style="width: 110px;">）
@@ -1383,35 +1391,40 @@ function updateHorizontalDivider() {
         delete window.__editRSSTIndex;  // 訂正モードをリセット
       }
 
+
       function submitModal() {
-        const rsst = document.getElementById("rsstInput").value;
-        const pa = (parseInt(document.getElementById("paInput").value) / 10).toFixed(1);
-        const ta = (parseInt(document.getElementById("taInput").value) / 10).toFixed(1);
-        const ka = (parseInt(document.getElementById("kaInput").value) / 10).toFixed(1);
+        const rsstValue = document.getElementById("rsstInput").value.trim();
+        const paValue = document.getElementById("paInput").value.trim();
+        const taValue = document.getElementById("taInput").value.trim();
+        const kaValue = document.getElementById("kaInput").value.trim();
 
-        if (!rsst || isNaN(pa) || isNaN(ta) || isNaN(ka)) {
-          alert("すべての項目を正しく入力してください");
+        // バリデーション
+        if (!/^[0-9]$/.test(rsstValue)) {
+          alert("RSSTは1桁の整数で入力してください");
+          document.getElementById("rsstInput").focus();
+          return;
+        }
+        if (!/^[0-9]{2}$/.test(paValue)) {
+          alert("パは2桁の整数で入力してください");
+          document.getElementById("paInput").focus();
+          return;
+        }
+        if (!/^[0-9]{2}$/.test(taValue)) {
+          alert("タは2桁の整数で入力してください");
+          document.getElementById("taInput").focus();
+          return;
+        }
+        if (!/^[0-9]{2}$/.test(kaValue)) {
+          alert("カは2桁の整数で入力してください");
+          document.getElementById("kaInput").focus();
           return;
         }
 
-        // 訂正時の処理
-        if (window.__editRSSTIndex) {
-          const i = window.__editRSSTIndex;
+        const rsst = rsstValue;
+        const pa = (parseInt(paValue) / 10).toFixed(1);
+        const ta = (parseInt(taValue) / 10).toFixed(1);
+        const ka = (parseInt(kaValue) / 10).toFixed(1);
 
-          // 記録を上書き
-          document.getElementById(`rsst${i}`).textContent = rsst;
-          document.getElementById(`pa${i}`).textContent = pa;
-          document.getElementById(`ta${i}`).textContent = ta;
-          document.getElementById(`ka${i}`).textContent = ka;
-
-          // ヘッダーの更新（回数を元のまま維持）
-          updateHeaders(recordCount);
-
-          // 訂正後、インデックスをリセット
-          delete window.__editRSSTIndex;
-          closeModal();
-          return;
-        }
 
         // 新規記録の場合
         recordCount++;
@@ -1472,7 +1485,55 @@ function updateHorizontalDivider() {
         document.getElementById("header2").textContent = `${start + 1}回目`;
         document.getElementById("header3").textContent = `${start + 2}回目`;
       }
+
+      // 入力ごとに次の項目へ自動フォーカスする関数
+      document.addEventListener("DOMContentLoaded", () => {
+        const rsst = document.getElementById("rsstInput");
+        const pa = document.getElementById("paInput");
+        const ta = document.getElementById("taInput");
+        const ka = document.getElementById("kaInput");
+
+        // RSST：1桁でパへ
+        rsst.addEventListener("keydown", (e) => {
+          setTimeout(() => {
+            if (/^[0-9]$/.test(rsst.value)) {
+              pa.focus();
+            }
+          }, 10);
+        });
+
+        // パ：2桁でタへ
+        pa.addEventListener("keydown", (e) => {
+          setTimeout(() => {
+            if (/^[0-9]{2}$/.test(pa.value)) {
+              ta.focus();
+            }
+          }, 10);
+        });
+
+        // タ：2桁でカへ
+        ta.addEventListener("keydown", (e) => {
+          setTimeout(() => {
+            if (/^[0-9]{2}$/.test(ta.value)) {
+              ka.focus();
+            }
+          }, 10);
+        });
+
+        // カ：2桁でsubmitModal() 自動記録
+        ka.addEventListener("keydown", (e) => {
+          setTimeout(() => {
+            if (/^[0-9]{2}$/.test(ka.value)) {
+              submitModal();
+            }
+          }, 10);
+        });
+      });
     </script>
   </div>
+  <div id="footer-info">
+    管理者名：神崎和子　　歯科医師：鈴木守　　看護師：近藤真由美　　歯科衛生士：米村美奈子
+  </div>
+
 </body>
 </html>
