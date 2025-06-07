@@ -10,20 +10,24 @@
       margin: 0;
       padding: 0;
       width: 210mm;
-      height: 285mm; /* ← これは 297mm - 10mm マージン */
+      min-height: 100vh;          /* 表示領域に対応（スクロール可能） */
+      height: auto;               /* 高さは内容に応じて伸ばす */
       font-family: "Arial", sans-serif;
       font-size: 7pt;
       box-sizing: border-box;
+      overflow-x: hidden;
+      overflow-y: auto;           /* 縦スクロール可能にする */
     }
 
-    /* テーブルと基本フォーム */
     .container {
       padding: 4mm;
       border: 1px solid #000;
-      height: 285mm; /* 297mm - 10mm (上下マージン5mmずつ) */
-      overflow: hidden; /* はみ出し防止 */
       box-sizing: border-box;
+      height: auto;               /* 高さを内容に合わせて伸縮 */
+      overflow: visible;          /* はみ出し許可（必要に応じて scroll にしてもOK） */
+      min-height: 297mm;          /* A4印刷レイアウトに近づける最低高さ */
     }
+
 
     table {
       border-collapse: collapse;
@@ -262,6 +266,14 @@
       color: white;
     }
     @media print {
+      html, body {
+        height: 297mm;
+        overflow: hidden;
+      }
+      .container {
+        height: 287mm; /* A4 - 上下マージン約10mm */
+        overflow: hidden;
+      }
       .no-print {
         display: none !important;
       }
@@ -868,26 +880,28 @@ function updateHorizontalDivider() {
       }
 
     </script>
-    <table style="font-size: 8.3pt; width: 100%; border-collapse: collapse; line-height: 1.05; margin-left: 0; text-align: left;">
-      <tr>
-        <td class="label" style="width:80px;">実施日</td>
-        <td style="width:110px;"><input type="date" id="examDate" /></td>
-        <td class="label" style="width:80px;">記入者</td>
-        <td style="width:100px;">
-          <input type="text" id="examWriterMain" 
-       placeholder="記入者を選択" 
-       readonly 
-       onclick="openPersonModal()" 
-       style="cursor:pointer; max-width: 90px; font-size: 8.8pt;" />
-
+    <table style="font-size: 7pt; width: 100%; border-collapse: collapse; line-height: 1.0; margin-left: 0; text-align: left;">
+      <tr style="height: 20px;">
+        <td class="label" style="width:80px; padding: 1px;">実施日</td>
+        <td style="width:110px; padding: 1px;">
+          <input type="date" id="examDate" style="font-size: 8pt; width: 100%;" />
         </td>
-        <td style="white-space: nowrap;">
-          <label><input type="checkbox" name="writerTypeMain" value="歯科衛生士" /> 歯科衛生士</label>
-          <label><input type="checkbox" name="writerTypeMain" value="看護師" /> 看護師</label>
-          <label><input type="checkbox" name="writerTypeMain" value="言語聴覚士" /> 言語聴覚士</label>
+        <td class="label" style="width:80px; padding: 1px;">記入者</td>
+        <td style="width:100px; padding: 1px;">
+          <input type="text" id="examWriterMain"
+            placeholder="記入者を選択"
+            readonly
+            onclick="openPersonModal()"
+            style="cursor:pointer; max-width: 90px; font-size: 7pt; width: 100%;" />
+        </td>
+        <td style="white-space: nowrap; padding: 1px;">
+          <label style="font-size: 7pt;"><input type="checkbox" name="writerTypeMain" value="歯科衛生士" /> 歯科衛生士</label>
+          <label style="font-size: 7pt;"><input type="checkbox" name="writerTypeMain" value="看護師" /> 看護師</label>
+          <label style="font-size: 7pt;"><input type="checkbox" name="writerTypeMain" value="言語聴覚士" /> 言語聴覚士</label>
         </td>
       </tr>
     </table>
+
 
 
     <!-- モーダル -->
@@ -996,29 +1010,37 @@ function updateHorizontalDivider() {
     <!-- この下に「2. 口腔機能改善管理指導計画を続けていきます -->
 
     <h2 class="section-title" style="margin: 0; padding: 0;">2. 口腔機能改善管理指導計画</h2>
-    <table style="font-size: 8.3pt; width: 100%; border-collapse: collapse; line-height: 1.05; margin-left: 0; text-align: left;">
-      <tr>
-        <td class="label" rowspan="2" style="width:80px; vertical-align: middle; text-align: center;">実施日</td>
-        <td rowspan="2" style="width:110px; vertical-align: middle;"><input type="date" id="examDatePlan" /></td>
+    <table style="font-size: 7pt; width: 100%; border-collapse: collapse; line-height: 1.0; margin-left: 0; text-align: left;">
+      <tr style="height: 20px;">
+        <td class="label" rowspan="2" style="width:80px; vertical-align: middle; text-align: center; padding: 1px;">実施日</td>
+        <td rowspan="2" style="width:110px; vertical-align: middle; padding: 1px;">
+          <input type="date" id="examDatePlan" style="font-size: 8pt; width: 100%;" />
+        </td>
 
-        <td class="label" style="width:90px;">計画立案者</td>
-        <td style="width:100px;"><input type="text" id="examWriterPlan" /></td>
-        <td style="white-space: nowrap;">
-          <label><input type="checkbox" name="writerTypePlan" value="歯科衛生士" /> 歯科衛生士</label>
-          <label><input type="checkbox" name="writerTypePlan" value="看護師" /> 看護師</label>
-          <label><input type="checkbox" name="writerTypePlan" value="言語聴覚士" /> 言語聴覚士</label>
+        <td class="label" style="width:90px; padding: 1px;">計画立案者</td>
+        <td style="width:100px; padding: 1px;">
+          <input type="text" id="examWriterPlan" style="font-size: 7pt; width: 100%;" />
+        </td>
+        <td style="white-space: nowrap; padding: 1px;">
+          <label style="font-size: 7pt;"><input type="checkbox" name="writerTypePlan" value="歯科衛生士" /> 歯科衛生士</label>
+          <label style="font-size: 7pt;"><input type="checkbox" name="writerTypePlan" value="看護師" /> 看護師</label>
+          <label style="font-size: 7pt;"><input type="checkbox" name="writerTypePlan" value="言語聴覚士" /> 言語聴覚士</label>
         </td>
       </tr>
-      <tr>
-        <td class="label" style="width:90px; text-align: center;">サービス提供者</td>
-        <td style="width:100px;"><input type="text" id="examWriterProvider" /></td>
-        <td style="white-space: nowrap;">
-          <label><input type="checkbox" name="writerTypeProvider" value="歯科衛生士" /> 歯科衛生士</label>
-          <label><input type="checkbox" name="writerTypeProvider" value="看護師" /> 看護師</label>
-          <label><input type="checkbox" name="writerTypeProvider" value="言語聴覚士" /> 言語聴覚士</label>
+      <tr style="height: 20px;">
+        <td class="label" style="width:90px; text-align: center; padding: 1px;">サービス提供者</td>
+        <td style="width:100px; padding: 1px;">
+          <input type="text" id="examWriterProvider" style="font-size: 7pt; width: 100%;" />
+        </td>
+        <td style="white-space: nowrap; padding: 1px;">
+          <label style="font-size: 7pt;"><input type="checkbox" name="writerTypeProvider" value="歯科衛生士" /> 歯科衛生士</label>
+          <label style="font-size: 7pt;"><input type="checkbox" name="writerTypeProvider" value="看護師" /> 看護師</label>
+          <label style="font-size: 7pt;"><input type="checkbox" name="writerTypeProvider" value="言語聴覚士" /> 言語聴覚士</label>
         </td>
       </tr>
     </table>
+
+
 
     <script>
     function applyWriterToAll(name, role) {
@@ -1178,21 +1200,27 @@ function updateHorizontalDivider() {
 
     <!-- この下に「3. 実施記録を続けていきます -->
     <h3 class="section-title" style="margin: 0; padding: 0;">3. 実施記録</h3>
-    <table style="font-size: 8.3pt; width: 100%; border-collapse: collapse; line-height: 1.05; margin-left: 0; text-align: left;">
-      <tr>
-        <td class="label" style="width:80px;">実施日</td>
-        <td style="width:110px;"><input type="date" id="examDateRecord" /></td>
+    <table style="font-size: 7pt; width: 100%; border-collapse: collapse; line-height: 1.0; margin-left: 0; text-align: left;">
+      <tr style="height: 20px;">
+        <td class="label" style="width:80px; padding: 1px;">実施日</td>
+        <td style="width:110px; padding: 1px;">
+          <input type="date" id="examDateRecord" style="font-size: 8pt; width: 100%;" />
+        </td>
 
-        <td class="label" style="width:90px;">サービス提供者</td>
-        <td style="width:100px;"><input type="text" id="examWriterRecord" /></td>
+        <td class="label" style="width:90px; padding: 1px;">サービス提供者</td>
+        <td style="width:100px; padding: 1px;">
+          <input type="text" id="examWriterRecord" style="font-size: 7pt; width: 100%;" />
+        </td>
 
-        <td style="white-space: nowrap;">
-          <label><input type="checkbox" name="writerTypeRecord" value="歯科衛生士" /> 歯科衛生士</label>
-          <label><input type="checkbox" name="writerTypeRecord" value="看護師" /> 看護師</label>
-          <label><input type="checkbox" name="writerTypeRecord" value="言語聴覚士" /> 言語聴覚士</label>
+        <td style="white-space: nowrap; padding: 1px;">
+          <label style="font-size: 7pt;"><input type="checkbox" name="writerTypeRecord" value="歯科衛生士" /> 歯科衛生士</label>
+          <label style="font-size: 7pt;"><input type="checkbox" name="writerTypeRecord" value="看護師" /> 看護師</label>
+          <label style="font-size: 7pt;"><input type="checkbox" name="writerTypeRecord" value="言語聴覚士" /> 言語聴覚士</label>
         </td>
       </tr>
     </table>
+
+
 
     <script>
     function applyWriterToAll(name, role) {
